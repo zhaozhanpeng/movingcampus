@@ -35,8 +35,6 @@ public class NewsDetailsActivity extends BaseActivity implements
 	static final String encoding = "utf-8";
 	public static final String ACTION_RESULT = null;
 
-	private RelativeLayout share;
-
 	private TextView detailTitle;
 	private LinearLayout loadLayout;
 	private LinearLayout failLayout;
@@ -114,8 +112,6 @@ public class NewsDetailsActivity extends BaseActivity implements
 		mWebView.setScrollbarFadingEnabled(true);
 		mWebView.getSettings().setAppCacheMaxSize(1024 * 1024 * 8);
 		mWebView.getSettings().setLoadsImagesAutomatically(true);
-
-		share.setOnClickListener(this);
 
 		bn_refresh.setOnClickListener(this);
 
