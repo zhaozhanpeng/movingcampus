@@ -2,13 +2,11 @@ package edu.hebtu.movingcampus.activity.wrapper;
 
 import java.util.List;
 
-import org.apache.http.cookie.SM;
 import org.apache.http.message.BasicNameValuePair;
 
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.MotionEvent;
 import android.view.View;
@@ -21,7 +19,6 @@ import android.widget.FrameLayout;
 import android.widget.FrameLayout.LayoutParams;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 import edu.hebtu.movingcampus.R;
 import edu.hebtu.movingcampus.activity.MainActivity;
@@ -117,7 +114,6 @@ public class InfoCenterActivity implements OnClickListener, AnimationListener,
 	private void initViewPager() {
 		mBasePageAdapter = new NewsPageAdapter(mainActivity);
 		mViewPager.setAdapter(mBasePageAdapter);
-		mViewPager.setTouchDelegate(MainActivity.instance.getTouchDelegate());
 		mViewPager.setOffscreenPageLimit(0);
 		mIndicator.setViewPager(mViewPager);
 		mIndicator.setOnPageChangeListener(new MyPageChangeListener());
@@ -230,7 +226,7 @@ public class InfoCenterActivity implements OnClickListener, AnimationListener,
 			imgRight.setVisibility(View.GONE);
 			loadLayout.setVisibility(View.VISIBLE);
 			mViewPager.setVisibility(View.GONE);
-			mViewPager.removeAllViews();
+			//mViewPager.removeAllViews();
 			isShowPopupWindows = false;
 		}
 
@@ -243,7 +239,7 @@ public class InfoCenterActivity implements OnClickListener, AnimationListener,
 		protected void onPostExecute(List<NewsShort>result) {
 			super.onPostExecute(result);
 			isShowPopupWindows = true;
-			mViewPager.removeAllViews();
+			//mViewPager.removeAllViews();
 			if (result != null) {
 				imgRight.setVisibility(View.VISIBLE);
 				loadLayout.setVisibility(View.GONE);
@@ -255,7 +251,6 @@ public class InfoCenterActivity implements OnClickListener, AnimationListener,
 			}
 			mViewPager.setVisibility(View.VISIBLE);
 			mBasePageAdapter.notifyDataSetChanged();
-			mViewPager.setCurrentItem(0);
 			mIndicator.notifyDataSetChanged();
 		}
 	}
@@ -291,7 +286,10 @@ public class InfoCenterActivity implements OnClickListener, AnimationListener,
 				MainActivity.instance.getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 			else
 				MainActivity.instance.getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
+			
 			current_page = "" + arg0;
+			if(((NewsFragment)mBasePageAdapter.getItem(arg0)).toBeLoad())
+				new MyTask().execute();
 		}
 	}
 

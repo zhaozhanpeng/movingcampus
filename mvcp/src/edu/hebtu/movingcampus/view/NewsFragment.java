@@ -55,6 +55,7 @@ public class NewsFragment extends BaseListFragment {
 				break;
 			case 1:
 				loaded=true;
+				listview.getFooterView().updateFooterTextNoMore();
 				break;
 				
 				default :
@@ -157,6 +158,10 @@ public class NewsFragment extends BaseListFragment {
 		return view;
 	}
 
+	public boolean toBeLoad(){
+		return mAdapter.getList()==null||mAdapter.getList().size()==0;
+	}
+
 	/**
 	 * 按时间排序
 	 */
@@ -164,14 +169,9 @@ public class NewsFragment extends BaseListFragment {
 	public void onRefresh() {
 		onStopLoad();
 		mAdapter.getList().clear();
-		new Thread() {
-			public void run(){
-				NewsFragment.this.onLoad();
-				super.run();
-			}
-		}.start();
+		onLoadMore();
 	}
-
+	
 	public List<NewsShort> onLoad(){
 		loadMoreEntity=new NewsDao(mActivity).mapperJson(true,(Integer.parseInt(page)+1)+"", (mlist.size()+1)+"",null);
 		if (loadMoreEntity!= null) {
@@ -182,24 +182,18 @@ public class NewsFragment extends BaseListFragment {
 
 	@Override
 	public void onLoadMore() {
-		if (loadMoreEntity==null) {
-			mHandler.sendEmptyMessage(1);
-			return;
-		} else {
-			new Thread() {
-				@Override
-				public void run() {
-					loadMoreEntity=new NewsDao(mActivity).mapperJson(true,(Integer.parseInt(page)+1)+"", (mlist.size()+1)+"",null);
-					if (loadMoreEntity!= null) {
-						mHandler.sendEmptyMessage(0);
-					}
-					super.run();
-				}
-			}.start();
-
-		}
-
+		new Thread() {
+			@Override
+			public void run() {
+				loadMoreEntity=new NewsDao(mActivity).mapperJson(true,(Integer.parseInt(page)+1)+"", (mlist.size()+1)+"",null);
+				if (loadMoreEntity!= null) {
+					mHandler.sendEmptyMessage(0);
+				}else mHandler.sendEmptyMessage(1);
+				super.run();
+			}
+		}.start();
 	}
+
 	public String getPage(){
 		return page;
 	}

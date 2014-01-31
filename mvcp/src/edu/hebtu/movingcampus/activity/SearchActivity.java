@@ -47,7 +47,7 @@ public class SearchActivity extends BaseFragmentActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.search_layout);
+		setContentView(R.layout.filter_news_layout);
 		Intent i = getIntent();
 		mTag = i.getStringExtra("tag");
 		loaded=false;
