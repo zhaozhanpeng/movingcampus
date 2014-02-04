@@ -1,6 +1,7 @@
 package edu.hebtu.movingcampus;
 
 import java.io.File;
+import java.util.Calendar;
 
 import com.baidu.android.pushservice.apiproxy.PushSettings;
 import com.baidu.frontia.FrontiaApplication;
@@ -17,12 +18,80 @@ import edu.hebtu.movingcampus.utils.RequestCacheUtil;
  * @created 14-Nov-2013 9:13:32 AM
  */
 public class AppInfo extends FrontiaApplication{
-	// ?TODO
-	private static String XnXq = "2013-2014学年第2学期";
+	// 显示哪一学年
+	private static String studyYear = "2013-2014";
+	// 显示哪一学期
+	private static String term = "2";
 	// 会话用户
-	private static User user;
+		private static User user;
 
-	public static File cacheDir;
+		public static File cacheDir;
+	
+	/**
+	 * @return the studyYear
+	 */
+	public static String getStudyYear() {
+		
+		return studyYear;
+	}
+
+	/**
+	 * @param studyYear the studyYear to set
+	 */
+	public static void setStudyYear(String studyYear) {
+		AppInfo.studyYear = studyYear;
+	}
+
+	/**
+	 * @aim 获得学年，没有参数
+	 */
+	public static void setStudyYear() {
+		Calendar calender = Calendar.getInstance();
+		int year = Integer.valueOf(calender.get(Calendar.YEAR));
+		int month = Integer.valueOf(calender.get(Calendar.MONTH));
+		if(month<8){
+			AppInfo.studyYear = (year-1)+"-"+year;
+		}else{
+			AppInfo.studyYear = year+"-"+(year+1);
+		}
+	}
+	/**
+	 * @return the term
+	 */
+	public static String getTerm() {
+		return term;
+	}
+
+	/**
+	 * @param term the term to set
+	 */
+	public static void setTerm(String term) {
+		AppInfo.term = term;
+	}
+	
+	/**
+	 * @aime 获取学期
+	 */
+	public static void setTerm() {
+		Calendar calender = Calendar.getInstance();
+		int month = Integer.valueOf(calender.get(Calendar.MONTH));
+		if(month<8){
+			AppInfo.term = "2";
+		}else{
+			AppInfo.term = "1";
+		}
+		
+	}
+
+
+	public static User getUser() {
+		return user;
+	}
+
+
+	public static void setUser(User paramUser) {
+		user = paramUser;
+	}
 
 	@Override
 	public void onCreate() {
@@ -64,38 +133,4 @@ public class AppInfo extends FrontiaApplication{
 		// ImageLoader.getInstance().init(config);
 
 	}
-
-	public static User getUser() {
-		return user;
-	}
-
-	public static String getXnXq() {
-		return XnXq.trim();
-	}
-
-	public static void setUser(User paramUser) {
-		user = paramUser;
-	}
-
-	// TODO;
-	public static String getXn() {
-		return "2013";
-	}
-
-	public static String getXq() {
-		return "2";
-	}
-
-	public static void setXnXq(String paramString) {
-		XnXq = paramString;
-	}
-
-	public String getUsername() {
-		return user.getUserName();
-	}
-
-	public String getPassword() {
-		return user.getPassword();
-	}
-
 }

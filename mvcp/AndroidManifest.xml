@@ -88,6 +88,13 @@
         </activity>
         <activity android:name="edu.hebtu.movingcampus.activity.setting.FeedBack">           
         </activity>
+        <activity android:name="edu.hebtu.movingcampus.activity.ChooseCourseBrunchActivity" >
+        </activity>
+        <activity android:name="edu.hebtu.movingcampus.activity.ChooseCourseActionActivity" >
+        </activity>
+        <activity android:name="edu.hebtu.movingcampus.activity.ChooseCourseActivity" >
+        </activity>
+ 
         
         
         <!-- umeng feedback -> umeng.com -->

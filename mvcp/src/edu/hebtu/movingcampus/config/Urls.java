@@ -11,7 +11,18 @@ public class Urls {
 	public static final String APP_UPDATE = BASE + "/mep/update.xml";
 	// use login 获取用户信息接口,name,pswd 有session可免
 	public static final String USER_LOGIN = BASE + "/login?name=%s&pswd=%s";
-
+	// 用户请求某种课程详细信息时候使用 url
+		public static final String COURSE_INTRO = BASE
+				+ "/choosecourseintro?courseId=%s";
+		// 用户请求某种选课方式的具体内容使用 url
+		public static final String COURSE_CHOOSE = BASE
+				+ "/choosecourseitem?courseId=%s";
+		// 用户请求某种选课方式的具体内容使用 url
+		public static final String COURSE_BRUNCH = BASE
+				+ "/choosecoursebrunch?courseId=%s";
+		// 用户请求某种选课方式的具体内容使用 url
+		public static final String BOOK_INTRO = BASE
+				+ "/choosecoursebook?bookOrderId=%s";
 	// 信息中心,get
 	// 新闻请求格式 /news?type=1&from=10&size=20
 	public static final String NEWS_LIST = BASE + "/" + Constants.TAGS.NEWS

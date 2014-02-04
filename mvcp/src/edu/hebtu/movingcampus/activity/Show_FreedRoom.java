@@ -105,9 +105,7 @@ public class Show_FreedRoom extends BaseActivity {
 		this.tv_name.setText(AppInfo.getUser().getUserName().toCharArray(), 0,
 				AppInfo.getUser().getUserName().length());
 		this.tv_XnXq = ((TextView) findViewById(R.id.tvpage_xnxq));
-		String str = AppInfo.getXnXq().substring(0, 9) + "学年 第"
-				+ AppInfo.getXnXq().substring(-1 + AppInfo.getXnXq().length())
-				+ "学期";
+		String str = AppInfo.getStudyYear() + "学年 第"+ AppInfo.getTerm()+ "学期";
 		this.tv_XnXq.setText(str);
 		this.gv_room = ((GridView) findViewById(R.id.gv_freedroom));
 		adapter = new MyAdapter(null);
@@ -328,7 +326,7 @@ public class Show_FreedRoom extends BaseActivity {
 	}
 
 	private void getMessage() {
-		ArrayList<ClassRoom> res = (ArrayList<ClassRoom>) new ExamDao(Show_FreedRoom.this)
+		ArrayList<ClassRoom> res = (ArrayList<ClassRoom>) new RoomDao(Show_FreedRoom.this)
 		.getFreeRoomMsg(false,school,building,week,weekday,unit);
 Log.i("从服务器请求数据", "从服务器传回数据");
 if (res != null) {
@@ -375,78 +373,6 @@ if (res != null) {
 	}
 
 
-	void queryFreedRoom() {
-		this.list_room.clear();
-		if ((this.spinner_school.getSelectedItem().toString()
-				.equalsIgnoreCase(""))
-				|| (this.spinner_building.getSelectedItem().toString()
-						.equalsIgnoreCase(""))
-				|| (this.buildings == null)
-				|| (this.spinner_school.getSelectedItem().toString()
-						.equals("null"))
-				|| (this.spinner_building.getSelectedItem() == null)
-				|| (this.spinner_building.getSelectedItem().equals("null"))) {
-			Toast localToast1 = Toast.makeText(this, "学校或者楼号不能为空，请重新输入！", 0);
-			localToast1.setGravity(17, 0, 0);
-			localToast1.show();
-			return;
-		}
-
-		if ((!this.spinner_weeks.getSelectedItem().toString()
-				.equalsIgnoreCase(""))
-				&& (!this.spinner_weekday.getSelectedItem().toString()
-						.equalsIgnoreCase(""))
-				&& (!this.spinner_unit.getSelectedItem().toString()
-						.equalsIgnoreCase(""))) {
-			String xiqu = this.spinner_school.getSelectedItem().toString();
-			String zc = this.spinner_weeks.getSelectedItem().toString();
-			// (String) this.list_weeks.get(this.spinner_weeks
-			// .getSelectedItemPosition());
-			String jc = this.spinner_unit.getSelectedItem().toString();
-			// (String) this.list_unit.get(this.spinner_unit
-			// .getSelectedItemPosition());
-			String xq = this.spinner_weekday.getSelectedItem().toString();
-			String str5 = this.spinner_building.getSelectedItem().toString();
-			String bd = str5.substring(-2 + str5.length()).replace("_", " ")
-					.trim();
-			List<ClassRoom> res = new RoomDao(this).mapperJson(xiqu, jc, zc, xq,
-					jc);
-			if (res != null)
-				this.roomlist = (ArrayList<ClassRoom>) res;
-			else {
-				Toast.makeText(this, (CharSequence) res, Toast.LENGTH_SHORT)
-						.show();
-			}
-
-			if ((this.roomlist != null)
-					&& (!this.roomlist.toString().equalsIgnoreCase("[]")))
-				for (int i = 0;; i++) {
-					if (i >= this.roomlist.size()) {
-						this.simpleAdapter = new SimpleAdapter(this,
-								this.list_room, R.layout.grid_room,
-								new String[] { "room" },
-								new int[] { R.id.text });
-						this.gv_room.setAdapter(this.simpleAdapter);
-						return;
-					}
-					HashMap localHashMap = new HashMap();
-					localHashMap.put("room", this.roomlist.get(i)
-							.getRoomLocation());
-					this.list_room.add(localHashMap);
-				}
-			this.simpleAdapter = new SimpleAdapter(this, this.list_room,
-					R.layout.grid_layout, new String[] { "room" },
-					new int[] { R.id.img });
-			this.gv_room.setAdapter(this.simpleAdapter);
-			Toast localToast3 = Toast.makeText(this, "查询结果为空！", 0);
-			localToast3.setGravity(17, 0, 0);
-			localToast3.show();
-			return;
-		}
-		Toast localToast2 = Toast.makeText(this, "星期或周次不能为空，请重新输入！", 0);
-		localToast2.setGravity(17, 0, 0);
-		localToast2.show();
-	}
 
 	public void dismiss() {
 		this.selectPopupWindow.dismiss();
@@ -580,7 +506,6 @@ if (res != null) {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Show_FreedRoom.this.queryFreedRoom();
 				Message msg = new Message();
 				msg.what=0;
 				msg.arg1 = 3;

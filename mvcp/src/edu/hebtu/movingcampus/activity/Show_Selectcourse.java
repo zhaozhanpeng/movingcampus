@@ -70,11 +70,8 @@ public class Show_Selectcourse extends BaseActivity {
 				this.img_show = ((ImageView) findViewById(2131165283));
 				this.img_show.setBackgroundResource(2130837534);
 				this.tv_XnXq = ((TextView) findViewById(2131165288));
-				String str2 = AppInfo.getXnXq().substring(0, 9)
-						+ "学年 第"
-						+ AppInfo.getXnXq().substring(
-								-1 + AppInfo.getXnXq().length()) + "学期";
-				this.tv_XnXq.setText(str2);
+				String str = AppInfo.getStudyYear() + "学年 第"+ AppInfo.getTerm()+ "学期";
+				this.tv_XnXq.setText(str);
 				this.tv_id = ((TextView) findViewById(2131165284));
 				this.tv_name = ((TextView) findViewById(2131165286));
 				this.tv_id.setText(AppInfo.getUser().getUserName()

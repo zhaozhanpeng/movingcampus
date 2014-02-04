@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/choose_course_coursepro_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:background="@drawable/preference_single_item"
+        android:clickable="true"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:id="@+id/choose_course_coursepro_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30dp"
+            android:padding="8dp"
+            android:text="@string/choose_course_courseleftintro"
+            android:textColor="#000"
+            android:textSize="17sp" />
+
+        <ImageView
+            android:id="@+id/choose_course_coursepro_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:scaleType="matrix"
+            android:src="@drawable/mm_submenu" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/choose_course_courseprointro_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+         android:layout_marginLeft="10.0dip"
+        android:layout_marginRight="10.0dip"
+        android:visibility="gone"
+        android:orientation="vertical"
+        android:background="@drawable/ic_preference_choosecourse_green" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/choosecourse_coursepro_courseid" />
+
+            <TextView
+                android:id="@+id/choosecourse_coursepro_courseid_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="1234567890" />
+             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/choosecourse_coursepro_coursepro" />
+
+            <TextView
+                android:id="@+id/choosecourse_coursepro_coursepro_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="必修" />
+            
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+             <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/choosecourse_coursepro_totaltime" />
+
+            <TextView
+                android:id="@+id/choosecourse_coursepro_totaltime_tv"
+                android:layout_marginLeft="3dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="54" />
+            
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/choosecourse_coursepro_weektime" />
+
+            <TextView
+                android:id="@+id/choosecourse_coursepro_weektime_tv"
+                android:layout_marginLeft="3dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="3.0-0.3" />
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/choosecourse_coursepro_coursecredit" />
+
+            <TextView
+                android:id="@+id/choosecourse_coursepro_coursecredit_tv"
+                android:layout_marginLeft="3dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="2.0" />
+            
+        </LinearLayout>
+         <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="@string/choosecourse_coursepro_chinesename" />
+
+            <TextView
+                android:id="@+id/choosecourse_coursepro_chinesename_tv"
+                android:layout_marginLeft="3dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="马克思思想基本原理" />
+            
+        </LinearLayout>
+		<LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+             <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="@string/choosecourse_coursepro_englishname" />
+
+            <TextView
+                android:id="@+id/choosecourse_coursepro_englishname_tv"
+                android:layout_marginLeft="3dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="fuck fuck fuck" />
+            
+        </LinearLayout>
+        
+		<LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+             <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="@string/choosecourse_coursepro_coursetype" />
+
+            <TextView
+                android:id="@+id/choosecourse_coursepro_coursetype_tv"
+                android:layout_marginLeft="3dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="专业课程" />
+            
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+             <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="@string/choosecourse_coursepro_college" />
+
+            <TextView
+                android:id="@+id/choosecourse_coursepro_college_tv"
+                android:layout_marginLeft="3dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="软件学院" />
+            
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+             <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="@string/choosecourse_coursepro_suiltablepeople" />
+
+            <TextView
+                android:id="@+id/choosecourse_coursepro_suiltablepeople_tv"
+                android:layout_marginLeft="3dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+            
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+             <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="@string/choosecourse_coursepro_belongto" />
+
+            <TextView
+                android:id="@+id/choosecourse_coursepro_belongto_tv"
+                android:layout_marginLeft="3dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+            
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+             <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="@string/choosecourse_coursepro_perpose" />
+
+            <TextView
+                android:id="@+id/choosecourse_coursepro_perpose_tv"
+                android:layout_marginLeft="3dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+            
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+             <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="@string/choosecourse_coursepro_courseintro" />
+
+            <TextView
+                android:id="@+id/choosecourse_coursepro_courseintro_tv"
+                android:layout_marginLeft="3dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+            
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+             <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="@string/choosecourse_coursepro_coursebook" />
+
+            <TextView
+                android:id="@+id/choosecourse_coursepro_coursebook_tv"
+                android:layout_marginLeft="3dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+            
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

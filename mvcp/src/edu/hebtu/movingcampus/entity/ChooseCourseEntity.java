@@ -22,7 +22,33 @@ public class ChooseCourseEntity {
 	private String TextBook;//教科书
 	private String NativeChoosedNum;//本专业已选人数
 	private String AllChoosedNum;//所有已选人数
+	private String BookOrderId;//教材征订号
+	private String CourseId;//课程号
 	
+	/**
+	 * @return the bookOrderdId
+	 */
+	public String getBookOrderId() {
+		return BookOrderId;
+	}
+	/**
+	 * @param bookOrderdId the bookOrderdId to set
+	 */
+	public void setBookOrderId(String bookOrderdId) {
+		BookOrderId = bookOrderdId;
+	}
+	/**
+	 * @return the courseId
+	 */
+	public String getCourseId() {
+		return CourseId;
+	}
+	/**
+	 * @param courseId the courseId to set
+	 */
+	public void setCourseId(String courseId) {
+		CourseId = courseId;
+	}
 	//以下是getter 和setter 还有 tostring
 	/**
 	 * @return the teacher
@@ -204,7 +230,8 @@ public class ChooseCourseEntity {
 				+ ", MethosOfTeach=" + MethosOfTeach + ", ShortTerm="
 				+ ShortTerm + ", Capacity=" + Capacity + ", TextBook="
 				+ TextBook + ", NativeChoosedNum=" + NativeChoosedNum
-				+ ", AllChoosedNum=" + AllChoosedNum + "]";
+				+ ", AllChoosedNum=" + AllChoosedNum + ", BookOrderdId="
+				+ BookOrderId + ", CourseId=" + CourseId + "]";
 	}
 	
 	

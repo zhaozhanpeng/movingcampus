@@ -76,7 +76,7 @@ public class LibraryActivity implements Observer, PageWraper,NetworkchangeListen
 		// 登录
 		try{
 		String name = AppInfo.getUser().getCid();
-		String password = app.getPassword().substring(2, 6);
+		String password = AppInfo.getUser().getPassword().substring(2, 6);
 		String logindata = "username=" + name + "&password=" + password;
 		browser.postUrl(Urls.LIB_POST_LOGIN,
 				EncodingUtils.getBytes(logindata, "base64"));
