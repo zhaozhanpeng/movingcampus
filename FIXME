@@ -3,9 +3,14 @@
 
 信心中心
 =======
-title bar 上下滑有gliches
-新闻有时没加载
-新闻详情上下滑动gliches
+title bar 上下滑有gliches--->InfocenterActivity.java
+新闻有时没加载--->InfocenterActivity.java
+新闻详情上下滑动gliches----->NewsDetial.java
+
+
+------
+序列化出错:IPreference不能序列化
+
 
 
 

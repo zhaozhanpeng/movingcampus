@@ -30,9 +30,8 @@ public class GetCourse {
 
 	public GetCourse(Activity context) {
 		this.context = context;
-		// TODO
-		courseList = new CourseDao(context).mapperJson(AppInfo.getXn(),
-				AppInfo.getXq(), Constants.COURSE_DOMAIN.STUDENT);
+		courseList = new CourseDao(context).mapperJson(AppInfo.getStudyYear().substring(0,4),
+				AppInfo.getTerm(), Constants.COURSE_DOMAIN.STUDENT);
 		if (courseList == null) {
 			Toast.makeText(context, "错误!", Toast.LENGTH_SHORT);
 		}

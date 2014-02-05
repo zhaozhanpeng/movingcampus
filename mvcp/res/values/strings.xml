@@ -162,8 +162,76 @@
     <string name="listview_header_last_time_for_day">%1$s天前更新</string>
     <string name="listview_header_last_time_for_date">%1$s更新</string>
     <string name="load_more_text">载入中...</string>
-    <string name="listview_header_load_fail">更新失败!</string>
     <string name="title_activity_local_news">LocalNewsActivity</string>
     <string name="news">消息</string>
+
+    <string name="listview_header_load_fail">更新失败!</string>    
+    
+    <!-- 选课系统的选课类别 -->
+    <string name="choose_course_fast">快速选课</string>
+    <string name="choose_course_native">本专业选课</string>
+    <string name="choose_course_elective">选修课程</string>
+    <string name="choose_course_anothormajor">跨专业选课</string>
+    <string name="choose_course_te">选体育课</string>
+    <string name="choose_course_special">特殊课程</string>
+    <string name="title_activity_choose_course_brunch">ChooseCourseBrunchActivity</string>
+    <!-- 进入选课系统 -->
+    <string name="choose_course_coursename">课程名称</string>
+    <string name="choose_course_coursepro">课程性质</string>
+    <string name="choose_course_coursecredit">课程学分</string>
+    <string name="choose_course_courseselect">是否选课</string>
+    <string name="choose_course_courseleftnum">课程余量</string>
+    <string name="title_activity_choose_course_action">ChooseCourseActionActivity</string>
+    
+    <!-- 进入选课系统 -->
+    <string name="choose_course_courseleftintro">课程介绍</string>
+    <string name="choose_course_courseleftselect">课程选订</string>
+    
+    
+    <!-- 具体到选哪个老师的课的数据 -->
+    <string name="choosecourse_coursepro_courseid">课程代码: </string>
+    <string name="choosecourse_coursepro_chinesename">中文名称:</string>
+    <string name="choosecourse_coursepro_englishname">英文名称:</string>
+    <string name="choosecourse_coursepro_totaltime">总学时:</string>
+    <string name="choosecourse_coursepro_weektime">周学时:</string>
+    <string name="choosecourse_coursepro_coursetype">课程类别:</string>
+    <string name="choosecourse_coursepro_college">开课学院:</string>
+    <string name="choosecourse_coursepro_suiltablepeople">试用对象:</string>
+    <string name="choosecourse_coursepro_belongto">课程归属:</string>
+    <string name="choosecourse_coursepro_perpose">主要目的及作用:</string>
+    <string name="choosecourse_coursepro_courseintro">课程简介:</string>
+    <string name="choosecourse_coursepro_coursebook">主要参考书:</string>
+    <string name="choosecourse_coursepro_coursepro">课程性质:</string>
+	<string name="choosecourse_coursepro_coursecredit">学分:</string>
+	
+	<!--课程选订的数据 -->
+	<string name="choosecourse_courseselect_teacher">教师:</string>
+	<string name="choosecourse_courseselect_weektime">周学时:</string>
+	<string name="choosecourse_courseselect_type">考核:</string>
+	<string name="choosecourse_courseselect_campus">校区:</string>
+	<string name="choosecourse_courseselect_time">上课时间:</string>
+	<string name="choosecourse_courseselect_place">上课地点:</string>
+	<string name="choosecourse_courseselect_remark">备注:</string>
+	<string name="choosecourse_courseselect_method">授课方式:</string>
+	<string name="choosecourse_courseselect_shortterm">是否是短期:</string>
+	<string name="choosecourse_courseselect_textbook">教材名称:</string>
+	<string name="choosecourse_courseselect_nativenum">专业已选人数:</string>
+	<string name="choosecourse_courseselect_allnum">所有已选人数:</string>
+	
+	<!--选课对话框的数据 -->
+	<string name="choosecourse_dialog_bookintro">教材介绍</string>
+	<string name="choosecourse_dialog_bookname">教材名称</string>
+	<string name="choosecourse_dialog_bookid">书刊号</string>
+	<string name="choosecourse_dialog_textbookid">教材征订号</string>
+	<string name="choosecourse_dialog_bookauthor">作者</string>
+	<string name="choosecourse_dialog_bookisgood">是否优秀教材</string>
+	<string name="choosecourse_dialog_bookhouse">出版社</string>
+	<string name="choosecourse_dialog_bookversion">版别</string>
+	<string name="choosecourse_dialog_bookprice">单价</string>
+	<string name="choosecourse_dialog_booktime">出版时间</string>
+	<string name="choosecourse_dialog_btn_positive">订课</string>
+	<string name="choosecourse_dialog_btn_nagtive">取消</string>
+	<string name="choosecourse_dialog_bookcourse">预定课程</string>
+	<string name="choosecourse_dialog_bookbook">预订教材</string>
 
 </resources>

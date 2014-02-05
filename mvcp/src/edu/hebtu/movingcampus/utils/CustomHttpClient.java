@@ -76,10 +76,10 @@ public class CustomHttpClient {
 			return (resEntity == null) ? null : EntityUtils.toString(resEntity,
 					CHARSET_UTF8);
 		} catch (UnsupportedEncodingException e) {
-			LogUtil.w(TAG, e.getMessage());
+			Log.w(TAG, e.getMessage());
 			return null;
 		} catch (ClientProtocolException e) {
-			LogUtil.w(TAG, e.getMessage());
+			Log.w(TAG, e.getMessage());
 			return null;
 		} catch (IOException e) {
 			throw new RuntimeException(context.getResources().getString(

@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <LinearLayout
+        android:id="@+id/choosecourse_dialog_bookintro_title_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/preference_single_item"
+        android:clickable="true"
+        android:orientation="horizontal"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:padding="8dp"
+            android:gravity="center"
+            android:text="@string/choosecourse_dialog_bookintro"
+            android:layout_weight="1"
+            android:textColor="#000"
+            android:textSize="17sp" />
+
+        <ImageView
+            android:id="@+id/choosecourse_dialog_bookintro_img"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="matrix"
+            android:src="@drawable/mm_submenu_down"
+            android:layout_weight="4" />
+    </LinearLayout>
+	 <LinearLayout
+	     android:id="@+id/choosecourse_dialog_bookintro_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:background="@drawable/ic_preference_choosecourse_gray" >
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+			
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="@string/choosecourse_dialog_bookname" />
+
+            <TextView
+                android:id="@+id/choosecourse_dialog_bookname_tv"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="马克思主机基本原理" />
+            
+        </LinearLayout>
+        
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="@string/choosecourse_dialog_bookauthor" />
+
+            <TextView
+                android:id="@+id/choosecourse_dialog_bookauthor_tv"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="雷杰特罗夫斯基" />
+            
+            
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="@string/choosecourse_dialog_bookhouse" />
+
+            <TextView
+                android:id="@+id/choosecourse_dialog_bookhouse_tv"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="雷杰全球出版社" />
+             
+            
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/choosecourse_dialog_bookid" />
+
+            <TextView
+                android:id="@+id/choosecourse_dialog_bookid_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="1234567890" />
+             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/choosecourse_dialog_textbookid" />
+
+            <TextView
+                android:id="@+id/choosecourse_dialog_textbookid_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1234567890" />
+            
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/choosecourse_dialog_bookversion" />
+
+            <TextView
+                android:id="@+id/choosecourse_dialog_bookversion_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="第一版" />
+             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/choosecourse_dialog_booktime" />
+
+            <TextView
+                android:id="@+id/choosecourse_dialog_booktime_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2011-11-12" />
+            
+        </LinearLayout>
+         <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/choosecourse_dialog_bookisgood" />
+
+            <TextView
+                android:id="@+id/choosecourse_dialog_bookisgood_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="是" />
+             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/choosecourse_dialog_bookprice" />
+
+            <TextView
+                android:id="@+id/choosecourse_dialog_bookprice_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3000" />
+            
+        </LinearLayout>
+     </LinearLayout>
+     <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/ic_preference_choosecourse_gray" >
+         <CheckBox android:id="@+id/choosecourse_dialog_bookbook_check"
+             android:layout_width="fill_parent"
+             android:layout_height="wrap_content"
+             android:text="预订教材"
+             android:checked="false"
+             android:layout_marginLeft="20dp"
+             android:gravity="center"/>
+          <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp" >
+            <Button android:id="@+id/choosecourse_dialog_positive"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/preference_single_item"
+                android:text="@string/choosecourse_dialog_btn_positive"
+                android:textSize="17sp"
+                android:padding="8dp"/>
+            <Button android:id="@+id/choosecourse_dialog_nagtive"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/preference_single_item"
+                android:text="@string/choosecourse_dialog_btn_nagtive"
+                android:textSize="17sp"
+                android:padding="8dp"/>
+            </LinearLayout>
+     </LinearLayout>
+</LinearLayout>

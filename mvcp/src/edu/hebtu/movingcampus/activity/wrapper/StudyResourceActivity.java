@@ -13,19 +13,18 @@ import android.view.View;
 import android.widget.Toast;
 import edu.hebtu.movingcampus.AppInfo;
 import edu.hebtu.movingcampus.R;
+import edu.hebtu.movingcampus.activity.ChooseCourseActivity;
 import edu.hebtu.movingcampus.activity.MainActivity;
 import edu.hebtu.movingcampus.activity.ShowCourse;
 import edu.hebtu.movingcampus.activity.Show_ExaminationStu;
 import edu.hebtu.movingcampus.activity.Show_FreedRoom;
 import edu.hebtu.movingcampus.activity.Show_Score;
-import edu.hebtu.movingcampus.activity.Show_Selectcourse;
 import edu.hebtu.movingcampus.activity.base.PageWraper;
 import edu.hebtu.movingcampus.config.Constants;
 
 public class StudyResourceActivity implements Handler.Callback, PageWraper {
 	private static final Activity mainActivity = MainActivity.instance;
 	private static String Schedule;
-	private static String defaultXq;
 	private Intent intent;
 	private AlertDialog menuDialog;
 	private View menuView;
@@ -34,8 +33,8 @@ public class StudyResourceActivity implements Handler.Callback, PageWraper {
 	public StudyResourceActivity(View view) {
 		this.content = view;
 		Schedule = "true";
-		defaultXq = "2013-2014学年第1学期";
-		AppInfo.setXnXq(defaultXq);
+		AppInfo.setStudyYear();
+		AppInfo.setTerm();
 		bindButton();
 	}
 
@@ -54,32 +53,39 @@ public class StudyResourceActivity implements Handler.Callback, PageWraper {
 						StudyResourceActivity.this.toClassCourse();
 					}
 				});
-		content.findViewById(R.id.classcourse).setOnClickListener(
+		content.findViewById(R.id.personcourse).setOnClickListener(
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View paramAnonymousView) {
 						StudyResourceActivity.this.toPresonCources();
 					}
 				});
-		content.findViewById(R.id.exam_consult).setOnClickListener(
+		content.findViewById(R.id.examconsult).setOnClickListener(
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View paramAnonymousView) {
 						StudyResourceActivity.this.toCoursesScore();
 					}
 				});
-		content.findViewById(R.id.free_room).setOnClickListener(
+		content.findViewById(R.id.freeroom).setOnClickListener(
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View paramAnonymousView) {
 						StudyResourceActivity.this.toFreedClassRoom();
 					}
 				});
-		content.findViewById(R.id.exam_infor).setOnClickListener(
+		content.findViewById(R.id.examschedule).setOnClickListener(
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View paramAnonymousView) {
 						StudyResourceActivity.this.toexamPage();
+					}
+				});
+		content.findViewById(R.id.selectcourse).setOnClickListener(
+				new View.OnClickListener() {
+					@Override
+					public void onClick(View paramAnonymousView) {
+						StudyResourceActivity.this.toselectCourse();
 					}
 				});
 	}
@@ -116,7 +122,6 @@ public class StudyResourceActivity implements Handler.Callback, PageWraper {
 	private void toClassCourse() {
 		if (Schedule.equalsIgnoreCase("true")) {
 			this.intent = new Intent(mainActivity, ShowCourse.class);
-			this.intent.putExtra("classcourseinfor", defaultXq.toString());
 			this.intent.putExtra("domain", Constants.COURSE_DOMAIN.CLASS);
 			mainActivity.startActivityForResult(this.intent, 6);
 			return;
@@ -129,7 +134,6 @@ public class StudyResourceActivity implements Handler.Callback, PageWraper {
 	private void toPresonCources() {
 		if (Schedule.equalsIgnoreCase("true")) {
 			this.intent = new Intent(mainActivity, ShowCourse.class);
-			this.intent.putExtra("courseinfor", defaultXq.toString());
 			if (AppInfo.getUser().getRoleName().equals("学生"))
 				this.intent.putExtra("domain", Constants.COURSE_DOMAIN.STUDENT);
 			else if (AppInfo.getUser().getRoleName().equals("老师"))
@@ -144,25 +148,21 @@ public class StudyResourceActivity implements Handler.Callback, PageWraper {
 
 	private void toCoursesScore() {
 		this.intent = new Intent(mainActivity, Show_Score.class);
-		this.intent.putExtra("scoreinfor", defaultXq.toString());
 		mainActivity.startActivityForResult(this.intent, 1);
 	}
 
 	private void toFreedClassRoom() {
 		this.intent = new Intent(mainActivity, Show_FreedRoom.class);
-		this.intent.putExtra("roominfor", defaultXq.toString());
 		mainActivity.startActivityForResult(this.intent, 8);
 	}
 
 	private void toexamPage() {
 		this.intent = new Intent(mainActivity, Show_ExaminationStu.class);
-		this.intent.putExtra("examineinfor", defaultXq.toString());
 		mainActivity.startActivityForResult(this.intent, 7);
 	}
 
 	private void toselectCourse() {
-		this.intent = new Intent(mainActivity, Show_Selectcourse.class);
-		this.intent.putExtra("selectcourseinfor", defaultXq.toString());
+		this.intent = new Intent(mainActivity, ChooseCourseActivity.class);
 		mainActivity.startActivityForResult(this.intent, 5);
 	}
 

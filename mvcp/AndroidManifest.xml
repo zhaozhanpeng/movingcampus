@@ -19,8 +19,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" >
-    </uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name="edu.hebtu.movingcampus.AppInfo"
@@ -76,6 +75,12 @@
         <activity android:name="edu.hebtu.movingcampus.activity.Show_Score" >
         </activity>
         <activity android:name="edu.hebtu.movingcampus.activity.ShowCourse" >
+        </activity>
+        <activity android:name="edu.hebtu.movingcampus.activity.ChooseCourseActionActivity" >
+        </activity>
+        <activity android:name="edu.hebtu.movingcampus.activity.ChooseCourseActivity" >
+        </activity>
+        <activity android:name="edu.hebtu.movingcampus.activity.ChooseCourseBrunchActivity" >
         </activity>
         <activity android:name="edu.hebtu.movingcampus.activity.wrapper.LibraryActivity" >
         </activity>
@@ -175,7 +180,6 @@
         <meta-data
             android:name="api_key"
             android:value="jbjdLepGP51V4hfLn2tbbVVb" />
-
     </application>
 
 </manifest>

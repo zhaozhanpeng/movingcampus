@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/ic_preference_choosecourse_pink"
+    android:orientation="vertical" >
+    <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="#97694F"
+                android:text="@string/choosecourse_courseselect_teacher" />
+
+            <TextView
+                android:id="@+id/choosecourse_courseselect_teacher_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:layout_weight="1"
+                android:textColor="#97694F"
+                android:text="张雷杰" />
+             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="#97694F"
+                android:text="@string/choosecourse_courseselect_weektime" />
+
+            <TextView
+                android:id="@+id/choosecourse_courseselect_weektime_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="#97694F"
+                android:text="2.0-0.0" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="#97694F"
+                android:gravity="center"
+                android:text="@string/choosecourse_courseselect_type" />
+
+            <TextView
+                android:id="@+id/choosecourse_courseselect_type_tv"
+                android:layout_width="wrap_content"
+                android:textColor="#97694F"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="考试" />
+            
+        </LinearLayout>
+        
+     <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="#97694F"
+                android:text="@string/choosecourse_courseselect_nativenum" />
+
+            <TextView
+                android:id="@+id/choosecourse_courseselect_nativenum_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:layout_weight="1"
+                android:textColor="#97694F"
+                android:text="33" />
+             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="#97694F"
+                android:text="@string/choosecourse_courseselect_allnum" />
+
+            <TextView
+                android:id="@+id/choosecourse_courseselect_allnum_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#97694F"
+                android:gravity="center"
+                android:text="123" />
+            
+        </LinearLayout>
+
+     
+     	 <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:textColor="#97694F"
+                android:text="@string/choosecourse_courseselect_time" />
+
+            <TextView
+                android:id="@+id/choosecourse_courseselect_time_tv"
+                android:layout_marginLeft="3dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#97694F"
+                android:layout_weight="1"
+                android:text="周四第1,2节【第1~18周】" />
+            
+        </LinearLayout>
+        
+     	  <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:textColor="#97694F"
+                android:text="@string/choosecourse_courseselect_place" />
+
+            <TextView
+                android:id="@+id/choosecourse_courseselect_place_tv"
+                android:layout_marginLeft="3dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="#97694F"
+                android:text="人民大会堂" />
+            
+        </LinearLayout>
+        
+     	  <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:textColor="#97694F"
+                android:text="@string/choosecourse_courseselect_campus" />
+
+            <TextView
+                android:id="@+id/choosecourse_courseselect_campus_tv"
+                android:layout_marginLeft="3dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="#97694F"
+                android:text="新校区" />
+            
+        </LinearLayout>
+        
+     	  <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:textColor="#97694F"
+                android:text="@string/choosecourse_courseselect_textbook" />
+
+            <TextView
+                android:id="@+id/choosecourse_courseselect_textbook_tv"
+                android:layout_marginLeft="3dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="#97694F"
+                android:text="无教材" />
+            
+        </LinearLayout>
+        
+     	  <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:textColor="#97694F"
+                android:text="@string/choosecourse_courseselect_remark" />
+
+            <TextView
+                android:id="@+id/choosecourse_courseselect_remark_tv"
+                android:layout_marginLeft="3dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#97694F"
+                android:layout_weight="1" />
+            
+        </LinearLayout>
+        
+     	  <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:textColor="#97694F"
+                android:text="@string/choosecourse_courseselect_method" />
+
+            <TextView
+                android:id="@+id/choosecourse_courseselect_method_tv"
+                android:layout_marginLeft="3dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#97694F"
+                android:layout_weight="1"/>
+            
+        </LinearLayout>
+        
+     	  <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:textColor="#97694F"
+                android:text="@string/choosecourse_courseselect_shortterm" />
+
+            <TextView
+                android:id="@+id/choosecourse_courseselect_shortterm_tv"
+                android:layout_marginLeft="3dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#97694F"
+                android:layout_weight="1"/>
+            
+        </LinearLayout>
+</LinearLayout>

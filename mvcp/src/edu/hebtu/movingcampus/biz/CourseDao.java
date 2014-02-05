@@ -20,7 +20,6 @@ public class CourseDao extends BaseDao {
 
 	public ArrayList<ArrayList<Course>> mapperJson(String xn, String xq,
 			String domain) {
-		// TODO Auto-generated method stub
 		ArrayList<ArrayList<Course>> res;
 		try {
 			String result;
@@ -29,11 +28,7 @@ public class CourseDao extends BaseDao {
 			res = mObjectMapper.readValue(result,
 					new TypeReference<ArrayList<ArrayList<Course>>>() {
 					});
-			if (res == null) {
-				return null;
-			}
 			return res;
-
 		} catch (JsonParseException e) {
 			e.printStackTrace();
 		} catch (JsonMappingException e) {

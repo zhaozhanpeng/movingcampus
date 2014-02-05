@@ -243,9 +243,7 @@ public class Show_Score extends BaseActivity {
 		this.tv_id = ((TextView) findViewById(R.id.tvscore_stuID));
 		this.tv_name = ((TextView) findViewById(R.id.tvscore_StuName));
 		this.tv_XnXq = ((TextView) findViewById(R.id.tvpage_xnxq));
-		String str = AppInfo.getXnXq().substring(0, 9) + "学年 第"
-				+ AppInfo.getXnXq().substring(-1 + AppInfo.getXnXq().length())
-				+ "学期";
+		String str = AppInfo.getStudyYear() + "学年 第"+ AppInfo.getTerm()+ "学期";
 		this.tv_XnXq.setText(str);
 		this.tv_id.setText(AppInfo.getUser().getUserName().toCharArray(), 0,
 				AppInfo.getUser().getUserName().length());
