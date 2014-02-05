@@ -21,6 +21,7 @@ import edu.hebtu.movingcampus.activity.NewsDetailsActivity;
 import edu.hebtu.movingcampus.utils.ImageUtil;
 import edu.hebtu.movingcampus.utils.ImageUtil.ImageCallback;
 import edu.hebtu.movingcampus.utils.IntentUtil;
+import edu.hebtu.movingcampus.utils.LogUtil;
 import edu.hebtu.movingcampus.widget.XListView;
 import edu.hebtu.movingcampus.widget.XListView.IXListViewListener;
 
@@ -70,7 +71,7 @@ public abstract class BaseListFragment extends Fragment implements
 				ImageView img = (ImageView) listview.findViewWithTag(imagePath);
 				img.setImageBitmap(bitmap);
 			} catch (NullPointerException ex) {
-				Log.e("error", "ImageView = null");
+				LogUtil.e("error", "ImageView = null");
 			}
 		}
 	};

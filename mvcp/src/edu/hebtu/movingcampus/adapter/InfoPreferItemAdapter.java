@@ -34,7 +34,7 @@ public class InfoPreferItemAdapter extends AdapterBase<InfoPreferItem> {
 	 */
 	public InfoPreferItemAdapter(List<InfoPreferItem> list,
 			final Activity context, int resourceId) {
-		super();
+		super(null);
 		this.context = context;
 		this.rowlayout = resourceId;
 		this.mList = list;

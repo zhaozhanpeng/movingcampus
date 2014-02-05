@@ -33,7 +33,7 @@ public class InfoSubjectAdapter extends AdapterBase<ListOfNews> {
 	 */
 	public InfoSubjectAdapter(List<ListOfNews> list, final Context context,
 			int resourceId) {
-		super();
+		super(null);
 		this.context = context;
 		this.rowlayout = resourceId;
 		this.mList = list;

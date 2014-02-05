@@ -10,6 +10,7 @@ import com.baidu.android.pushservice.PushConstants;
 
 import edu.hebtu.movingcampus.activity.MainActivity;
 import edu.hebtu.movingcampus.activity.Show_Score;
+import edu.hebtu.movingcampus.utils.LogUtil;
 
 public class PushMessageReceiver extends BroadcastReceiver {
 
@@ -28,7 +29,7 @@ public class PushMessageReceiver extends BroadcastReceiver {
 		public void onReceive(final Context context, Intent intent) {
 			
 
-			Log.d(TAG, ">>> Receive intent: \r\n" + intent);
+			LogUtil.d(TAG, ">>> Receive intent: \r\n" + intent);
 			//获取消息的自定义内容
 			if (intent.getAction().equals(PushConstants.ACTION_MESSAGE)) {
 				//获取消息内容
@@ -36,12 +37,12 @@ public class PushMessageReceiver extends BroadcastReceiver {
 						PushConstants.EXTRA_PUSH_MESSAGE_STRING);
 
 				//消息的用户自定义内容读取方式
-				Log.i(TAG, "onMessage: " + message);
+				LogUtil.i(TAG, "onMessage: " + message);
 				
 				//自定义内容的json串
 				String customData = intent.getStringExtra(PushConstants.EXTRA_EXTRA);
 
-	        	Log.d(TAG, "EXTRA_EXTRA = " + customData);
+	        	LogUtil.d(TAG, "EXTRA_EXTRA = " + customData);
 	        	
 
 				
@@ -72,12 +73,12 @@ public class PushMessageReceiver extends BroadcastReceiver {
 			//可选。通知用户点击事件处理
 			} else if (intent.getAction().equals(
 					PushConstants.ACTION_RECEIVER_NOTIFICATION_CLICK)) {
-				Log.d(TAG, "intent=" + intent.toUri(0));
+				LogUtil.d(TAG, "intent=" + intent.toUri(0));
 				
 				//自定义内容的json串
 				String customData = intent.getStringExtra(PushConstants.EXTRA_EXTRA);
 
-	        	Log.d(TAG, "EXTRA_EXTRA = " + customData);
+	        	LogUtil.d(TAG, "EXTRA_EXTRA = " + customData);
 //	        	if (customData == null || "".equals(customData)) {
 //	                return;
 //	            }

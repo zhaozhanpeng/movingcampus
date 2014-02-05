@@ -40,6 +40,7 @@ import edu.hebtu.movingcampus.biz.ExamDao;
 import edu.hebtu.movingcampus.biz.RoomDao;
 import edu.hebtu.movingcampus.entity.ClassRoom;
 import edu.hebtu.movingcampus.entity.ExamScore;
+import edu.hebtu.movingcampus.utils.LogUtil;
 import edu.hebtu.movingcampus.view.CustSpinner;
 
 public class Show_FreedRoom extends BaseActivity {
@@ -330,9 +331,9 @@ public class Show_FreedRoom extends BaseActivity {
 	private void getMessage() {
 		ArrayList<ClassRoom> res = (ArrayList<ClassRoom>) new ExamDao(Show_FreedRoom.this)
 		.getFreeRoomMsg(false,school,building,week,weekday,unit);
-Log.i("从服务器请求数据", "从服务器传回数据");
+LogUtil.i("从服务器请求数据", "从服务器传回数据");
 if (res != null) {
-	Log.i("从服务器传回数据", "从服务器传回数据");
+	LogUtil.i("从服务器传回数据", "从服务器传回数据");
 	ArrayList<ClassRoom> freerooms = (ArrayList<ClassRoom>) res;
 	for (ClassRoom c : freerooms){
 		ClassRoom classroom = new ClassRoom();
@@ -588,7 +589,7 @@ if (res != null) {
 				roomlist.removeAll(roomlist);
 				getMessage();//获得数据
 				adapter.notifyDataSetChanged();
-				Log.i("请求的参数",school+"\n"+building+"\n"+week+"\n"+weekday+"\n"+unit);
+				LogUtil.i("请求的参数",school+"\n"+building+"\n"+week+"\n"+weekday+"\n"+unit);
 			}
 		});
 	}

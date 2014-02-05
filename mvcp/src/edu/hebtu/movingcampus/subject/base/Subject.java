@@ -22,7 +22,7 @@ public abstract class Subject implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	protected Boolean enable = true;
-	protected volatile List<Observer> observers = new LinkedList<Observer>();
+	protected transient List<Observer> observers = new LinkedList<Observer>();
 
 	public Subject() {
 	}

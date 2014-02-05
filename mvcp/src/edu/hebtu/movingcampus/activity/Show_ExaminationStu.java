@@ -32,7 +32,7 @@ public class Show_ExaminationStu extends BaseActivity {
 		super.onCreate(paramBundle);
 		setContentView(LayoutInflater.from(this).inflate(R.layout.examination_show,
 				null));
-		adapter=new ExamInforAdapter();
+		adapter=new ExamInforAdapter(null);
 		setExamData();
 		setExamView();
 		bindButton();

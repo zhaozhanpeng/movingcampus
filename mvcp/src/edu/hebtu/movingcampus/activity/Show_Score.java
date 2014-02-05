@@ -33,6 +33,7 @@ import edu.hebtu.movingcampus.activity.base.BaseActivity;
 import edu.hebtu.movingcampus.biz.ExamDao;
 import edu.hebtu.movingcampus.entity.ExamScore;
 import edu.hebtu.movingcampus.entity.User;
+import edu.hebtu.movingcampus.utils.LogUtil;
 
 public class Show_Score extends BaseActivity {
 	private final int ITEM_BACK = 0;
@@ -93,11 +94,11 @@ public class Show_Score extends BaseActivity {
 		if(month<=8){
 		for(int i =yearOfJoinCollege;i<myyear;i++){
 			data+="_"+i+"~"+(i+1);
-			Log.i("年数", i+"");
+			LogUtil.i("年数", i+"");
 		}
 		}else{
 			for(int i =yearOfJoinCollege;i<=myyear;i++){
-				Log.i("年数", i+"");
+				LogUtil.i("年数", i+"");
 				data+="_"+i+"~"+(i+1);
 			}
 		}
@@ -110,7 +111,7 @@ public class Show_Score extends BaseActivity {
 		this.spn_year = (Spinner) findViewById(R.id.spinner_course_year);
 		this.spn_pro = (Spinner) findViewById(R.id.spinner_course_pro);
 		this.spn_term = (Spinner)findViewById(R.id.spinner_course_term);
-		Log.i("判断spnterm是否为空",spn_term.toString());
+		LogUtil.i("判断spnterm是否为空",spn_term.toString());
 		adpt_year = new ArrayAdapter<String>(this,
 				android.R.layout.simple_gallery_item, year);
 		adpt_pro = new ArrayAdapter<String>(this,
@@ -207,9 +208,9 @@ public class Show_Score extends BaseActivity {
 	private void insertData() {
 		ArrayList<ExamScore> res = (ArrayList<ExamScore>) new ExamDao(this)
 				.getExamResultMsg(false, courseyear, courseterm,courseType);
-		Log.i("从服务器请求数据", "从服务器传回数据");
+		LogUtil.i("从服务器请求数据", "从服务器传回数据");
 		if (res != null) {
-			Log.i("从服务器传回数据", "从服务器传回数据");
+			LogUtil.i("从服务器传回数据", "从服务器传回数据");
 			ArrayList<ExamScore> courseScores = (ArrayList<ExamScore>) res;
 			for (ExamScore c : courseScores){
 				ExamScore examscore = new ExamScore();
@@ -351,7 +352,7 @@ public class Show_Score extends BaseActivity {
 				scorelist.removeAll(scorelist);
 				insertData();//获得数据
 				myAdapter.notifyDataSetChanged();
-				Log.i("请求的参数",courseterm+"\n"+courseType+"\n"+courseyear);
+				LogUtil.i("请求的参数",courseterm+"\n"+courseType+"\n"+courseyear);
 				
 			}
 		});

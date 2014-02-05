@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import edu.hebtu.movingcampus.biz.LibraryDao;
 import edu.hebtu.movingcampus.config.Constants;
@@ -26,7 +27,7 @@ public class LibrarySubject extends Subject implements OneofNews {
 	//设置剩余days天提醒 
 	public static int days;
 
-	public LibrarySubject(Activity ac) {
+	public LibrarySubject(Context ac){
 		SharedPreferences pre = ac.getSharedPreferences(
 				Constants.PREFER_FILE, 0);
 		LibrarySubject.days = pre.getInt("card.days",10);

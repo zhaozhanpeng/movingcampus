@@ -11,13 +11,15 @@ public abstract class AdapterBase<T> extends BaseAdapter {
 
 	protected List<T> mList =null;
 
-	public AdapterBase(){
+	/**
+	 * list == null, not save adater data state, list!=null, save it's state util next shown
+	 * @param list
+	 */
+	public AdapterBase(List<T> list ){
 		super();
-		mList=new LinkedList<T>();
-	}
-
-	public void setList(List<T> list){
-		this.mList=list;
+		if(list==null)
+			mList=new LinkedList<T>();
+		else this.mList=list;
 	}
 
 	public List<T> getList() {

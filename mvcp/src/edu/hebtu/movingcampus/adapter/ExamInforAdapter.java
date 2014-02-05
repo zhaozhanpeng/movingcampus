@@ -1,5 +1,7 @@
 package edu.hebtu.movingcampus.adapter;
 
+import java.util.List;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,8 +10,13 @@ import android.widget.TextView;
 import edu.hebtu.movingcampus.R;
 import edu.hebtu.movingcampus.adapter.base.AdapterBase;
 import edu.hebtu.movingcampus.entity.ExamineInfor;
+import edu.hebtu.movingcampus.utils.LogUtil;
 
 public class ExamInforAdapter extends AdapterBase<ExamineInfor> {
+
+	public ExamInforAdapter(List<ExamineInfor> list) {
+		super(list);
+	}
 
 	@Override
 	protected View getNextView(int position, View convertView, ViewGroup parent) {
@@ -20,7 +27,7 @@ public class ExamInforAdapter extends AdapterBase<ExamineInfor> {
 		TextView examPlace = (TextView) convertView.findViewById(R.id.examlist_item_roomid);
 		ExamineInfor examInfo = (ExamineInfor) getItem(position);
 		System.out.print("这是考试日期"+examInfo.toString());
-		Log.i("这是考试日期", examDate.toString());
+		LogUtil.i("这是考试日期", examDate.toString());
 		examDate.setText(examInfo.getKsrq());
 		examName.setText(examInfo.getKcm());
 		examTime.setText(examInfo.getKssj());

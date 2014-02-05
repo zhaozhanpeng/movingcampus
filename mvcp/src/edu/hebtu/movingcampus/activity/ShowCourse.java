@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import edu.hebtu.movingcampus.R;
 import edu.hebtu.movingcampus.activity.base.BaseActivity;
+import edu.hebtu.movingcampus.utils.LogUtil;
 import edu.hebtu.movingcampus.view.GetCourse;
 
 public class ShowCourse extends BaseActivity {
@@ -110,13 +111,13 @@ public class ShowCourse extends BaseActivity {
 
 		Intent intent = getIntent();
 		WEEK = intent.getIntExtra("POSITION", 1) + "";
-		// Log.i("intent.getIntExtra", WEEK);
+		// LogUtil.i("intent.getIntExtra", WEEK);
 		mPager.setAdapter(new MyPagerAdapter(listViews));
 		// currIndex=Integer.parseInt(WEEK)-1;
 		mPager.setOnPageChangeListener(new MyOnPageChangeListener());
 		mPager.setCurrentItem(Integer.parseInt(WEEK) - 1);
 
-		// Log.i("WEEK_int", Integer.parseInt(WEEK)-1+"");
+		// LogUtil.i("WEEK_int", Integer.parseInt(WEEK)-1+"");
 
 	}
 
@@ -199,7 +200,7 @@ public class ShowCourse extends BaseActivity {
 		@Override
 		public void onPageSelected(int arg0) {
 			Animation animation = null;
-			Log.i("arg0", arg0 + "");
+			LogUtil.i("arg0", arg0 + "");
 			if (currIndex != arg0)
 				animation = new TranslateAnimation(currIndex == 0 ? offset
 						: one * currIndex, arg0 * one, 0, 0);

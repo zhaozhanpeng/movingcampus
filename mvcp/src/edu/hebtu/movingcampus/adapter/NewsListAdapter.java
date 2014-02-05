@@ -1,5 +1,7 @@
 package edu.hebtu.movingcampus.adapter;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -18,6 +20,7 @@ import edu.hebtu.movingcampus.adapter.base.AdapterBase;
 import edu.hebtu.movingcampus.entity.NewsShort;
 import edu.hebtu.movingcampus.utils.ImageUtil;
 import edu.hebtu.movingcampus.utils.ImageUtil.ImageCallback;
+import edu.hebtu.movingcampus.utils.LogUtil;
 import edu.hebtu.movingcampus.view.NewsFragment;
 
 //主页新闻+本地通知数据展示
@@ -25,6 +28,7 @@ public class NewsListAdapter extends AdapterBase<NewsShort> {
 	private Context context;
 	private int rowlayout;
 	private ListView list;
+	//private NewsFragment fragment;
 	private edu.hebtu.movingcampus.utils.ImageUtil.ImageCallback callback1 = new ImageCallback() {
 
 		@Override
@@ -34,11 +38,10 @@ public class NewsListAdapter extends AdapterBase<NewsShort> {
 				ImageView img = (ImageView) list.findViewWithTag(imagePath);
 				img.setImageBitmap(bitmap);
 			} catch (NullPointerException ex) {
-				Log.e("error", "ImageView = null");
+				LogUtil.e("error", "ImageView = null");
 			}
 		}
 	};
-	private NewsFragment fragment;
 	// [end]
 
 	/**
@@ -51,12 +54,12 @@ public class NewsListAdapter extends AdapterBase<NewsShort> {
 	 * @param resourceId
 	 *            :item xml view
 	 */
-	public NewsListAdapter(final Context context, int resourceId,ListView list,NewsFragment fragment) {
-		super();
+	public NewsListAdapter(final Context context, int resourceId,ListView list,List<NewsShort> mlist) {
+		super(mlist);
 		this.list=list;
 		this.context = context;
 		this.rowlayout = resourceId;
-		this.fragment=fragment;
+		//this.fragment=fragment;
 	}
 
 	// position MK
@@ -133,6 +136,7 @@ public class NewsListAdapter extends AdapterBase<NewsShort> {
 
 	@Override
 	protected void onReachBottom() {
-		fragment.onLoadMore();
+//		if(fragment!=null)
+//		fragment.onLoadMore();
 	}
 }

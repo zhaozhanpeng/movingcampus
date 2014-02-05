@@ -1,6 +1,8 @@
 package edu.hebtu.movingcampus.entity;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
 	private Boolean sex;// 1 Male, 0 Female
 	private String phoneNum;// phone number
 	private String jid;// jsessionid

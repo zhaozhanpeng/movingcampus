@@ -84,7 +84,7 @@ public class ToolUtils {
 					paramProgressDialog.setProgress(i);
 				}
 			} catch (Exception e) {
-				Log.i("ex:", e.toString());
+				LogUtil.i("ex:", e.toString());
 			}
 		}
 		return null;
@@ -123,7 +123,7 @@ public class ToolUtils {
 			}
 
 		} catch (Exception e) {
-			Log.i("xml parser", "while parse xml from server," + e.toString());
+			LogUtil.i("xml parser", "while parse xml from server," + e.toString());
 		}
 		return localUpdataInfo;
 	}
@@ -151,7 +151,7 @@ public class ToolUtils {
 					}
 				}
 			} catch (Exception e) {
-				Log.e("ATTENTION!",
+				LogUtil.e("ATTENTION!",
 						String.format("Failed to clean the cache, error %s",
 								e.getMessage()));
 			}
@@ -160,11 +160,11 @@ public class ToolUtils {
 	}
 
 	public static void clearCache(final Context context, final int numDays) {
-		Log.i("ADVL", String.format(
+		LogUtil.i("ADVL", String.format(
 				"Starting cache prune, deleting files older than %d days",
 				numDays));
 		int numDeletedFiles = clearCacheFolder(context.getCacheDir(), numDays);
-		Log.i("ADVL", String.format(
+		LogUtil.i("ADVL", String.format(
 				"Cache pruning completed, %d files deleted", numDeletedFiles));
 	}
 

@@ -18,6 +18,7 @@ import edu.hebtu.movingcampus.config.Constants;
 import edu.hebtu.movingcampus.entity.CardEntity;
 import edu.hebtu.movingcampus.subjects.NetworkChangeReceiver;
 import edu.hebtu.movingcampus.subjects.NetworkChangeReceiver.NetworkchangeListener;
+import edu.hebtu.movingcampus.utils.LogUtil;
 import edu.hebtu.movingcampus.utils.NetWorkHelper;
 
 public class AllInOneCardActivity implements PageWraper,NetworkchangeListener {
@@ -106,7 +107,7 @@ public class AllInOneCardActivity implements PageWraper,NetworkchangeListener {
 			super.onPreExecute();
 			loaded=false;
 			if (bean != null) {
-				Log.d("object:", bean + "status:" + bean.getStatus());
+				LogUtil.d("object:", bean + "status:" + bean.getStatus());
 				((TextView) (contentView.findViewById(R.id.tv_balance_left)))
 						.setText(bean.getLastPay() + "元");
 				if (bean.getStatus() == false)
@@ -158,7 +159,7 @@ public class AllInOneCardActivity implements PageWraper,NetworkchangeListener {
 						Toast.LENGTH_SHORT).show();
 			}
 			if (bean != null) {
-				Log.d("object:", bean + "status:" + bean.getStatus());
+				LogUtil.d("object:", bean + "status:" + bean.getStatus());
 				((TextView) (contentView.findViewById(R.id.tv_balance_left)))
 						.setText(bean.getLastPay() + "元");
 				if (bean.getStatus() == false)

@@ -6,14 +6,11 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,21 +20,21 @@ import edu.hebtu.movingcampus.R;
 import edu.hebtu.movingcampus.activity.wrapper.IPreference;
 import edu.hebtu.movingcampus.adapter.NewsListAdapter;
 import edu.hebtu.movingcampus.biz.NewsDao;
-import edu.hebtu.movingcampus.config.Constants;
 import edu.hebtu.movingcampus.entity.NewsShort;
+import edu.hebtu.movingcampus.utils.LogUtil;
+import edu.hebtu.movingcampus.utils.TimeUtil;
 
 @SuppressLint({ "NewApi", "SimpleDateFormat" })
 public class NewsFragment extends BaseListFragment {
 
 	public Activity mActivity;
 	private String page;
-	private long mUpdateDateTime;//最近一次的更新时间
 	public boolean loaded=false;
 	private NewsListAdapter mAdapter;
 	private List<NewsShort>loadMoreEntity;
 	private List<NewsShort> mlist;
-	private static SharedPreferences mPreferences;
 	private static SimpleDateFormat mDateFormat;
+	private TimeUtil timer;
 
 	// private DisplayImageOptions options;
 	static {
@@ -83,31 +80,21 @@ public class NewsFragment extends BaseListFragment {
 		NewsFragment nf=new NewsFragment();
 		nf.mActivity=activty;
 		nf.page=page;
-		Log.w("page", page+"");
+		LogUtil.w("page", page+"");
 		nf.mlist=IPreference.getInstance(activty).getListOfNewsSubjectByID(Integer.parseInt(page)+1).dump(activty);
 		return nf;
 	}
 
-	/** 获取channel的刷新时间 **/
-	private long getUpdateDateTime() {
-		return mPreferences.getLong(Constants.PREFER_FILE+ "_" + page, 0);
-	}
 
-	/** 设置channel的刷新时间 **/
-	private void setUpdateDateTime(long nowTime) {
-		if (mPreferences.edit().putLong(Constants.PREFER_FILE+ "_" + page, nowTime).commit()) {
-			mUpdateDateTime = nowTime;
-		}
-	}
 	private void updateTextTime() {
 		boolean isAdded = isAdded();
 		if (!isAdded) {//avoid java.lang.IllegalStateException: Fragment BaseFragment{44b01260} not attached to Activity
 			return;
 		}
-		if(mUpdateDateTime == 0) {//初始化更新
+		if(timer.getUpdateTime()== 0) {//初始化更新
 			listview.setRefreshTime(getResources().getString(R.string.listview_header_last_time));
 		} else {//其他
-			long diffTimeSecs = (System.currentTimeMillis() - mUpdateDateTime) / 1000;
+			long diffTimeSecs = (System.currentTimeMillis() - timer.getUpdateTime()) / 1000;
 			//1min = 60s ; 1h = 60min
 			if (diffTimeSecs < 3600) {//一小时内，显示分钟
 				Resources resources = getResources();
@@ -123,26 +110,24 @@ public class NewsFragment extends BaseListFragment {
 				} else if(diffTimeHours == 24) {//一天更新，显示1天
 					listview.setRefreshTime(getResources().getString( R.string.listview_header_last_time_for_day, 1));
 				} else {//大于24小时显示xx月xx日
-					listview.setRefreshTime(getResources().getString( R.string.listview_header_last_time_for_date, mDateFormat.format(new Date(mUpdateDateTime))));
+					listview.setRefreshTime(getResources().getString( R.string.listview_header_last_time_for_date, mDateFormat.format(new Date(timer.getUpdateTime()))));
 				}
 			}
 		}
-		setUpdateDateTime(System.currentTimeMillis());
+		timer.updatePreferenceTime();
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
-        mPreferences = getActivity().getSharedPreferences(Constants.PREFER_FILE, Context.MODE_PRIVATE);
-		mUpdateDateTime = getUpdateDateTime();
+		timer=new TimeUtil(getActivity(), getClass().getName()+"page");
 		updateTextTime();
 		listview.setXListViewListener(this);
 		listview.setPullRefreshEnable(true);
 		listview.setPullLoadEnable(true);
 		// construct the RelativeLayout
-		mAdapter = new NewsListAdapter(mActivity, R.layout.news_item, listview,this);
-		mAdapter.setList(mlist);
+		mAdapter = new NewsListAdapter(mActivity, R.layout.news_item, listview,mlist);
 		mAdapter.appendToList(loadMoreEntity);
 		listview.setAdapter(mAdapter);
 		listview.setOnItemClickListener(new OnItemClickListener() {

@@ -11,9 +11,9 @@ import edu.hebtu.movingcampus.subject.base.Subject;
 import edu.hebtu.movingcampus.subject.base.ListOfNews;
 
 public final class LocalNewsSubject extends Subject implements ListOfNews {
-	private List<OneofNews> localSubjects = new ArrayList<OneofNews>();
+	private ArrayList<OneofNews> localSubjects = new ArrayList<OneofNews>();
 
-	private List<NewsShort> news = new ArrayList<NewsShort>();
+	private ArrayList<NewsShort> news = new ArrayList<NewsShort>();
 
 	public LocalNewsSubject() {
 	}

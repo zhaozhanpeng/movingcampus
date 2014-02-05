@@ -69,7 +69,7 @@ public class APNManager {
 			String mnc = mCursor.getString(mCursor.getColumnIndex("mnc"));
 			String numeric = mCursor.getString(mCursor
 					.getColumnIndex("numeric"));
-			Log.e("isApnExisted", "info:" + apnId + "_" + name + "_" + apn
+			LogUtil.e("isApnExisted", "info:" + apnId + "_" + name + "_" + apn
 					+ "_" + type + "_" + current + "_" + proxy);// 遍历了所有的apn
 			if (/* apnNode.getName().equals(name) */(apnNode.getApn().equals(
 					apn)
@@ -150,7 +150,7 @@ public class APNManager {
 			mcc = mCursor.getString(mCursor.getColumnIndex("mcc"));
 			mnc = mCursor.getString(mCursor.getColumnIndex("mnc"));
 			numeric = mCursor.getString(mCursor.getColumnIndex("numeric"));
-			Log.d("getDefaultAPN", "default Apn info:" + id + "_" + name + "_"
+			LogUtil.d("getDefaultAPN", "default Apn info:" + id + "_" + name + "_"
 					+ apn + "_" + proxy + "_" + proxy);
 
 		}
@@ -238,7 +238,7 @@ public class APNManager {
 				int idindex = c.getColumnIndex("_id");
 				c.moveToFirst();
 				apnId = c.getShort(idindex);
-				Log.d("Robert", "New ID: " + apnId
+				LogUtil.d("Robert", "New ID: " + apnId
 						+ ": Inserting new APN succeeded!");
 
 			}
@@ -254,7 +254,7 @@ public class APNManager {
 	private String getMCC() {
 		String numeric = tm.getSimOperator();
 		String mcc = numeric.substring(0, 3);
-		Log.i("MCC  is", mcc);
+		LogUtil.i("MCC  is", mcc);
 		return mcc;
 	}
 
@@ -262,7 +262,7 @@ public class APNManager {
 
 		String numeric = tm.getSimOperator();
 		String mnc = numeric.substring(3, numeric.length());
-		Log.i("MNC  is", mnc);
+		LogUtil.i("MNC  is", mnc);
 		return mnc;
 	}
 
@@ -314,7 +314,7 @@ public class APNManager {
 				projection, null, null, null);
 		List<APN> list = new ArrayList<APN>();
 		while (cr != null && cr.moveToNext()) {
-			Log.d(tag,
+			LogUtil.d(tag,
 					cr.getString(cr.getColumnIndex("_id")) + "  "
 							+ cr.getString(cr.getColumnIndex("apn")) + "  "
 							+ cr.getString(cr.getColumnIndex("type")) + "  "

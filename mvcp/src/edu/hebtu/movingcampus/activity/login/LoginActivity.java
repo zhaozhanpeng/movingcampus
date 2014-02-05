@@ -1,7 +1,5 @@
 package edu.hebtu.movingcampus.activity.login;
 
-import com.baidu.android.pushservice.PushConstants;
-import com.baidu.android.pushservice.PushManager;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -9,7 +7,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.StrictMode;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -21,26 +18,22 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 import edu.hebtu.movingcampus.AppInfo;
 import edu.hebtu.movingcampus.R;
 import edu.hebtu.movingcampus.activity.MainActivity;
 import edu.hebtu.movingcampus.activity.base.BaseActivity;
-import edu.hebtu.movingcampus.activity.setting.SettingActivity;
 import edu.hebtu.movingcampus.activity.wrapper.IPreference;
-import edu.hebtu.movingcampus.biz.CardDao;
 import edu.hebtu.movingcampus.biz.UserDao;
-import edu.hebtu.movingcampus.biz.base.BaseDao;
 import edu.hebtu.movingcampus.config.Constants;
 import edu.hebtu.movingcampus.entity.User;
 import edu.hebtu.movingcampus.enums.NewsType;
+import edu.hebtu.movingcampus.utils.LogUtil;
 import edu.hebtu.movingcampus.utils.NetWorkHelper;
-import edu.hebtu.movingcampus.utils.Utils;
+import edu.hebtu.movingcampus.utils.TimeUtil;
 
 public class LoginActivity extends BaseActivity {
 	public static final String KEY = "dbkey";
-	// TODO
 	public static final String SharedName = null;
 	public static String xn;
 	public static String xq;
@@ -51,19 +44,20 @@ public class LoginActivity extends BaseActivity {
 	private EditText usernameET;
 	private UserDao dao;
 
-	public Boolean TEMP = false;
+	public Boolean isNewsToThis = false;
 
 	@SuppressLint("NewApi")
 	@Override
 	public void onCreate(Bundle paramBundle) {
 		super.onCreate(paramBundle);
 		setContentView(R.layout.activity_login);
-		dao=new UserDao(this);
+		dao = new UserDao(this);
 		mRunningTask = new LoginTask(dao);
 
-		PushManager.startWork(getApplicationContext(),
-				PushConstants.LOGIN_TYPE_API_KEY,
-				Utils.getMetaValue(LoginActivity.this, "api_key"));
+		// 记住密码一个星期
+		if (getIntent().getBooleanExtra("remember_password_time_passed", false)) {
+			Toast.makeText(this, "记住密码登录超时,请重新登录", Toast.LENGTH_SHORT).show();
+		}
 		try {
 			// 做版本判断
 			int version = getPackageManager().getPackageInfo(getPackageName(),
@@ -75,14 +69,13 @@ public class LoginActivity extends BaseActivity {
 						Constants.PREFER_FILE, 0).edit();
 				editor.putInt("version", version);
 				editor.commit();
-				// getIntent().putExtra("newToThis", true);
-				TEMP = true;
-			}
+				isNewsToThis = true;
+			} else
+				isNewsToThis = false;
 		} catch (NameNotFoundException e) {
 			e.printStackTrace();
 		}
 		try {
-			// 此段代码什么意思？？
 			StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
 					.detectDiskReads().detectDiskWrites().detectNetwork()
 					.penaltyLog().build());
@@ -98,14 +91,15 @@ public class LoginActivity extends BaseActivity {
 		this.usernameET = ((EditText) findViewById(R.id.username));
 		this.passwordET = ((EditText) findViewById(R.id.password));
 		this.cb_save = ((CheckBox) findViewById(R.id.cbrmpassword));
-		// getMessage(); //获取本地存储的用户用户名和密码吗？没有必要，，在SplashActivity中已经做了判断
+		getMessage(); // 获取本地存储的用户用户名和密码吗？没有必要，，在SplashActivity中已经做了判断
 		bindButton();
+
 	} // OnCreate()方法结束
 
 	private View.OnClickListener loginButtonListener = new View.OnClickListener() {
 		@Override
 		public void onClick(View paramAnonymousView) {
-			mRunningTask.execute(new Object[]{new Object()});
+			mRunningTask.execute(new Object[] { new Object() });
 		}
 	};
 
@@ -118,13 +112,12 @@ public class LoginActivity extends BaseActivity {
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before,
 					int count) {
-				Log.i("text", s.toString());
+				LogUtil.i("text", s.toString());
 				if (s != null && s.length() == 10
 						&& passwordET.getText().toString() != null
 						&& passwordET.getText().toString().length() == 6) {
 					LoginActivity.this.toHome();
 				}
-
 			}
 
 			@Override
@@ -142,7 +135,7 @@ public class LoginActivity extends BaseActivity {
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before,
 					int count) {
-				Log.i("text", s.toString());
+				LogUtil.i("text", s.toString());
 				if (s != null && s.length() == 6
 						&& usernameET.getText().toString() != null
 						&& usernameET.getText().toString().length() == 10) {
@@ -165,17 +158,24 @@ public class LoginActivity extends BaseActivity {
 	private void getMessage() {
 		SharedPreferences localSharedPreferences = super.getSharedPreferences(
 				Constants.PREFER_FILE, 0);
-		String str1 = localSharedPreferences.getString("username", "");
-		String str2 = localSharedPreferences.getString("password", "");
+		String str1 = localSharedPreferences.getString(Constants.USERNAME, "");
+		String str2 = localSharedPreferences.getString(Constants.PASSWORD, "");
 		this.usernameET.setText(str1);
 		this.passwordET.setText(str2);
-		this.cb_save.setChecked(true);
+
+		SharedPreferences localEditor = getSharedPreferences(
+				Constants.PREFER_FILE, 0);
+		if (localEditor.getBoolean(Constants.IS_REMEMBER_PASSWORD, false))
+			this.cb_save.setChecked(true);
+		else
+			this.cb_save.setChecked(false);
 	}
 
 	private void toHome() {
 		// 得到用户名和密码
 
-		mRunningTask.execute(new Object[]{new Object()});
+		mRunningTask=new LoginTask(dao);
+		mRunningTask.execute(new Object[] { new Object() });
 		// 向服务器发送请求，得到返回的值（User类对象）
 
 	}// toHome()函数结束
@@ -184,7 +184,7 @@ public class LoginActivity extends BaseActivity {
 	public boolean onKeyDown(int paramInt, KeyEvent paramKeyEvent) {
 
 		if (paramInt == KeyEvent.KEYCODE_BACK) {
-			Log.i("msg", "点击返回键，执行了");
+			LogUtil.i("msg", "点击返回键，执行了");
 			Intent intent = new Intent(Intent.ACTION_MAIN);
 			intent.addCategory(Intent.CATEGORY_HOME);
 			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -212,9 +212,11 @@ public class LoginActivity extends BaseActivity {
 
 	private class LoginTask extends AsyncTask<Object, Void, User> {
 		private UserDao dao;
-		public LoginTask(UserDao dao){
-			this.dao=dao;
+
+		public LoginTask(UserDao dao) {
+			this.dao = dao;
 		}
+
 		@Override
 		protected void onPreExecute() {
 			if ((LoginActivity.this.usernameET.getText().toString().length() == 10)
@@ -249,8 +251,8 @@ public class LoginActivity extends BaseActivity {
 			// 如果返回的对象值为空
 			try {
 				if (res == null) {
-					Log.i("LoginActivity", "返回的对象值为空");
-					Log.i("LoginActivity", "用户名或者密码错误");
+					LogUtil.i("LoginActivity", "返回的对象值为空");
+					LogUtil.i("LoginActivity", "用户名或者密码错误");
 					if (!NetWorkHelper.isNetworkAvailable(LoginActivity.this)) {
 						Toast.makeText(LoginActivity.this, "您暂时没有可用的网络,请检查网络",
 								0).show();
@@ -286,22 +288,27 @@ public class LoginActivity extends BaseActivity {
 				SharedPreferences.Editor localEditor = getSharedPreferences(
 						Constants.PREFER_FILE, 0).edit();
 				if (LoginActivity.this.cb_save.isChecked()) {
-					Log.i("LoginActivity", "选择了记住密码，正在保存用户名和密码");
-					localEditor.putInt("count", 1);
-					localEditor.putString("username",
+					LogUtil.i("LoginActivity", "选择了记住密码，正在保存用户名和密码");
+					localEditor
+							.putBoolean(Constants.IS_REMEMBER_PASSWORD, true);
+					new TimeUtil(LoginActivity.this, Constants.REMEMBER_PASSWORD_TIME).updatePreferenceTime();
+					localEditor.putString(Constants.USERNAME,
 							LoginActivity.this.usernameET.getText().toString());
-					localEditor.putString("password",
+					localEditor.putString(Constants.PASSWORD,
 							LoginActivity.this.passwordET.getText().toString());
 					localEditor.commit();
-				}
+				} else
+					localEditor.putBoolean(Constants.IS_REMEMBER_PASSWORD,
+							false);
 				// 保存user对象信息
 				AppInfo.setUser(res);
-				Log.d("user:", AppInfo.getUser().toString());
+				IPreference.getInstance(LoginActivity.this).setProfile(res);
+				LogUtil.d("user:", AppInfo.getUser().toString());
 				// 如果该登陆用户是老师或者学生，则执行if内语句
 				if (AppInfo.getUser().getRoleName().equals("学生")
 						|| AppInfo.getUser().getRoleName().equals("老师")) {
-					Log.i("msg", "进入到if语句中来了");
-					Log.i("该用户是", AppInfo.getUser().getRoleName());
+					LogUtil.i("msg", "进入到if语句中来了");
+					LogUtil.i("该用户是", AppInfo.getUser().getRoleName());
 					localEditor.putString(LoginActivity.KEY, AppInfo.getUser()
 							.getJid());
 
@@ -317,20 +324,20 @@ public class LoginActivity extends BaseActivity {
 						public void run() {
 							IPreference.getInstance(LoginActivity.this);
 
-							if (TEMP) {
+							if (isNewsToThis) {
 								for (int i = 0; i < NewsType.values().length - 1; i++) {
 									edit.putBoolean("news_" + i, true);
 									edit.commit();
 								}
 							}
-							if (TEMP) {
-								Log.i("msg", "开启Whatsnew");
+							if (isNewsToThis) {
+								LogUtil.i("msg", "开启Whatsnew");
 								// 第一次使用，显示ViewPager，进行展示
 								LoginActivity.this.processBar.dismiss();
 								LoginActivity.this.startActivity(new Intent(
 										LoginActivity.this, Whatsnew.class));
 							} else { // 为空执行
-								Log.i("msg", "直接跳转MainActivity");
+								LogUtil.i("msg", "直接跳转MainActivity");
 								// 直接跳转，进入MainActivity
 								LoginActivity.this.processBar.dismiss();
 								LoginActivity.this

@@ -1,8 +1,10 @@
 package edu.hebtu.movingcampus.enums;
 
+import java.io.Serializable;
+
 import edu.hebtu.movingcampus.R;
 
-public enum NewsType {
+public enum NewsType implements Serializable {
 	// 网站新闻,分学院+|学校
 	O_LOCAL, O_HOLIDAY, O_COLLEAGE, O_SCHOOLS, O_ACADEMIC, O_NOTICE_SPEECH, O_JOB, O_JWNOTICE, O_SECOND_HNAD;
 	public String getDesc() {

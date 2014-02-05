@@ -40,4 +40,8 @@ public class Constants {
 	public static final String ACTION_LOCK = "lock";
 	public static final String ACTION_DEFAULT_LOOKUP = "lookup";
 	public static final String ACTION_UNLOCK = "unlock";
+	public static final String IS_REMEMBER_PASSWORD = "remember_password";
+	public static final String REMEMBER_PASSWORD_TIME = "remember_password_time";
+	public static final String USERNAME= "username";
+	public static final String PASSWORD="password";
 }

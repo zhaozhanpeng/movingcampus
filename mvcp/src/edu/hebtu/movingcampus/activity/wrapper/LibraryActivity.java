@@ -60,8 +60,6 @@ public class LibraryActivity implements Observer, PageWraper,NetworkchangeListen
 	}
 
 	private void bindButton() {
-		// TODO Auto-generated method stub
-
 		contentView.findViewById(R.id.btn_refresh).setOnClickListener(new View.OnClickListener() {
 			
 			@Override

@@ -45,7 +45,7 @@ public class HttpUtils {
 			return NetWorkHelper.isMobileDataEnable(context);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			Log.e(TAG, e.getMessage());
+			LogUtil.e(TAG, e.getMessage());
 			e.printStackTrace();
 			return false;
 		}
@@ -58,7 +58,7 @@ public class HttpUtils {
 			return NetWorkHelper.isWifiDataEnable(context);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			Log.e(TAG, e.getMessage());
+			LogUtil.e(TAG, e.getMessage());
 			e.printStackTrace();
 			return false;
 		}
@@ -71,7 +71,7 @@ public class HttpUtils {
 			NetWorkHelper.setMobileDataEnabled(context, enabled);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			Log.e(TAG, e.getMessage());
+			LogUtil.e(TAG, e.getMessage());
 			e.printStackTrace();
 		}
 	}

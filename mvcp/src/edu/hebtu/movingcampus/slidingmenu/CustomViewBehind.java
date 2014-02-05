@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import edu.hebtu.movingcampus.R;
 import edu.hebtu.movingcampus.slidingmenu.SlidingMenu.CanvasTransformer;
+import edu.hebtu.movingcampus.utils.LogUtil;
 
 
 public class CustomViewBehind extends ViewGroup {
@@ -226,7 +227,7 @@ public class CustomViewBehind extends ViewGroup {
 			}
 		}
 		if (vis == View.INVISIBLE)
-			Log.v(TAG, "behind INVISIBLE");
+			LogUtil.v(TAG, "behind INVISIBLE");
 		setVisibility(vis);
 	}
 

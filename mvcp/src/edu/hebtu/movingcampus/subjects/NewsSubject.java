@@ -1,6 +1,5 @@
 package edu.hebtu.movingcampus.subjects;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,21 +7,21 @@ import android.app.Activity;
 import edu.hebtu.movingcampus.biz.NewsDao;
 import edu.hebtu.movingcampus.entity.NewsShort;
 import edu.hebtu.movingcampus.enums.NewsType;
-import edu.hebtu.movingcampus.subject.base.Subject;
 import edu.hebtu.movingcampus.subject.base.ListOfNews;
+import edu.hebtu.movingcampus.subject.base.Subject;
 
 /**
  * @author hippo
  * @version 1.0
  * @created 14-Nov-2013 9:13:32 AM
  */
-public class NewsSubject extends Subject implements Serializable, ListOfNews {
+public class NewsSubject extends Subject implements  ListOfNews {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private NewsType type;
-	private List<NewsShort> list = new ArrayList<NewsShort>();
+	private ArrayList<NewsShort> list = new ArrayList<NewsShort>();
 
 	public NewsSubject(NewsType type) {
 		this.type = type;

@@ -334,7 +334,7 @@ public class ImageUtil {
 						}
 					} catch (MalformedURLException e) {
 						e.printStackTrace();
-						Log.e(ImageUtil.class.getName(), "图片url不存在");
+						LogUtil.e(ImageUtil.class.getName(), "图片url不存在");
 					} catch (IOException e) {
 						e.printStackTrace();
 					}

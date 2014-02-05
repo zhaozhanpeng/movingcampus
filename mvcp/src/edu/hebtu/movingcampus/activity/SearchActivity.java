@@ -81,7 +81,7 @@ public class SearchActivity extends BaseFragmentActivity implements
 		listview = (XListView) findViewById(R.id.list_view);
 		newsDao = new NewsDao(this);
 		listview.setXListViewListener(this);
-		adapter = new NewsListAdapter(this, R.layout.news_item,listview,new NewsFragment());
+		adapter = new NewsListAdapter(this, R.layout.news_item,listview, null);
 		listview.setAdapter(adapter);
 		imm = (InputMethodManager) getApplicationContext().getSystemService(
 				Context.INPUT_METHOD_SERVICE);

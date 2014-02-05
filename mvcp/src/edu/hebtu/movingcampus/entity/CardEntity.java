@@ -1,11 +1,13 @@
 package edu.hebtu.movingcampus.entity;
 
+import java.io.Serializable;
+
 /**
  * @author hippo
  * @version 1.0
  * @created 14-Nov-2013 9:13:29 AM
  */
-public class CardEntity {
+public class CardEntity implements Serializable{
 	private Boolean status;
 	private Double count;
 	private Double lastPay;

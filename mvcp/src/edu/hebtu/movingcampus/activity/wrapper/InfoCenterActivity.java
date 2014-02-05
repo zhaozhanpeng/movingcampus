@@ -64,7 +64,6 @@ public class InfoCenterActivity implements OnClickListener, AnimationListener,
 	private LinearLayout llGoHome;
 	private Button bn_refresh;
 
-	// private SlidingMenu sm;
 	private boolean mIsTitleHide = false;
 	private boolean mIsAnim = false;
 
@@ -298,7 +297,7 @@ public class InfoCenterActivity implements OnClickListener, AnimationListener,
 		if (mIsTitleHide) {
 			title.setVisibility(View.GONE);
 		} else {
-
+			title.setVisibility(View.VISIBLE);
 		}
 		mIsAnim = false;
 	}
@@ -310,7 +309,6 @@ public class InfoCenterActivity implements OnClickListener, AnimationListener,
 
 	@Override
 	public void onAnimationStart(Animation animation) {
-		// TODO Auto-generated method stub
 		title.setVisibility(View.VISIBLE);
 		if (mIsTitleHide) {
 			FrameLayout.LayoutParams lp = (LayoutParams) mlinear_listview

@@ -14,6 +14,7 @@ import edu.hebtu.movingcampus.R;
 import edu.hebtu.movingcampus.biz.CourseDao;
 import edu.hebtu.movingcampus.config.Constants;
 import edu.hebtu.movingcampus.entity.Course;
+import edu.hebtu.movingcampus.utils.LogUtil;
 
 /**
  * @author
@@ -61,7 +62,7 @@ public class GetCourse {
 		tv5_2 = (TextView) myView.findViewById(R.id.show_tv5_2);
 		tv5_3 = (TextView) myView.findViewById(R.id.show_tv5_3);
 
-		Log.i("GetSchedule", week + "");
+		LogUtil.i("GetSchedule", week + "");
 
 		for (int i = 0; i < courses.size(); i++) {
 			Course c = courses.get(i);

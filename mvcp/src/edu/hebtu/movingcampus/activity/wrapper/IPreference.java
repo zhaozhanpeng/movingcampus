@@ -1,6 +1,5 @@
 package edu.hebtu.movingcampus.activity.wrapper;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -8,23 +7,22 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OptionalDataException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 import edu.hebtu.movingcampus.config.Constants;
+import edu.hebtu.movingcampus.entity.User;
 import edu.hebtu.movingcampus.enums.NewsType;
+import edu.hebtu.movingcampus.subject.base.ListOfNews;
 import edu.hebtu.movingcampus.subject.base.OneofNews;
 import edu.hebtu.movingcampus.subject.base.Subject;
-import edu.hebtu.movingcampus.subject.base.ListOfNews;
 import edu.hebtu.movingcampus.subjects.CardSubject;
 import edu.hebtu.movingcampus.subjects.LibrarySubject;
 import edu.hebtu.movingcampus.subjects.LocalNewsSubject;
 import edu.hebtu.movingcampus.subjects.NewsSubject;
+import edu.hebtu.movingcampus.utils.LogUtil;
 
 /**
  * @author hippo
@@ -33,14 +31,16 @@ import edu.hebtu.movingcampus.subjects.NewsSubject;
  */
 public class IPreference {
 	private static volatile IPreference instance;
-	private static  String serilizeFile = Constants.PREFER_FILE + ".db";
+	private static  String serilizeFile = Constants.PREFER_FILE + ".db";
+	private User profile;
+
 	private HashMap<String, Subject> subjects=new HashMap<String, Subject>();
 
 	/**
 	 * Double checked locking not work on java1.4 and earlier!
 	 */
 	//单例模式
-	private IPreference(Activity context) {
+	private IPreference(Context context) {
 		try {
 			instance=load(context);
 		} catch (OptionalDataException e) {
@@ -81,7 +81,7 @@ public class IPreference {
 	/**
 	 * Double checked locking not work on java1.4 or earlier!
 	 */
-	public static IPreference getInstance(Activity context) {
+	public static IPreference getInstance(Context context) {
 		if (instance == null) {
 			synchronized (IPreference.class) {
 				if (instance == null)
@@ -98,14 +98,15 @@ public class IPreference {
 	 * @throws IOException
 	 * @parm context
 	 */
-	public static void save(Activity context) throws IOException {
+	public static void save(Context context) throws IOException {
 		FileOutputStream fos = context.openFileOutput(serilizeFile,
 				Context.MODE_PRIVATE);
 		ObjectOutputStream oo = new ObjectOutputStream(fos);
 		oo.writeObject(IPreference.getInstance(context));
+		oo.flush();
 		fos.close();
 		oo.close();
-		Log.d("board", "saved in" + serilizeFile);
+		LogUtil.d("board", "saved in" + serilizeFile);
 	}
 
 	/**
@@ -122,14 +123,12 @@ public class IPreference {
 			ClassNotFoundException, IOException {
 	
 		IPreference  obj=null;
-		if(new File(serilizeFile).exists()){	
-			FileInputStream fis = context.openFileInput(serilizeFile);
-			ObjectInputStream oi = new ObjectInputStream(fis);
-			obj = (IPreference) oi.readObject();
-			oi.close();
-			fis.close();
-			Log.d("board", "deserialize: " + instance.toString());
-		}
+		FileInputStream fis = context.openFileInput(serilizeFile);
+		ObjectInputStream oi = new ObjectInputStream(fis);
+		obj = (IPreference) oi.readObject();
+		oi.close();
+		fis.close();
+		LogUtil.d("board", "deserialize: " + instance.toString());
 		return obj;
 	}
 
@@ -169,6 +168,14 @@ public class IPreference {
 
 	public void addListOfNewsSubject(NewsSubject newsSubject) {
 		subjects.put(newsSubject.getTag(),newsSubject);
+	}
+
+	public User getProfile() {
+		return profile;
+	}
+
+	public void setProfile(User profile) {
+		this.profile = profile;
 	}
 
 }

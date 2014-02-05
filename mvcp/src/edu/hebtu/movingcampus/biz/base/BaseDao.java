@@ -9,6 +9,8 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.SerializationConfig.Feature;
 import org.codehaus.jackson.type.TypeReference;
 
+import edu.hebtu.movingcampus.utils.LogUtil;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.util.Log;
@@ -21,7 +23,7 @@ public abstract class BaseDao {
 		public Object readValue(String content, TypeReference ref) {
 			try {
 
-				Log.i("basedao", content.toString());
+				LogUtil.i("basedao", content.toString());
 				return super.readValue(content, ref);
 			} catch (JsonParseException e) {
 				e.printStackTrace();

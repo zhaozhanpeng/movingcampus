@@ -1,6 +1,8 @@
 package edu.hebtu.movingcampus.entity;
 
-public class BorrowedBook {
+import java.io.Serializable;
+
+public class BorrowedBook implements Serializable {
 	private String name;
 	private int fine;
 	private int reBorrow;

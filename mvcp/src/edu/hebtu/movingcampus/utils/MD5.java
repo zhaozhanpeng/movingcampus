@@ -35,7 +35,7 @@ public final class MD5 {
 		try {
 			sDigest = MessageDigest.getInstance(ALGORITHM);
 		} catch (NoSuchAlgorithmException e) {
-			Log.e(LOG_TAG, "Get MD5 Digest failed.");
+			LogUtil.e(LOG_TAG, "Get MD5 Digest failed.");
 			throw new UnsupportedDigestAlgorithmException(ALGORITHM, e);
 		}
 	}

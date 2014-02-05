@@ -45,12 +45,12 @@ public class CustomHttpURLConnection {
 			return result;
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
-			Log.e(TAG, "getFromWebByHttpUrlCOnnection:" + e.getMessage());
+			LogUtil.e(TAG, "getFromWebByHttpUrlCOnnection:" + e.getMessage());
 			e.printStackTrace();
 			return null;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			Log.e(TAG, "getFromWebByHttpUrlCOnnection:" + e.getMessage());
+			LogUtil.e(TAG, "getFromWebByHttpUrlCOnnection:" + e.getMessage());
 			e.printStackTrace();
 			return null;
 		}
@@ -91,7 +91,7 @@ public class CustomHttpURLConnection {
 			}
 			return result;
 		} catch (IOException ex) {
-			Log.e(TAG, "PostFromWebByHttpURLConnection：" + ex.getMessage());
+			LogUtil.e(TAG, "PostFromWebByHttpURLConnection：" + ex.getMessage());
 			ex.printStackTrace();
 			return null;
 		}

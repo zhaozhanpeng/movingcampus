@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import edu.hebtu.movingcampus.biz.CardDao;
 import edu.hebtu.movingcampus.config.Constants;
@@ -21,8 +22,7 @@ import edu.hebtu.movingcampus.subject.base.Subject;
  * @version 1.0
  * @created 14-Nov-2013 9:13:30 AM
  */
-public class CardSubject extends Subject implements OneofNews,
-		Serializable {
+public class CardSubject extends Subject implements OneofNews{
 
 	/**
 	 * 
@@ -35,7 +35,7 @@ public class CardSubject extends Subject implements OneofNews,
 	 * 
 	 * @param bean
 	 */
-	public CardSubject(Activity ac) {
+	public CardSubject(Context ac) {
 		SharedPreferences pre = ac.getSharedPreferences(
 				Constants.PREFER_FILE, 0);
 		CardSubject.loweast=pre.getInt(Constants.BALANCE_LOWEAST, 10);

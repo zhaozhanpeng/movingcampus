@@ -16,10 +16,11 @@
     <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
-    <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" >
+    </uses-permission>
 
     <application
         android:name="edu.hebtu.movingcampus.AppInfo"
@@ -29,8 +30,12 @@
         android:theme="@android:style/Theme.Light.NoTitleBar" >
 
         <!-- http://www.umeng.com/apps/7d9550d70ab04265112c5e25/appkey -->
-        <meta-data android:value="52e5c21156240ba07d0559d7" android:name="UMENG_APPKEY"/>
-	    <meta-data android:name="UMENG_CHANNEL" android:value="Default" /> 
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="52e5c21156240ba07d0559d7" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="Default" />
 
         <activity android:name="edu.hebtu.movingcampus.activity.login.SplashActivity" >
             <intent-filter>
@@ -45,6 +50,10 @@
         <activity android:name="edu.hebtu.movingcampus.activity.login.WhatsnewDoor" >
         </activity>
         <activity android:name="edu.hebtu.movingcampus.activity.MainActivity" >
+        </activity>
+        <activity
+            android:name="edu.hebtu.movingcampus.activity.LocalNewsActivity"
+            android:label="@string/title_activity_local_news" >
         </activity>
         <activity android:name="edu.hebtu.movingcampus.activity.wrapper.InfoCenterActivity" >
         </activity>
@@ -84,15 +93,14 @@
         </activity>
         <activity android:name="edu.hebtu.movingcampus.activity.setting.About" >
         </activity>
-        <activity android:name="edu.hebtu.movingcampus.activity.setting.Share_Quickmark">           
+        <activity android:name="edu.hebtu.movingcampus.activity.setting.Share_Quickmark" >
         </activity>
-        <activity android:name="edu.hebtu.movingcampus.activity.setting.FeedBack">           
+        <activity android:name="edu.hebtu.movingcampus.activity.setting.FeedBack" >
         </activity>
-        
-        
+
         <!-- umeng feedback -> umeng.com -->
-        <activity android:name="com.umeng.fb.ConversationActivity"/>
-        <activity android:name="com.umeng.fb.ContactActivity"/>
+        <activity android:name="com.umeng.fb.ConversationActivity" />
+        <activity android:name="com.umeng.fb.ContactActivity" />
 
         <receiver
             android:name="edu.hebtu.movingcampus.subjects.NetworkChangeReceiver"
@@ -103,7 +111,7 @@
             </intent-filter>
         </receiver>
 
-                <!-- push富媒体，不使用富媒体推送不需要 -->
+        <!-- push富媒体，不使用富媒体推送不需要 -->
         <activity
             android:name="com.baidu.android.pushservice.richmedia.MediaViewActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -167,6 +175,7 @@
         <meta-data
             android:name="api_key"
             android:value="jbjdLepGP51V4hfLn2tbbVVb" />
+
     </application>
 
 </manifest>

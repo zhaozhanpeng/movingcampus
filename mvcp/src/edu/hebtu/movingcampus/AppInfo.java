@@ -59,7 +59,7 @@ public class AppInfo extends FrontiaApplication{
 		// .tasksProcessingOrder(QueueProcessingType.FIFO) // default
 		// .defaultDisplayImageOptions(DisplayImageOptions.createSimple()) //
 		// default
-		// .enableLogging()
+		// .enableLogUtil.ing()
 		// .build();
 		// ImageLoader.getInstance().init(config);
 

@@ -19,7 +19,7 @@ public class CurrentVersion {
 					"edu.hebtu", 0).versionCode;
 			return i;
 		} catch (Exception localException) {
-			Log.e("config", localException.getMessage());
+			LogUtil.e("config", localException.getMessage());
 		}
 		return 1;
 	}
@@ -30,7 +30,7 @@ public class CurrentVersion {
 					"edu.hebtu", 0).versionName;
 			return str;
 		} catch (Exception localException) {
-			Log.e("config", localException.getMessage());
+			LogUtil.e("config", localException.getMessage());
 		}
 		return "";
 	}

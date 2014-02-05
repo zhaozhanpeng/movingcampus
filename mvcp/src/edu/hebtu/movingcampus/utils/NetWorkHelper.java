@@ -24,19 +24,19 @@ public class NetWorkHelper {
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
 
 		if (connectivity == null) {
-			Log.w(LOG_TAG, "couldn't get connectivity manager");
+			LogUtil.w(LOG_TAG, "couldn't get connectivity manager");
 		} else {
 			NetworkInfo[] info = connectivity.getAllNetworkInfo();
 			if (info != null) {
 				for (int i = 0; i < info.length; i++) {
 					if (info[i].isAvailable()) {
-						Log.d(LOG_TAG, "network is available");
+						LogUtil.d(LOG_TAG, "network is available");
 						return true;
 					}
 				}
 			}
 		}
-		Log.d(LOG_TAG, "network is not available");
+		LogUtil.d(LOG_TAG, "network is not available");
 		return false;
 	}
 
@@ -97,7 +97,7 @@ public class NetWorkHelper {
 		ConnectivityManager connectivity = (ConnectivityManager) context
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
 		if (connectivity == null) {
-			Log.w(LOG_TAG, "couldn't get connectivity manager");
+			LogUtil.w(LOG_TAG, "couldn't get connectivity manager");
 		} else {
 			NetworkInfo info = connectivity.getActiveNetworkInfo();
 			if (info != null
@@ -105,13 +105,13 @@ public class NetWorkHelper {
 				TelephonyManager tm = (TelephonyManager) context
 						.getSystemService(Context.TELEPHONY_SERVICE);
 				if (tm != null && tm.isNetworkRoaming()) {
-					Log.d(LOG_TAG, "network is roaming");
+					LogUtil.d(LOG_TAG, "network is roaming");
 					return true;
 				} else {
-					Log.d(LOG_TAG, "network is not roaming");
+					LogUtil.d(LOG_TAG, "network is not roaming");
 				}
 			} else {
-				Log.d(LOG_TAG, "not using mobile network");
+				LogUtil.d(LOG_TAG, "not using mobile network");
 			}
 		}
 		return false;

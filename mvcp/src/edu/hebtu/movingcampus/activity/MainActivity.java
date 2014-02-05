@@ -125,7 +125,7 @@ public class MainActivity extends BaseSlidingFragmentActivity {
 		int displayWidth = currDisplay.getWidth();
 		int displayHeight = currDisplay.getHeight();
 		one = displayWidth / 4;
-		// Log.i("info", "" + one + two + three + "X" + displayHeight);
+		// LogUtil.i("info", "" + one + two + three + "X" + displayHeight);
 		final ArrayList<View> views = new ArrayList<View>();
 
 		// InitImageView();//
@@ -258,8 +258,8 @@ public class MainActivity extends BaseSlidingFragmentActivity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				if (position == currIndex)
-					return;
+//				if (position == currIndex)
+//					return;
 				mTabPager.setCurrentItem(position);
 				if (lvTitle.getTag() != null) {
 					if (lvTitle.getTag() == view) {
@@ -418,14 +418,6 @@ public class MainActivity extends BaseSlidingFragmentActivity {
 	}
 
 
-	public void finalize(){
-		try {
-			IPreference.save(this);
-			super.finalize();
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
-	}
 
 	public int getCurrentIndex(){
 		return currIndex;

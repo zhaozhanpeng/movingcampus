@@ -53,9 +53,12 @@ public class NewsPageAdapter extends FragmentPagerAdapter {
 
 	@Override
 	public int getItemPosition(Object object) {
-		for(int i=0;i<fragments.length;i++)
+		for(int i=0;i<fragments.length;i++){
+			if(fragments[i]==null)
+				getItem(i);
 			if(fragments[i].equals(object))
 				return i;
+		}
 		return POSITION_NONE;
 	}
 
