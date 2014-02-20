@@ -132,7 +132,7 @@ public class ImageUtil {
 	private static Bitmap getImageFromDB(String imagePath, String imageUrl,
 			DBHelper dbHelper) {
 		Cursor cursor = queryFromDbByImgUrl(dbHelper, imageUrl);
-		if (cursor.moveToFirst()) {
+		if (cursor!=null&&cursor.moveToFirst()) {
 			long currTimestamp = (new Date()).getTime();
 			long timestamp = cursor.getLong(cursor
 					.getColumnIndex(ImageCacheColumn.TIMESTAMP));
@@ -146,6 +146,7 @@ public class ImageUtil {
 				return null;
 			} else {
 				// 没过期
+				cursor.close();
 				return getImageFromLocal(imagePath);
 			}
 		} else {

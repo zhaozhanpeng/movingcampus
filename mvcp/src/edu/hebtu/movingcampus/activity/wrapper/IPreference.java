@@ -32,6 +32,7 @@ import edu.hebtu.movingcampus.utils.LogUtil;
 public class IPreference {
 	private static volatile IPreference instance;
 	private static  String serilizeFile = Constants.PREFER_FILE + ".db";
+	private static SharedPreferences pre;
 	private User profile;
 
 	private HashMap<String, Subject> subjects=new HashMap<String, Subject>();
@@ -53,7 +54,7 @@ public class IPreference {
 		if(instance==null) instance = this;
 		else return;
 		// TODO,settings,for debug
-		SharedPreferences pre = context.getSharedPreferences(
+		pre = context.getSharedPreferences(
 				Constants.PREFER_FILE, 0);
 		SharedPreferences.Editor editor= pre.edit();
 		//本地信息
@@ -132,6 +133,20 @@ public class IPreference {
 		return obj;
 	}
 
+	/**
+	 * 得到相应主题的新闻列表,id范围0是本地推送的新闻,1-...是主题新闻
+	 * @return  新闻列表项
+	 */
+	public List<ListOfNews> getListOfNewsSubject() {
+		List<ListOfNews> list=new ArrayList<ListOfNews>();
+		for (int i = 1; i < NewsType.values().length; i++) {
+			if (pre.getBoolean("news_" + i, true)) {
+				NewsSubject s=new NewsSubject(NewsType.values()[i]);
+				list.add((ListOfNews) subjects.get(s.getTag())); // 每次接受20条|默认,学校新闻...
+			}
+		}
+		return list;
+	}
 
 	/**
 	 * 得到相应主题的新闻列表,id范围0是本地推送的新闻,1-...是主题新闻

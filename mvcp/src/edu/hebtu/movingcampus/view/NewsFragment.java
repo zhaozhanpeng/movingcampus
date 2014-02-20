@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,82 +22,85 @@ import edu.hebtu.movingcampus.activity.wrapper.IPreference;
 import edu.hebtu.movingcampus.adapter.NewsListAdapter;
 import edu.hebtu.movingcampus.biz.NewsDao;
 import edu.hebtu.movingcampus.entity.NewsShort;
-import edu.hebtu.movingcampus.utils.LogUtil;
+import edu.hebtu.movingcampus.subject.base.ListOfNews;
 import edu.hebtu.movingcampus.utils.TimeUtil;
+import edu.hebtu.movingcampus.widget.XListView;
 
 @SuppressLint({ "NewApi", "SimpleDateFormat" })
 public class NewsFragment extends BaseListFragment {
 
 	public Activity mActivity;
 	private String page;
-	public boolean loaded=false;
+	public boolean loaded = false;
 	private NewsListAdapter mAdapter;
-	private List<NewsShort>loadMoreEntity;
+	private List<NewsShort> loadMoreEntity;
 	private List<NewsShort> mlist;
 	private static SimpleDateFormat mDateFormat;
 	private TimeUtil timer;
 
 	// private DisplayImageOptions options;
 	static {
-			Looper.prepare();
+		Looper.prepare();
 	}
-	private Handler mHandler = new Handler() {
-		@Override
-		public void handleMessage(Message msg) {
-			super.handleMessage(msg);
-			switch (msg.what) {
-			case 0:
-				updateTextTime();
-				mAdapter.appendToList(loadMoreEntity);
-				loaded=true;
-				break;
-			case 1:
-				loaded=true;
-				listview.getFooterView().updateFooterTextNoMore();
-				break;
-				
-				default :
-					loaded=false;
+	private Handler mHandler;
+
+	@Override
+	public void onAttach(Activity ac) {
+		super.onAttach(ac);
+		mHandler = new Handler() {
+			@Override
+			public void handleMessage(Message msg) {
+				super.handleMessage(msg);
+				switch (msg.what) {
+				case 0:
+					updateTextTime();
+					mAdapter.appendToList(loadMoreEntity);
+					loaded = true;
 					break;
+				case 1:
+					loaded = true;
+					listview.getFooterView().updateFooterTextNoMore();
+					break;
+	
+				default:
+					loaded = false;
+					break;
+				}
+				onStopLoad();
 			}
-			onStopLoad();
-		}
-
-	};
-
-	// add this constructor by King0769, 2013/5/7
-	// in order to solve an exception that "can't instantiate class cn.eoe.app.view.NewsFragment; no empty constructor"
-	// I found it in this case : 1.open eoe program -> 2.change system language -> 3.reopen eoe, can see FC(force close)
-	// I think this bug will happens in many cases.
-	public NewsFragment() {
-		super();
-		page="0";
+	
+		};
 		if (mDateFormat == null) {
 			mDateFormat = new SimpleDateFormat("MM月dd日");
 		}
+		this.mActivity = ac;
+		view = ac.getLayoutInflater().inflate(R.layout.newsxlist, null,false);
+		listview = (XListView) view.findViewById(R.id.list_view);
+		mlist=IPreference.getInstance(ac).getListOfNewsSubjectByID(Integer.parseInt(page)+1).dump(ac);
+		mAdapter = new NewsListAdapter(ac, R.layout.news_item, listview, mlist);
 	}
-	//--------------------
-	public static NewsFragment getInstance(String page,Activity activty){
-		NewsFragment nf=new NewsFragment();
-		nf.mActivity=activty;
-		nf.page=page;
-		LogUtil.w("page", page+"");
-		nf.mlist=IPreference.getInstance(activty).getListOfNewsSubjectByID(Integer.parseInt(page)+1).dump(activty);
+
+	public static NewsFragment getInstance(String page, Activity activty) {
+		NewsFragment nf = new NewsFragment();
+		nf.page = page;
+		nf.onAttach(activty);
 		return nf;
 	}
 
-
 	private void updateTextTime() {
 		boolean isAdded = isAdded();
-		if (!isAdded) {//avoid java.lang.IllegalStateException: Fragment BaseFragment{44b01260} not attached to Activity
+		if (!isAdded) {// avoid java.lang.IllegalStateException: Fragment
+						// BaseFragment{44b01260} not attached to Activity
 			return;
 		}
-		if(timer.getUpdateTime()== 0) {//初始化更新
-			listview.setRefreshTime(getResources().getString(R.string.listview_header_last_time));
-		} else {//其他
-			long diffTimeSecs = (System.currentTimeMillis() - timer.getUpdateTime()) / 1000;
-			//1min = 60s ; 1h = 60min
-			if (diffTimeSecs < 3600) {//一小时内，显示分钟
+		if (timer.getUpdateTime() == 0) {// 初始化更新
+			listview.setRefreshTime(getResources().getString(
+					R.string.listview_header_last_time));
+		} else {// 其他
+			long diffTimeSecs = (System.currentTimeMillis() - timer
+					.getUpdateTime()) / 1000;
+			// 1min = 60s ; 1h = 60min
+			if (diffTimeSecs < 3600) {// 一小时内，显示分钟
 				Resources resources = getResources();
 				if (resources != null) {
 					listview.setRefreshTime(resources.getString(
@@ -105,12 +109,19 @@ public class NewsFragment extends BaseListFragment {
 				}
 			} else {
 				long diffTimeHours = diffTimeSecs / 3600;
-				if(diffTimeHours < 24) {//一天内更新，显示小时
-					listview.setRefreshTime(getResources().getString( R.string.listview_header_last_time_for_hour, diffTimeHours));
-				} else if(diffTimeHours == 24) {//一天更新，显示1天
-					listview.setRefreshTime(getResources().getString( R.string.listview_header_last_time_for_day, 1));
-				} else {//大于24小时显示xx月xx日
-					listview.setRefreshTime(getResources().getString( R.string.listview_header_last_time_for_date, mDateFormat.format(new Date(timer.getUpdateTime()))));
+				if (diffTimeHours < 24) {// 一天内更新，显示小时
+					listview.setRefreshTime(getResources().getString(
+							R.string.listview_header_last_time_for_hour,
+							diffTimeHours));
+				} else if (diffTimeHours == 24) {// 一天更新，显示1天
+					listview.setRefreshTime(getResources().getString(
+							R.string.listview_header_last_time_for_day, 1));
+				} else {// 大于24小时显示xx月xx日
+					listview.setRefreshTime(getResources()
+							.getString(
+									R.string.listview_header_last_time_for_date,
+									mDateFormat.format(new Date(timer
+											.getUpdateTime()))));
 				}
 			}
 		}
@@ -121,13 +132,12 @@ public class NewsFragment extends BaseListFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
-		timer=new TimeUtil(getActivity(), getClass().getName()+"page");
+		timer = new TimeUtil(mActivity, getClass().getName() + "page");
 		updateTextTime();
 		listview.setXListViewListener(this);
 		listview.setPullRefreshEnable(true);
 		listview.setPullLoadEnable(true);
 		// construct the RelativeLayout
-		mAdapter = new NewsListAdapter(mActivity, R.layout.news_item, listview,mlist);
 		mAdapter.appendToList(loadMoreEntity);
 		listview.setAdapter(mAdapter);
 		listview.setOnItemClickListener(new OnItemClickListener() {
@@ -135,16 +145,15 @@ public class NewsFragment extends BaseListFragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				NewsShort item = (NewsShort) mAdapter
-						.getItem(position);
-				startDetailActivity(mActivity, item.getID()+"");
+				NewsShort item = (NewsShort) mAdapter.getItem(position);
+				startDetailActivity(mActivity, item.getID() + "");
 			}
 		});
 		return view;
 	}
 
-	public boolean toBeLoad(){
-		return mAdapter.getList()==null||mAdapter.getList().size()==0;
+	public boolean toBeLoad() {
+		return mAdapter.getList() == null || mAdapter.getList().size() == 0;
 	}
 
 	/**
@@ -156,12 +165,11 @@ public class NewsFragment extends BaseListFragment {
 		mAdapter.getList().clear();
 		onLoadMore();
 	}
-	
-	public List<NewsShort> onLoad(){
-		loadMoreEntity=new NewsDao(mActivity).mapperJson(true,(Integer.parseInt(page)+1)+"", (mlist.size()+1)+"",null);
-		if (loadMoreEntity!= null) {
-			mHandler.sendEmptyMessage(0);
-		}
+
+	public List<NewsShort> onLoad() {
+		loadMoreEntity = new NewsDao(mActivity).mapperJson(true,
+				(Integer.parseInt(page) + 1) + "", (mlist.size() + 1)
+						+ "", null);
 		return loadMoreEntity;
 	}
 
@@ -170,17 +178,34 @@ public class NewsFragment extends BaseListFragment {
 		new Thread() {
 			@Override
 			public void run() {
-				loadMoreEntity=new NewsDao(mActivity).mapperJson(true,(Integer.parseInt(page)+1)+"", (mlist.size()+1)+"",null);
-				if (loadMoreEntity!= null) {
+				loadMoreEntity = new NewsDao(mActivity).mapperJson(true,
+						(Integer.parseInt(page) + 1) + "", (mlist.size() + 1)
+								+ "", null);
+				if (loadMoreEntity != null) {
 					mHandler.sendEmptyMessage(0);
-				}else mHandler.sendEmptyMessage(1);
+				} else
+					mHandler.sendEmptyMessage(1);
 				super.run();
 			}
 		}.start();
 	}
 
-	public String getPage(){
+	public String getPage() {
 		return page;
 	}
 
+	@Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (view != null) {
+            ViewGroup parentViewGroup = (ViewGroup) view.getParent();
+            if (parentViewGroup != null) {
+                parentViewGroup.removeAllViews();
+            }
+        }
+    }
+
+	public NewsListAdapter getAdapter(){
+		return mAdapter;
+	}
 }

@@ -14,26 +14,27 @@ import edu.hebtu.movingcampus.entity.User;
  * @version 1.0
  * @created 14-Nov-2013 9:13:32 AM
  */
-public class AppInfo extends FrontiaApplication{
+public class AppInfo extends FrontiaApplication {
 	// 显示哪一学年
 	private static String studyYear = "2013-2014";
 	// 显示哪一学期
 	private static String term = "2";
 	// 会话用户
-		private static User user;
+	private static User user;
 
-		public static File cacheDir;
-	
+	public static File cacheDir;
+
 	/**
 	 * @return the studyYear
 	 */
 	public static String getStudyYear() {
-		
+
 		return studyYear;
 	}
 
 	/**
-	 * @param studyYear the studyYear to set
+	 * @param studyYear
+	 *            the studyYear to set
 	 */
 	public static void setStudyYear(String studyYear) {
 		AppInfo.studyYear = studyYear;
@@ -46,12 +47,13 @@ public class AppInfo extends FrontiaApplication{
 		Calendar calender = Calendar.getInstance();
 		int year = Integer.valueOf(calender.get(Calendar.YEAR));
 		int month = Integer.valueOf(calender.get(Calendar.MONTH));
-		if(month<8){
-			AppInfo.studyYear = (year-1)+"-"+year;
-		}else{
-			AppInfo.studyYear = year+"-"+(year+1);
+		if (month < 8) {
+			AppInfo.studyYear = (year - 1) + "-" + year;
+		} else {
+			AppInfo.studyYear = year + "-" + (year + 1);
 		}
 	}
+
 	/**
 	 * @return the term
 	 */
@@ -60,31 +62,30 @@ public class AppInfo extends FrontiaApplication{
 	}
 
 	/**
-	 * @param term the term to set
+	 * @param term
+	 *            the term to set
 	 */
 	public static void setTerm(String term) {
 		AppInfo.term = term;
 	}
-	
+
 	/**
 	 * @aime 获取学期
 	 */
 	public static void setTerm() {
 		Calendar calender = Calendar.getInstance();
 		int month = Integer.valueOf(calender.get(Calendar.MONTH));
-		if(month<8){
+		if (month < 8) {
 			AppInfo.term = "2";
-		}else{
+		} else {
 			AppInfo.term = "1";
 		}
-		
-	}
 
+	}
 
 	public static User getUser() {
 		return user;
 	}
-
 
 	public static void setUser(User paramUser) {
 		user = paramUser;
@@ -94,7 +95,8 @@ public class AppInfo extends FrontiaApplication{
 	public void onCreate() {
 		// TODO Auto-generated method stub
 		super.onCreate();
-		cacheDir=new File(getApplicationContext().getCacheDir().getAbsolutePath());
+		cacheDir = new File(getApplicationContext().getCacheDir()
+				.getAbsolutePath());
 
 		// if (!CommonUtil.sdCardIsAvailable()) { // sdcard not available
 		// cacheDir = new File(Environment.getDataDirectory().getAbsolutePath()

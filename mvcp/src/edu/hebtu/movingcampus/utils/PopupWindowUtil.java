@@ -16,9 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.PopupWindow;
 import edu.hebtu.movingcampus.R;
-import edu.hebtu.movingcampus.entity.CategorysEntity;
+import edu.hebtu.movingcampus.activity.wrapper.IPreference;
 import edu.hebtu.movingcampus.enums.NewsType;
-import edu.hebtu.movingcampus.view.NewsFragment;
 
 public class PopupWindowUtil<T> implements OnClickListener {
 	private PopupWindow popupWindow;
@@ -66,7 +65,7 @@ public class PopupWindowUtil<T> implements OnClickListener {
 		layout.setOrientation(LinearLayout.VERTICAL);
 		layout.setBackgroundResource(R.drawable.back_popup_more);
 		for (int i = 0; i < tabs.size(); i++) {
-			String name = NewsType.values()[i+1].getDesc();
+			String name = IPreference.getInstance(context).getListOfNewsSubject().get(i).getDesc();
 			Button btn = getButton(context, name, i);
 			if (i != tabs.size() - 1) {
 				ImageView img = getImageView(context);

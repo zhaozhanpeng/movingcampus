@@ -10,13 +10,11 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import edu.hebtu.movingcampus.R;
 import edu.hebtu.movingcampus.activity.NewsDetailsActivity;
 import edu.hebtu.movingcampus.utils.ImageUtil;
 import edu.hebtu.movingcampus.utils.ImageUtil.ImageCallback;
@@ -41,8 +39,6 @@ public abstract class BaseListFragment extends Fragment implements
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		mInflater = inflater;
-		view = inflater.inflate(R.layout.newsxlist, null);
-		listview = (XListView) view.findViewById(R.id.list_view);
 		initListView();
 		listview.setPullLoadEnable(true);
 		listview.setPullRefreshEnable(false);

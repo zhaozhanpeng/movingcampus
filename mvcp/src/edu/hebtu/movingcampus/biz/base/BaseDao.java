@@ -23,7 +23,7 @@ public abstract class BaseDao {
 		public Object readValue(String content, TypeReference ref) {
 			try {
 
-				LogUtil.i("basedao", content.toString());
+				LogUtil.w("basedao", content.toString());
 				return super.readValue(content, ref);
 			} catch (JsonParseException e) {
 				e.printStackTrace();

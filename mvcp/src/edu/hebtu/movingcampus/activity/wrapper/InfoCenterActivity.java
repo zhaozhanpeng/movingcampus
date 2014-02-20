@@ -6,6 +6,7 @@ import org.apache.http.message.BasicNameValuePair;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Looper;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.MotionEvent;
@@ -132,7 +133,7 @@ public class InfoCenterActivity implements OnClickListener, AnimationListener,
 			break;
 		case R.id.imageview_above_more:
 			if (isShowPopupWindows) {
-				new PopupWindowUtil<Fragment>(mViewPager).showActionWindow(v,
+				new PopupWindowUtil<NewsFragment>(mViewPager).showActionWindow(v,
 						mainActivity, mBasePageAdapter.getFragments());
 			}
 			break;
@@ -209,6 +210,7 @@ public class InfoCenterActivity implements OnClickListener, AnimationListener,
 	public class MyTask extends AsyncTask<Void, String, List<NewsShort>> {
 
 		private boolean mUseCache;
+		private NewsFragment nf;
 
 		public MyTask() {
 			mUseCache = true;
@@ -231,7 +233,9 @@ public class InfoCenterActivity implements OnClickListener, AnimationListener,
 
 		@Override
 		protected List<NewsShort> doInBackground(Void... params) {
-			return ((NewsFragment)mBasePageAdapter.getItem(Integer.parseInt(current_page))).onLoad();
+			nf=(NewsFragment)mBasePageAdapter.getItem(Integer.parseInt(current_page));
+			assert(nf!=null);
+			return nf.onLoad();
 		}
 
 		@Override
@@ -248,9 +252,11 @@ public class InfoCenterActivity implements OnClickListener, AnimationListener,
 				loadLayout.setVisibility(View.GONE);
 				loadFaillayout.setVisibility(View.VISIBLE);
 			}
+			nf.getAdapter().appendToList(result);
 			mViewPager.setVisibility(View.VISIBLE);
 			mBasePageAdapter.notifyDataSetChanged();
 			mIndicator.notifyDataSetChanged();
+			mIndicator.setCurrentItem(Integer.parseInt(current_page));
 		}
 	}
 
@@ -309,23 +315,24 @@ public class InfoCenterActivity implements OnClickListener, AnimationListener,
 
 	@Override
 	public void onAnimationStart(Animation animation) {
-		title.setVisibility(View.VISIBLE);
-		if (mIsTitleHide) {
-			FrameLayout.LayoutParams lp = (LayoutParams) mlinear_listview
-					.getLayoutParams();
-			lp.setMargins(0, 0, 0, 0);
-			mlinear_listview.setLayoutParams(lp);
-		} else {
-			FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) title
-					.getLayoutParams();
-			lp.setMargins(0, 0, 0, 0);
-			title.setLayoutParams(lp);
-			FrameLayout.LayoutParams lp1 = (LayoutParams) mlinear_listview
-					.getLayoutParams();
-			lp1.setMargins(0, mainActivity.getResources()
-					.getDimensionPixelSize(R.dimen.title_height), 0, 0);
-			mlinear_listview.setLayoutParams(lp1);
-		}
+		//TODO
+//		title.setVisibility(View.VISIBLE);
+//		if (mIsTitleHide) {
+//			FrameLayout.LayoutParams lp = (LayoutParams) mlinear_listview
+//					.getLayoutParams();
+//			lp.setMargins(0, 0, 0, 0);
+//			mlinear_listview.setLayoutParams(lp);
+//		} else {
+//			FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) title
+//					.getLayoutParams();
+//			lp.setMargins(0, 0, 0, 0);
+//			title.setLayoutParams(lp);
+//			FrameLayout.LayoutParams lp1 = (LayoutParams) mlinear_listview
+//					.getLayoutParams();
+//			lp1.setMargins(0, mainActivity.getResources()
+//					.getDimensionPixelSize(R.dimen.title_height), 0, 0);
+//			mlinear_listview.setLayoutParams(lp1);
+//		}
 	}
 
 	private float lastX = 0;
@@ -333,8 +340,8 @@ public class InfoCenterActivity implements OnClickListener, AnimationListener,
 
 	@Override
 	public void onDataEnabled() {
-		// TODO Auto-generated method stub
-
+		if(((NewsFragment)mBasePageAdapter.getItem(Integer.parseInt(current_page))).toBeLoad())
+			new MyTask().execute();
 	}
 
 	@Override
@@ -351,8 +358,6 @@ public class InfoCenterActivity implements OnClickListener, AnimationListener,
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

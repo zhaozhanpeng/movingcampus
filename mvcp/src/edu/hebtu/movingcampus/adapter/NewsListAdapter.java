@@ -28,12 +28,10 @@ public class NewsListAdapter extends AdapterBase<NewsShort> {
 	private Context context;
 	private int rowlayout;
 	private ListView list;
-	//private NewsFragment fragment;
 	private edu.hebtu.movingcampus.utils.ImageUtil.ImageCallback callback1 = new ImageCallback() {
 
 		@Override
 		public void loadImage(Bitmap bitmap, String imagePath) {
-			// TODO Auto-generated method stub
 			try {
 				ImageView img = (ImageView) list.findViewWithTag(imagePath);
 				img.setImageBitmap(bitmap);
@@ -59,14 +57,12 @@ public class NewsListAdapter extends AdapterBase<NewsShort> {
 		this.list=list;
 		this.context = context;
 		this.rowlayout = resourceId;
-		//this.fragment=fragment;
 	}
 
 	// position MK
 	@Override
 	public long getItemId(int position) {
 		// return ((News)getItem(position)).getId();
-		// ?
 		return mList.get(position).getID();
 	}
 
@@ -95,7 +91,6 @@ public class NewsListAdapter extends AdapterBase<NewsShort> {
 
 		// show
 		holder.title.setText(news.getTitle());
-		//TODO
 		holder.source.setText("教务处");
 		holder.content.setText(news.getContent());
 		if(news.getDate()!=null)
@@ -105,10 +100,14 @@ public class NewsListAdapter extends AdapterBase<NewsShort> {
 		if (img_url==null || img_url.equals("")) {
 			//TODO default image icon for test
 			holder.icon.setVisibility(View.VISIBLE);
+			ImageUtil.setThumbnailView( 
+					"https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTgZ4gQjC_htRquBKoItqrWlYDbNbUnvmpBjCAjSTa27o3Tq8Fz"
+					, holder.icon, context,
+					callback1, true);
 		} else {
 			holder.icon.setVisibility(View.VISIBLE);
 			ImageUtil.setThumbnailView( 
-					"http://t3.baidu.com/it/u=4287900930,2181484254&fm=21&gp=0.jpg"
+					"https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTgZ4gQjC_htRquBKoItqrWlYDbNbUnvmpBjCAjSTa27o3Tq8Fz"
 					, holder.icon, context,
 					callback1, true);
 		}

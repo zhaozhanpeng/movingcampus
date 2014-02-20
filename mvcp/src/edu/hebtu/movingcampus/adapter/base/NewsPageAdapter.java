@@ -1,15 +1,16 @@
 package edu.hebtu.movingcampus.adapter.base;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.util.Log;
 import android.view.ViewGroup;
-import edu.hebtu.movingcampus.enums.NewsType;
+import edu.hebtu.movingcampus.activity.wrapper.IPreference;
+import edu.hebtu.movingcampus.subject.base.ListOfNews;
 import edu.hebtu.movingcampus.view.NewsFragment;
 
 public class NewsPageAdapter extends FragmentPagerAdapter {
@@ -17,30 +18,29 @@ public class NewsPageAdapter extends FragmentPagerAdapter {
 
 	private NewsFragment[] fragments;
 	private Activity mActivity;
+	private Context context;
+	private List<ListOfNews> list;
 
 	public NewsPageAdapter(FragmentActivity activity) {
 		super(activity.getSupportFragmentManager());
 		this.mActivity = activity;
-		fragments=new  NewsFragment[NewsType.values().length-1];
+		this.context=activity;
+		this.list= IPreference.getInstance(context).getListOfNewsSubject();
+
+		this.fragments=new  NewsFragment[list.size()];
 	}
 
-	public List<Fragment> getFragments(){
-		List<Fragment> l=new ArrayList<Fragment>();
-		for (Fragment fragment : fragments) 
-			l.add(fragment);
-		return l;
-	}
 
 	@Override
 	public CharSequence getPageTitle(int position) {
-		return NewsType.values()[position+1].getDesc();
+		return list.get(position).getDesc();
 	}
 
 	@Override
 	public Fragment getItem(int arg0) {
 		NewsFragment fragment = fragments[arg0];
 		if (fragment == null) {
-			fragment=NewsFragment.getInstance(arg0+"", mActivity);
+			fragment=NewsFragment.getInstance(list.get(arg0).getId()-1+"", mActivity);
 			return fragments[arg0] = fragment;
 		}
 		return fragment;
@@ -48,7 +48,9 @@ public class NewsPageAdapter extends FragmentPagerAdapter {
 
 	@Override
 	public int getCount() {
-		return fragments.length;
+		list= IPreference.getInstance(context).getListOfNewsSubject();
+		fragments = new  NewsFragment[list.size()];
+		return list.size();
 	}
 
 	@Override
@@ -67,5 +69,11 @@ public class NewsPageAdapter extends FragmentPagerAdapter {
 	@Override
 	public void destroyItem(ViewGroup container, int position, Object object) {
 		super.destroyItem(container, position, object);
+	}
+
+
+	public List<NewsFragment> getFragments() {
+		getCount();
+		return Arrays.asList(fragments);
 	}
 }
