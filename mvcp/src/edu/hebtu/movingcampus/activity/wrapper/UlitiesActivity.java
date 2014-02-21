@@ -8,7 +8,9 @@ import android.os.Message;
 import android.view.Menu;
 import android.view.View;
 import edu.hebtu.movingcampus.R;
+import edu.hebtu.movingcampus.activity.LocationManagerSoso;
 import edu.hebtu.movingcampus.activity.MainActivity;
+import edu.hebtu.movingcampus.activity.StreeViewSoso;
 import edu.hebtu.movingcampus.activity.base.PageWraper;
 
 public class UlitiesActivity implements Handler.Callback, PageWraper {
@@ -46,12 +48,14 @@ public class UlitiesActivity implements Handler.Callback, PageWraper {
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View paramAnonymousView) {
+						mainActivity.startActivity(new Intent(mainActivity, StreeViewSoso.class));
 					}
 				});
 		content.findViewById(R.id.ulities_map).setOnClickListener(
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View paramAnonymousView) {
+						mainActivity.startActivity(new Intent(mainActivity, LocationManagerSoso.class));
 					}
 				});
 	}

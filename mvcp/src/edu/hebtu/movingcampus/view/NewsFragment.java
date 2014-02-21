@@ -39,10 +39,10 @@ public class NewsFragment extends BaseListFragment {
 	private TimeUtil timer;
 
 	// private DisplayImageOptions options;
+	private Handler mHandler;
 	static {
 		Looper.prepare();
 	}
-	private Handler mHandler;
 
 	@Override
 	public void onAttach(Activity ac) {

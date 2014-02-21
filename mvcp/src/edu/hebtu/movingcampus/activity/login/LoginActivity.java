@@ -173,11 +173,17 @@ public class LoginActivity extends BaseActivity {
 
 	private void toHome() {
 		// 得到用户名和密码
-
+		try {
+			if (!NetWorkHelper .isMobileDataEnable(this) && !NetWorkHelper.isWifiDataEnable(this)) {
+				Toast.makeText(this,"您暂时没有可用的网络,请检查网络", 0).show();
+				return;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		mRunningTask=new LoginTask(dao);
 		mRunningTask.execute(new Object[] { new Object() });
 		// 向服务器发送请求，得到返回的值（User类对象）
-
 	}// toHome()函数结束
 
 	@Override

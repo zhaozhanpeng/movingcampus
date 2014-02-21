@@ -316,23 +316,23 @@ public class InfoCenterActivity implements OnClickListener, AnimationListener,
 	@Override
 	public void onAnimationStart(Animation animation) {
 		//TODO
-//		title.setVisibility(View.VISIBLE);
-//		if (mIsTitleHide) {
-//			FrameLayout.LayoutParams lp = (LayoutParams) mlinear_listview
-//					.getLayoutParams();
-//			lp.setMargins(0, 0, 0, 0);
-//			mlinear_listview.setLayoutParams(lp);
-//		} else {
-//			FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) title
-//					.getLayoutParams();
-//			lp.setMargins(0, 0, 0, 0);
-//			title.setLayoutParams(lp);
-//			FrameLayout.LayoutParams lp1 = (LayoutParams) mlinear_listview
-//					.getLayoutParams();
-//			lp1.setMargins(0, mainActivity.getResources()
-//					.getDimensionPixelSize(R.dimen.title_height), 0, 0);
-//			mlinear_listview.setLayoutParams(lp1);
-//		}
+		title.setVisibility(View.VISIBLE);
+		if (mIsTitleHide) {
+			FrameLayout.LayoutParams lp = (LayoutParams) mlinear_listview
+					.getLayoutParams();
+			lp.setMargins(0, 0, 0, 0);
+			mlinear_listview.setLayoutParams(lp);
+		} else {
+			FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) title
+					.getLayoutParams();
+			lp.setMargins(0, 0, 0, 0);
+			title.setLayoutParams(lp);
+			FrameLayout.LayoutParams lp1 = (LayoutParams) mlinear_listview
+					.getLayoutParams();
+			lp1.setMargins(0, mainActivity.getResources()
+					.getDimensionPixelSize(R.dimen.title_height), 0, 0);
+			mlinear_listview.setLayoutParams(lp1);
+		}
 	}
 
 	private float lastX = 0;
