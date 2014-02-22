@@ -40,13 +40,14 @@ public class NewsFragment extends BaseListFragment {
 
 	// private DisplayImageOptions options;
 	private Handler mHandler;
-	static {
-		Looper.prepare();
-	}
 
 	@Override
 	public void onAttach(Activity ac) {
 		super.onAttach(ac);
+		try{
+			//TODO
+			Looper.prepare();
+		}catch (Exception e){}
 		mHandler = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {

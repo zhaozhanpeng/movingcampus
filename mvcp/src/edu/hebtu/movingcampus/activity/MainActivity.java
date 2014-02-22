@@ -234,6 +234,8 @@ public class MainActivity extends BaseSlidingFragmentActivity {
 	}
 
 	// 初始化左侧菜单列表按Mainactivity 中currentInx指定
+	private View converview;
+	private ViewGroup parent; 
 	private void initListView() {
 		lvAdapter = new SimpleAdapter(this, getData(),
 				R.layout.behind_list_show, new String[] { LIST_TEXT,
@@ -243,6 +245,8 @@ public class MainActivity extends BaseSlidingFragmentActivity {
 			@Override
 			public View getView(int position, View convertView, ViewGroup parent) {
 				// TODO Auto-generated method stub.
+				MainActivity.this.converview=convertView;
+				MainActivity.this.parent=parent;
 				View view = super.getView(position, convertView, parent);
 				if (position == currIndex) {
 					view.setBackgroundResource(R.drawable.back_behind_list);
@@ -301,15 +305,18 @@ public class MainActivity extends BaseSlidingFragmentActivity {
 			else
 				return;
 			wrapers.get(currIndex).onPause();
+
+			// TODO menu 选择 滑动
+			lvAdapter.getView(currIndex, null, null).setBackgroundResource(Color.TRANSPARENT);
+			lvAdapter.getView(arg0, null, null).setBackgroundColor(R.drawable.back_behind_list);
+			lvAdapter.notifyDataSetChanged();
+
 			currIndex = arg0;
 			animation.setFillAfter(true);
 			animation.setDuration(Math.abs(currIndex - arg0) * 500);
 			// mTabImg.startAnimation(animation);
 			wrapers.get(arg0).onResume();
 
-			// TODO menu 选择 滑动
-			// lvTitle.getOnItemClickListener().onItemClick(null, null,
-			// currIndex , (Long) null);
 
 			// 最左侧pager让右滑出现左侧栏,其他pager左右滑切换pager
 			if (currIndex == 0&&Integer.parseInt(InfoCenterActivity.current_page)==0)
