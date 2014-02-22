@@ -6,12 +6,14 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OptionalDataException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import edu.hebtu.movingcampus.biz.base.BaseDao;
 import edu.hebtu.movingcampus.config.Constants;
 import edu.hebtu.movingcampus.entity.User;
 import edu.hebtu.movingcampus.enums.NewsType;
@@ -29,9 +31,13 @@ import edu.hebtu.movingcampus.utils.LogUtil;
  * @version 1.0
  * @created 14-Nov-2013 9:13:32 AM
  */
-public class IPreference {
-	private static volatile IPreference instance;
-	private static  String serilizeFile = Constants.PREFER_FILE + ".db";
+public class IPreference implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private static IPreference instance;
+	private static  final String serilizeFile = Constants.PREFER_FILE + ".db";
 	private static SharedPreferences pre;
 	private User profile;
 
@@ -42,17 +48,6 @@ public class IPreference {
 	 */
 	//单例模式
 	private IPreference(Context context) {
-		try {
-			instance=load(context);
-		} catch (OptionalDataException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		if(instance==null) instance = this;
-		else return;
 		// TODO,settings,for debug
 		pre = context.getSharedPreferences(
 				Constants.PREFER_FILE, 0);
@@ -83,6 +78,19 @@ public class IPreference {
 	 * Double checked locking not work on java1.4 or earlier!
 	 */
 	public static IPreference getInstance(Context context) {
+		if(instance==null){
+			try {
+				instance=load(context);
+				pre = context.getSharedPreferences(
+						Constants.PREFER_FILE, 0);
+			} catch (OptionalDataException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		if (instance == null) {
 			synchronized (IPreference.class) {
 				if (instance == null)
@@ -129,7 +137,7 @@ public class IPreference {
 		obj = (IPreference) oi.readObject();
 		oi.close();
 		fis.close();
-		LogUtil.d("board", "deserialize: " + instance.toString());
+		LogUtil.d("board", "deserialize: " + obj.getClass().getName());
 		return obj;
 	}
 

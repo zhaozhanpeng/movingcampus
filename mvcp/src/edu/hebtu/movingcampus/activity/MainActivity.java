@@ -47,6 +47,7 @@ import edu.hebtu.movingcampus.activity.wrapper.InfoCenterActivity;
 import edu.hebtu.movingcampus.activity.wrapper.StudyResourceActivity;
 import edu.hebtu.movingcampus.activity.wrapper.UlitiesActivity;
 import edu.hebtu.movingcampus.slidingmenu.SlidingMenu;
+import edu.hebtu.movingcampus.utils.LogUtil;
 import edu.hebtu.movingcampus.utils.Utils;
 import edu.hebtu.movingcampus.view.ParentViewPager;
 
@@ -234,8 +235,6 @@ public class MainActivity extends BaseSlidingFragmentActivity {
 	}
 
 	// 初始化左侧菜单列表按Mainactivity 中currentInx指定
-	private View converview;
-	private ViewGroup parent; 
 	private void initListView() {
 		lvAdapter = new SimpleAdapter(this, getData(),
 				R.layout.behind_list_show, new String[] { LIST_TEXT,
@@ -245,8 +244,6 @@ public class MainActivity extends BaseSlidingFragmentActivity {
 			@Override
 			public View getView(int position, View convertView, ViewGroup parent) {
 				// TODO Auto-generated method stub.
-				MainActivity.this.converview=convertView;
-				MainActivity.this.parent=parent;
 				View view = super.getView(position, convertView, parent);
 				if (position == currIndex) {
 					view.setBackgroundResource(R.drawable.back_behind_list);
@@ -424,9 +421,16 @@ public class MainActivity extends BaseSlidingFragmentActivity {
 				});
 	}
 
-
-
 	public int getCurrentIndex(){
 		return currIndex;
+	}
+	public void onPause(){
+		LogUtil.w("save data:", "IPreferrence");
+		try {
+			IPreference.save(this);
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		super.onPause();
 	}
 }

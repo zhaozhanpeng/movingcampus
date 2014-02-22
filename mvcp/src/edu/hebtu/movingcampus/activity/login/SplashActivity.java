@@ -117,7 +117,6 @@ public class SplashActivity extends BaseActivity {
 	}
 
 	private void goHome() {
-		LogUtil.i("msg", "启动PreviewActivity");
 		/**
 		 * 以下为改动代码
 		 */
@@ -161,14 +160,4 @@ public class SplashActivity extends BaseActivity {
 
 	}
 
-	@Override
-	protected void onDestroy(){
-		LogUtil.w("save data:", "IPreferrence");
-		try {
-			IPreference.save(this);
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
-		super.onDestroy();
-	}
 }

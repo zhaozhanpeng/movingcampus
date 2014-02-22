@@ -1,10 +1,11 @@
 package edu.hebtu.movingcampus.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import edu.hebtu.movingcampus.enums.NewsType;
 
-public class NewsShort {
+public class NewsShort implements Serializable{
 	protected Date date;
 	protected String title;
 	protected String content;

@@ -44,6 +44,9 @@ public abstract class BaseDao {
 	public BaseDao() {
 	};
 
+	public static ObjectMapper getObjectMapper(){
+		return mObjectMapper;
+	}
 	public BaseDao(Activity activity) {
 		mActivity = activity;
 	}
