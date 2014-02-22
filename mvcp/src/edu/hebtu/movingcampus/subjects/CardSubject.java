@@ -41,6 +41,9 @@ public class CardSubject extends Subject implements OneofNews{
 		CardSubject.loweast=pre.getInt(Constants.BALANCE_LOWEAST, 10);
 	}
 
+	public CardEntity getCardEntity(){
+		return m_Balance;
+	}
 	@Override
 	public Boolean mesureChange(Activity ac) {
 		m_Balance = new CardDao(ac).mapperJson(false);

@@ -168,9 +168,11 @@ public class NewsFragment extends BaseListFragment {
 	}
 
 	public List<NewsShort> onLoad() {
-		loadMoreEntity = new NewsDao(mActivity).mapperJson(true,
-				(Integer.parseInt(page) + 1) + "", (mlist.size() + 1)
-						+ "", null);
+		if(mlist==null||mlist.size()==0)
+			loadMoreEntity = new NewsDao(mActivity).mapperJson(true,
+					(Integer.parseInt(page) + 1) + "", (mlist.size() + 1)
+							+ "", null);
+		else loadMoreEntity=mlist;
 		return loadMoreEntity;
 	}
 

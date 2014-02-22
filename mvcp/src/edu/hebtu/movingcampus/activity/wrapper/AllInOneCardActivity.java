@@ -16,6 +16,7 @@ import edu.hebtu.movingcampus.biz.CardDao;
 import edu.hebtu.movingcampus.biz.base.BaseDao;
 import edu.hebtu.movingcampus.config.Constants;
 import edu.hebtu.movingcampus.entity.CardEntity;
+import edu.hebtu.movingcampus.subjects.CardSubject;
 import edu.hebtu.movingcampus.subjects.NetworkChangeReceiver;
 import edu.hebtu.movingcampus.subjects.NetworkChangeReceiver.NetworkchangeListener;
 import edu.hebtu.movingcampus.utils.LogUtil;
@@ -41,7 +42,19 @@ public class AllInOneCardActivity implements PageWraper,NetworkchangeListener {
 				R.drawable.unlock);
 		this.dao=new CardDao(mainActivity);
 
-		mTask=new Cardtask(null).execute(dao);
+		bean=((CardSubject)(IPreference.getInstance(mainActivity).getSubjectByTag(new CardSubject(mainActivity).getTag()))).getCardEntity();
+		if(bean==null) mTask=new Cardtask(null).execute(dao);
+		else{
+			((TextView) (contentView.findViewById(R.id.tv_balance_left)))
+					.setText(bean.getLastPay() + "元");
+			if (bean.getStatus() == false)
+				contentView.findViewById(R.id.btn_lockunlock)
+						.setBackgroundResource(R.drawable.lock);
+			else
+				contentView.findViewById(R.id.btn_lockunlock)
+						.setBackgroundResource(R.drawable.unlock);
+		}
+
 		bindButton();
 	}
 

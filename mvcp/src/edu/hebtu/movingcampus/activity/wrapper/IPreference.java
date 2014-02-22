@@ -74,6 +74,9 @@ public class IPreference implements Serializable{
 		}
 	}
 
+	public Subject getSubjectByTag(String tag){
+		return subjects.get(tag);
+	}
 	/**
 	 * Double checked locking not work on java1.4 or earlier!
 	 */
