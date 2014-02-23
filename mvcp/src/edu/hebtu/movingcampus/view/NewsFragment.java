@@ -11,18 +11,19 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import edu.hebtu.movingcampus.R;
 import edu.hebtu.movingcampus.activity.wrapper.IPreference;
 import edu.hebtu.movingcampus.adapter.NewsListAdapter;
 import edu.hebtu.movingcampus.biz.NewsDao;
 import edu.hebtu.movingcampus.entity.NewsShort;
-import edu.hebtu.movingcampus.subject.base.ListOfNews;
+import edu.hebtu.movingcampus.subjects.NetworkChangeReceiver;
+import edu.hebtu.movingcampus.utils.NetWorkHelper;
 import edu.hebtu.movingcampus.utils.TimeUtil;
 import edu.hebtu.movingcampus.widget.XListView;
 
@@ -44,10 +45,11 @@ public class NewsFragment extends BaseListFragment {
 	@Override
 	public void onAttach(Activity ac) {
 		super.onAttach(ac);
-		try{
-			//TODO
+		try {
+			// TODO
 			Looper.prepare();
-		}catch (Exception e){}
+		} catch (Exception e) {
+		}
 		mHandler = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
@@ -62,22 +64,23 @@ public class NewsFragment extends BaseListFragment {
 					loaded = true;
 					listview.getFooterView().updateFooterTextNoMore();
 					break;
-	
+
 				default:
 					loaded = false;
 					break;
 				}
 				onStopLoad();
 			}
-	
+
 		};
 		if (mDateFormat == null) {
 			mDateFormat = new SimpleDateFormat("MM月dd日");
 		}
 		this.mActivity = ac;
-		view = ac.getLayoutInflater().inflate(R.layout.newsxlist, null,false);
+		view = ac.getLayoutInflater().inflate(R.layout.newsxlist, null, false);
 		listview = (XListView) view.findViewById(R.id.list_view);
-		mlist=IPreference.getInstance(ac).getListOfNewsSubjectByID(Integer.parseInt(page)+1).dump(ac);
+		mlist = IPreference.getInstance(ac)
+				.getListOfNewsSubjectByID(Integer.parseInt(page) + 1).dump(ac);
 		mAdapter = new NewsListAdapter(ac, R.layout.news_item, listview, mlist);
 	}
 
@@ -163,16 +166,21 @@ public class NewsFragment extends BaseListFragment {
 	@Override
 	public void onRefresh() {
 		onStopLoad();
-		mAdapter.getList().clear();
-		onLoadMore();
+		if(NetWorkHelper.isNetworkAvailable(mActivity)){
+			mAdapter.getList().clear();
+			onLoadMore();
+		}else{
+			Toast.makeText(mActivity, "请检查您的网络连接!", Toast.LENGTH_SHORT).show();
+		}
 	}
 
 	public List<NewsShort> onLoad() {
-		if(mlist==null||mlist.size()==0)
+		if (mlist == null || mlist.size() == 0)
 			loadMoreEntity = new NewsDao(mActivity).mapperJson(true,
-					(Integer.parseInt(page) + 1) + "", (mlist.size() + 1)
-							+ "", null);
-		else loadMoreEntity=mlist;
+					(Integer.parseInt(page) + 1) + "", (mlist.size() + 1) + "",
+					null);
+		else
+			loadMoreEntity = mlist;
 		return loadMoreEntity;
 	}
 
@@ -198,17 +206,17 @@ public class NewsFragment extends BaseListFragment {
 	}
 
 	@Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        if (view != null) {
-            ViewGroup parentViewGroup = (ViewGroup) view.getParent();
-            if (parentViewGroup != null) {
-                parentViewGroup.removeAllViews();
-            }
-        }
-    }
+	public void onDestroyView() {
+		super.onDestroyView();
+		if (view != null) {
+			ViewGroup parentViewGroup = (ViewGroup) view.getParent();
+			if (parentViewGroup != null) {
+				parentViewGroup.removeAllViews();
+			}
+		}
+	}
 
-	public NewsListAdapter getAdapter(){
+	public NewsListAdapter getAdapter() {
 		return mAdapter;
 	}
 }

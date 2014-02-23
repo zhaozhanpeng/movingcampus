@@ -17,8 +17,6 @@ import java.security.NoSuchAlgorithmException;
 
 import org.apache.http.impl.auth.UnsupportedDigestAlgorithmException;
 
-import android.util.Log;
-
 /**
  * @author Wongxming E-mail: Wongxming@eoemobile.com
  * @version 1.0

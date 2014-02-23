@@ -2,7 +2,6 @@ package edu.hebtu.movingcampus.subjects;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
@@ -24,13 +23,13 @@ import edu.hebtu.movingcampus.subject.base.Subject;
 public class LibrarySubject extends Subject implements OneofNews {
 
 	private ArrayList<BorrowedBook> books;
-	//设置剩余days天提醒 
+	// 设置剩余days天提醒
 	public static int days;
 
-	public LibrarySubject(Context ac){
-		SharedPreferences pre = ac.getSharedPreferences(
-				Constants.PREFER_FILE, 0);
-		LibrarySubject.days = pre.getInt("card.days",10);
+	public LibrarySubject(Context ac) {
+		SharedPreferences pre = ac.getSharedPreferences(Constants.PREFER_FILE,
+				0);
+		LibrarySubject.days = pre.getInt("card.days", 10);
 	}
 
 	@Override
@@ -48,7 +47,7 @@ public class LibrarySubject extends Subject implements OneofNews {
 			news.setType(NewsType.O_LOCAL);
 			news.setTitle("借书到期提醒:");
 			news.setDate(new Date());
-			String content = "以下是"+days+"天内到期图书\n,详细信息：";
+			String content = "以下是" + days + "天内到期图书\n,详细信息：";
 			for (BorrowedBook b : books) {
 				content += "图书名称:" + b.getName() + "/n";
 				if (b.getFine() > 0)
@@ -61,7 +60,7 @@ public class LibrarySubject extends Subject implements OneofNews {
 			news.setContent(content);
 			// TODO,id?
 			news.setID(LocalNewsType.I_LIB_NOTIFY.ordinal() + 10000);
-		} 
+		}
 		return news;
 	}
 

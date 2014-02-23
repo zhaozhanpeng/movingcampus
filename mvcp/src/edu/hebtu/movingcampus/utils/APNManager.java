@@ -12,7 +12,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 
 /**
  * 这个类是否有必要
@@ -150,8 +149,8 @@ public class APNManager {
 			mcc = mCursor.getString(mCursor.getColumnIndex("mcc"));
 			mnc = mCursor.getString(mCursor.getColumnIndex("mnc"));
 			numeric = mCursor.getString(mCursor.getColumnIndex("numeric"));
-			LogUtil.d("getDefaultAPN", "default Apn info:" + id + "_" + name + "_"
-					+ apn + "_" + proxy + "_" + proxy);
+			LogUtil.d("getDefaultAPN", "default Apn info:" + id + "_" + name
+					+ "_" + apn + "_" + proxy + "_" + proxy);
 
 		}
 		apnNode.setName(name);
@@ -314,7 +313,8 @@ public class APNManager {
 				projection, null, null, null);
 		List<APN> list = new ArrayList<APN>();
 		while (cr != null && cr.moveToNext()) {
-			LogUtil.d(tag,
+			LogUtil.d(
+					tag,
 					cr.getString(cr.getColumnIndex("_id")) + "  "
 							+ cr.getString(cr.getColumnIndex("apn")) + "  "
 							+ cr.getString(cr.getColumnIndex("type")) + "  "

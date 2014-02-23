@@ -71,8 +71,8 @@ public class InfoPreferItemAdapter extends AdapterBase<InfoPreferItem> {
 					boolean isChecked) {
 				info.setChecked(holder.check, isChecked, context);
 				if (!isChecked)
-					IPreference.getInstance(context).removeListOfNewsSubjectById(
-							info.getId());
+					IPreference.getInstance(context)
+							.removeListOfNewsSubjectById(info.getId());
 				else
 					IPreference.getInstance(context).addListOfNewsSubject(
 							new NewsSubject(NewsType.values()[info.getId()]));

@@ -91,44 +91,43 @@ public class NewsDao extends BaseDao {
 		}
 		return null;
 	}
-	
-	  /*
-    *
-    * news search, brief news json mapper
-    */
-   public ArrayList<NewsShort> mapperJson(boolean useCache, String key) {
-           ArrayList<NewsShort> newsJson;
-           try {
-                   String result;
-                   result = RequestCacheUtil.getRequestContentByGet(
-                                   mActivity,
-                                   String.format(Urls.NEWS_SEARCH, key)
-                                                   + Utility.getScreenParams(mActivity),
-                                   Constants.WebSourceType.Json,
-                                   Constants.DBContentType.Content_list, useCache);
-                   newsJson = mObjectMapper.readValue(result,
-                                   new TypeReference<ArrayList<NewsShort>>() {
-                                   });
-                   if (newsJson == null) {
-                           return null;
-                   }
-                   return newsJson;
 
-           } catch (JsonParseException e) {
-                   e.printStackTrace();
-           } catch (JsonMappingException e) {
-                   e.printStackTrace();
-           } catch (IOException e) {
-                   e.printStackTrace();
-           } catch (Exception e) {
-                   e.printStackTrace();
-           }
-           return null;
-   }
+	/*
+	 * 
+	 * news search, brief news json mapper
+	 */
+	public ArrayList<NewsShort> mapperJson(boolean useCache, String key) {
+		ArrayList<NewsShort> newsJson;
+		try {
+			String result;
+			result = RequestCacheUtil.getRequestContentByGet(
+					mActivity,
+					String.format(Urls.NEWS_SEARCH, key)
+							+ Utility.getScreenParams(mActivity),
+					Constants.WebSourceType.Json,
+					Constants.DBContentType.Content_list, useCache);
+			newsJson = mObjectMapper.readValue(result,
+					new TypeReference<ArrayList<NewsShort>>() {
+					});
+			if (newsJson == null) {
+				return null;
+			}
+			return newsJson;
 
+		} catch (JsonParseException e) {
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	public List<CategorysEntity> getCategorys() {
-		for(int i=1;i<NewsType.values().length;i++){
+		for (int i = 1; i < NewsType.values().length; i++) {
 			CategorysEntity cate = new CategorysEntity();
 			cate.setName(NewsType.values()[i].name());
 			tabs.add(cate);

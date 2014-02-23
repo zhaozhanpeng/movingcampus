@@ -11,7 +11,7 @@ public class DetailColumn extends DatabaseColumn {
 	// public static final String KEY_WORD = "key_word";
 	// public static final String CONTENT_ID = "contentID";
 	public static final String URL = "url";
-	public static final String JSON_PATH= "json_path";
+	public static final String JSON_PATH = "json_path";
 
 	public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY
 			+ "/" + TABLE_NAME);

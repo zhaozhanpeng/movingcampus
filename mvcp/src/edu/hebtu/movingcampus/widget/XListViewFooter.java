@@ -34,8 +34,9 @@ public class XListViewFooter extends LinearLayout {
 		super(context, attrs);
 		initView(context);
 	}
-	public void updateFooterTextNoMore(){
-			mHintView.setText(R.string.xlistview_footer_hint_no_more);
+
+	public void updateFooterTextNoMore() {
+		mHintView.setText(R.string.xlistview_footer_hint_no_more);
 	}
 
 	public void setState(int state) {

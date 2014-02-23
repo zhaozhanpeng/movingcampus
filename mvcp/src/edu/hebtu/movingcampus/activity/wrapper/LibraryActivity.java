@@ -24,7 +24,8 @@ import edu.hebtu.movingcampus.subjects.NetworkChangeReceiver.NetworkchangeListen
  * @version 1.0
  * @created 14-Nov-2013 9:13:32 AM
  */
-public class LibraryActivity implements Observer, PageWraper,NetworkchangeListener {
+public class LibraryActivity implements Observer, PageWraper,
+		NetworkchangeListener {
 	private WebView browser;
 	private Activity mainActivity = MainActivity.instance;
 	private View contentView;
@@ -34,11 +35,10 @@ public class LibraryActivity implements Observer, PageWraper,NetworkchangeListen
 	@SuppressLint({ "JavascriptInterface", "SetJavaScriptEnabled" })
 	public LibraryActivity(View view) {
 		this.contentView = view;
-		browser = (WebView) view
-				.findViewById(R.id.webkit);
-		
-		loadingLayout= view.findViewById(R.id.loading_layout);
-		loadfailedLayout= view.findViewById(R.id.loadfailed_layout);
+		browser = (WebView) view.findViewById(R.id.webkit);
+
+		loadingLayout = view.findViewById(R.id.loading_layout);
+		loadfailedLayout = view.findViewById(R.id.loadfailed_layout);
 
 		browser.getSettings().setJavaScriptEnabled(true);
 		browser.setWebViewClient(new SampleWebViewClient());
@@ -46,11 +46,11 @@ public class LibraryActivity implements Observer, PageWraper,NetworkchangeListen
 		AppInfo app = (AppInfo) (mainActivity.getApplication());
 		// 自动登录
 		login(app);
-		
+
 		bindButton();
-		
+
 		view.post(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				browser.loadUrl(Urls.LIB_URL);
@@ -59,33 +59,34 @@ public class LibraryActivity implements Observer, PageWraper,NetworkchangeListen
 	}
 
 	private void bindButton() {
-		contentView.findViewById(R.id.btn_refresh).setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				browser.reload();
-			}
-		});
-		
+		contentView.findViewById(R.id.btn_refresh).setOnClickListener(
+				new View.OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						browser.reload();
+					}
+				});
+
 	}
 
 	private void login(AppInfo app) {
 		// 登录
-		try{
-		String name = AppInfo.getUser().getCid();
-		String password = app.getPassword().substring(2, 6);
-		String logindata = "username=" + name + "&password=" + password;
-		browser.postUrl(Urls.LIB_POST_LOGIN,
-				EncodingUtils.getBytes(logindata, "base64"));
+		try {
+			String name = AppInfo.getUser().getCid();
+			String password = app.getPassword().substring(2, 6);
+			String logindata = "username=" + name + "&password=" + password;
+			browser.postUrl(Urls.LIB_POST_LOGIN,
+					EncodingUtils.getBytes(logindata, "base64"));
 
-		// 注册
-		TelephonyManager tMgr = (TelephonyManager) (mainActivity
-				.getSystemService(Context.TELEPHONY_SERVICE));
-		String mPhoneNumber = tMgr.getLine1Number();
-		String regiestdata = "userinfo.phone=" + mPhoneNumber;
-		browser.postUrl(Urls.LIB_POST_REGIST,
-				EncodingUtils.getAsciiBytes(regiestdata));
-		}catch(Exception e){
+			// 注册
+			TelephonyManager tMgr = (TelephonyManager) (mainActivity
+					.getSystemService(Context.TELEPHONY_SERVICE));
+			String mPhoneNumber = tMgr.getLine1Number();
+			String regiestdata = "userinfo.phone=" + mPhoneNumber;
+			browser.postUrl(Urls.LIB_POST_REGIST,
+					EncodingUtils.getAsciiBytes(regiestdata));
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -100,16 +101,17 @@ public class LibraryActivity implements Observer, PageWraper,NetworkchangeListen
 		}
 
 		@Override
-		public void onReceivedError(WebView view,int  errorCode,String  description,String failingUrl){
+		public void onReceivedError(WebView view, int errorCode,
+				String description, String failingUrl) {
 			loadingLayout.setVisibility(View.GONE);
 			loadfailedLayout.setVisibility(View.VISIBLE);
 		}
-		@Override 
-        public void onPageFinished(WebView view,String url) 
-        { 
+
+		@Override
+		public void onPageFinished(WebView view, String url) {
 			loadingLayout.setVisibility(View.GONE);
 			loadfailedLayout.setVisibility(View.GONE);
-        } 
+		}
 	}
 
 	@Override
@@ -118,7 +120,8 @@ public class LibraryActivity implements Observer, PageWraper,NetworkchangeListen
 
 	@Override
 	public void onResume() {
-		if(browser.getUrl()==null);
+		if (browser.getUrl() == null)
+			;
 		browser.loadUrl(Urls.LIB_URL);
 		NetworkChangeReceiver.registNetWorkListener(this);
 	}
@@ -142,6 +145,6 @@ public class LibraryActivity implements Observer, PageWraper,NetworkchangeListen
 	@Override
 	public void onDataDisabled() {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

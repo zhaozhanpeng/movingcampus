@@ -1,6 +1,5 @@
 package edu.hebtu.movingcampus.activity.setting;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -24,20 +23,23 @@ public class Share_Quickmark extends BaseActivity {
 
 	@Override
 	protected void bindButton() {
-		findViewById(R.id.btn_submit_feedback).setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				recommandToYourFriend("http://baidu.com", "分享移动校园android版");
-			}
-		});
-		findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Share_Quickmark.this.finish();
-			}
-		});
+		findViewById(R.id.btn_submit_feedback).setOnClickListener(
+				new View.OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						recommandToYourFriend("http://baidu.com",
+								"分享移动校园android版");
+					}
+				});
+		findViewById(R.id.btn_back).setOnClickListener(
+				new View.OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						Share_Quickmark.this.finish();
+					}
+				});
 	}
 
 }

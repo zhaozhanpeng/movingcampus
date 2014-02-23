@@ -16,7 +16,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import edu.hebtu.movingcampus.R;
 import edu.hebtu.movingcampus.activity.base.BaseFragmentActivity;
 import edu.hebtu.movingcampus.adapter.NewsListAdapter;
@@ -25,11 +24,10 @@ import edu.hebtu.movingcampus.biz.base.BaseDao;
 import edu.hebtu.movingcampus.entity.NewsShort;
 import edu.hebtu.movingcampus.subjects.NetworkChangeReceiver;
 import edu.hebtu.movingcampus.subjects.NetworkChangeReceiver.NetworkchangeListener;
-import edu.hebtu.movingcampus.view.NewsFragment;
 import edu.hebtu.movingcampus.widget.XListView;
 
 public class SearchActivity extends BaseFragmentActivity implements
-		OnClickListener, XListView.IXListViewListener,NetworkchangeListener{
+		OnClickListener, XListView.IXListViewListener, NetworkchangeListener {
 
 	private ImageView btnGohome;
 	private String searchContent;
@@ -50,7 +48,7 @@ public class SearchActivity extends BaseFragmentActivity implements
 		setContentView(R.layout.filter_news_layout);
 		Intent i = getIntent();
 		mTag = i.getStringExtra("tag");
-		loaded=false;
+		loaded = false;
 		initData();
 		initView();
 		bindButton();
@@ -81,7 +79,7 @@ public class SearchActivity extends BaseFragmentActivity implements
 		listview = (XListView) findViewById(R.id.list_view);
 		newsDao = new NewsDao(this);
 		listview.setXListViewListener(this);
-		adapter = new NewsListAdapter(this, R.layout.news_item,listview, null);
+		adapter = new NewsListAdapter(this, R.layout.news_item, listview, null);
 		listview.setAdapter(adapter);
 		imm = (InputMethodManager) getApplicationContext().getSystemService(
 				Context.INPUT_METHOD_SERVICE);
@@ -154,7 +152,7 @@ public class SearchActivity extends BaseFragmentActivity implements
 		protected void onPreExecute() {
 			if (clear)
 				adapter.clear();
-			loaded=false;
+			loaded = false;
 			mWait.setVisibility(View.GONE);
 			loadLayout.setVisibility(View.VISIBLE);
 			super.onPreExecute();
@@ -182,7 +180,7 @@ public class SearchActivity extends BaseFragmentActivity implements
 
 			loadLayout.setVisibility(View.GONE);
 			mWait.setVisibility(View.GONE);
-			loaded=true;
+			loaded = true;
 		}
 	}
 
@@ -209,11 +207,12 @@ public class SearchActivity extends BaseFragmentActivity implements
 			listview.stopLoadMore();
 	}
 
-	@Override 
-	public void onResume(){
+	@Override
+	public void onResume() {
 		super.onResume();
 		NetworkChangeReceiver.unRegistNetworkListener(this);
 	}
+
 	@Override
 	public void onPause() {
 		super.onPause();
@@ -224,13 +223,13 @@ public class SearchActivity extends BaseFragmentActivity implements
 
 	@Override
 	public void onDataEnabled() {
-		if(!loaded)
+		if (!loaded)
 			new MyTask(searchContent, true).execute(newsDao);
 	}
 
 	@Override
 	public void onDataDisabled() {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

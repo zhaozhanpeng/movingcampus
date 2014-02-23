@@ -6,8 +6,6 @@ import org.apache.http.message.BasicNameValuePair;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Looper;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.MotionEvent;
 import android.view.View;
@@ -133,8 +131,8 @@ public class InfoCenterActivity implements OnClickListener, AnimationListener,
 			break;
 		case R.id.imageview_above_more:
 			if (isShowPopupWindows) {
-				new PopupWindowUtil<NewsFragment>(mViewPager).showActionWindow(v,
-						mainActivity, mBasePageAdapter.getFragments());
+				new PopupWindowUtil<NewsFragment>(mViewPager).showActionWindow(
+						v, mainActivity, mBasePageAdapter.getFragments());
 			}
 			break;
 		case R.id.imageview_above_query:
@@ -227,28 +225,29 @@ public class InfoCenterActivity implements OnClickListener, AnimationListener,
 			imgRight.setVisibility(View.GONE);
 			loadLayout.setVisibility(View.VISIBLE);
 			mViewPager.setVisibility(View.GONE);
-			//mViewPager.removeAllViews();
+			// mViewPager.removeAllViews();
 			isShowPopupWindows = false;
 		}
 
 		@Override
 		protected List<NewsShort> doInBackground(Void... params) {
-			nf=(NewsFragment)mBasePageAdapter.getItem(Integer.parseInt(current_page));
-			assert(nf!=null);
+			nf = (NewsFragment) mBasePageAdapter.getItem(Integer
+					.parseInt(current_page));
+			assert (nf != null);
 			return nf.onLoad();
 		}
 
 		@Override
-		protected void onPostExecute(List<NewsShort>result) {
+		protected void onPostExecute(List<NewsShort> result) {
 			super.onPostExecute(result);
 			isShowPopupWindows = true;
-			//mViewPager.removeAllViews();
+			// mViewPager.removeAllViews();
 			if (result != null) {
 				imgRight.setVisibility(View.VISIBLE);
 				loadLayout.setVisibility(View.GONE);
 				loadFaillayout.setVisibility(View.GONE);
 			} else {
-				//mBasePageAdapter.addNullFragment();
+				// mBasePageAdapter.addNullFragment();
 				loadLayout.setVisibility(View.GONE);
 				loadFaillayout.setVisibility(View.VISIBLE);
 			}
@@ -287,13 +286,15 @@ public class InfoCenterActivity implements OnClickListener, AnimationListener,
 				imgRight.setVisibility(View.VISIBLE);
 			}
 
-			if(arg0==0&&MainActivity.instance.getCurrentIndex()==0) 
-				MainActivity.instance.getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+			if (arg0 == 0 && MainActivity.instance.getCurrentIndex() == 0)
+				MainActivity.instance.getSlidingMenu().setTouchModeAbove(
+						SlidingMenu.TOUCHMODE_FULLSCREEN);
 			else
-				MainActivity.instance.getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
-			
+				MainActivity.instance.getSlidingMenu().setTouchModeAbove(
+						SlidingMenu.TOUCHMODE_NONE);
+
 			current_page = "" + arg0;
-			if(((NewsFragment)mBasePageAdapter.getItem(arg0)).toBeLoad())
+			if (((NewsFragment) mBasePageAdapter.getItem(arg0)).toBeLoad())
 				new MyTask().execute();
 		}
 	}
@@ -315,7 +316,7 @@ public class InfoCenterActivity implements OnClickListener, AnimationListener,
 
 	@Override
 	public void onAnimationStart(Animation animation) {
-		//TODO
+		// TODO
 		title.setVisibility(View.VISIBLE);
 		if (mIsTitleHide) {
 			FrameLayout.LayoutParams lp = (LayoutParams) mlinear_listview
@@ -340,7 +341,8 @@ public class InfoCenterActivity implements OnClickListener, AnimationListener,
 
 	@Override
 	public void onDataEnabled() {
-		if(((NewsFragment)mBasePageAdapter.getItem(Integer.parseInt(current_page))).toBeLoad())
+		if (((NewsFragment) mBasePageAdapter.getItem(Integer
+				.parseInt(current_page))).toBeLoad())
 			new MyTask().execute();
 	}
 

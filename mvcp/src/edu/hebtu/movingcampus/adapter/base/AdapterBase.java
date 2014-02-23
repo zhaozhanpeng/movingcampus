@@ -9,17 +9,20 @@ import android.widget.BaseAdapter;
 
 public abstract class AdapterBase<T> extends BaseAdapter {
 
-	protected List<T> mList =null;
+	protected List<T> mList = null;
 
 	/**
-	 * list == null, not save adater data state, list!=null, save it's state util next shown
+	 * list == null, not save adater data state, list!=null, save it's state
+	 * util next shown
+	 * 
 	 * @param list
 	 */
-	public AdapterBase(List<T> list ){
+	public AdapterBase(List<T> list) {
 		super();
-		if(list==null)
-			mList=new LinkedList<T>();
-		else this.mList=list;
+		if (list == null)
+			mList = new LinkedList<T>();
+		else
+			this.mList = list;
 	}
 
 	public List<T> getList() {
@@ -55,7 +58,7 @@ public abstract class AdapterBase<T> extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		return mList==null?0:mList.size();
+		return mList == null ? 0 : mList.size();
 	}
 
 	@Override

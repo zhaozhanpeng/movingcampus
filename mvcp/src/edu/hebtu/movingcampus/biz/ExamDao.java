@@ -12,7 +12,6 @@ import android.app.Activity;
 import edu.hebtu.movingcampus.biz.base.BaseDao;
 import edu.hebtu.movingcampus.config.Constants;
 import edu.hebtu.movingcampus.config.Urls;
-import edu.hebtu.movingcampus.entity.ClassRoom;
 import edu.hebtu.movingcampus.entity.ExamScore;
 import edu.hebtu.movingcampus.entity.ExamineInfor;
 import edu.hebtu.movingcampus.utils.RequestCacheUtil;
@@ -53,14 +52,14 @@ public class ExamDao extends BaseDao {
 		return null;
 
 	}
-	
-	public List<ExamScore> getExamResultMsg(boolean useCache, String xn, String xq,String coursetype) {
+
+	public List<ExamScore> getExamResultMsg(boolean useCache, String xn,
+			String xq, String coursetype) {
 		ArrayList<ExamScore> balanceBean;
 		try {
 			String result;
-			result = RequestCacheUtil.getRequestContentByPost(
-					mActivity,
-					String.format(Urls.EXAM_SCORE_CONSULT, xn, xq,coursetype)
+			result = RequestCacheUtil.getRequestContentByPost(mActivity,
+					String.format(Urls.EXAM_SCORE_CONSULT, xn, xq, coursetype)
 							+ Utility.getScreenParams(mActivity),
 					Constants.WebSourceType.Json,
 					Constants.DBContentType.Content_list, useCache);

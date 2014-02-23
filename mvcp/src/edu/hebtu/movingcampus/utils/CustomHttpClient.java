@@ -117,7 +117,7 @@ public class CustomHttpClient {
 				throw new RuntimeException(context.getResources().getString(
 						R.string.httpError));
 			}
-			return EntityUtils.toString(httpResponse.getEntity(),CHARSET_UTF8);
+			return EntityUtils.toString(httpResponse.getEntity(), CHARSET_UTF8);
 		} catch (ParseException e) {
 			throw new RuntimeException(context.getResources().getString(
 					R.string.httpError), e);

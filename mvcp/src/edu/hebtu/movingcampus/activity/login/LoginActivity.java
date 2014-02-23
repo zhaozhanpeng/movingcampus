@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -174,14 +173,14 @@ public class LoginActivity extends BaseActivity {
 	private void toHome() {
 		// 得到用户名和密码
 		try {
-			if (!NetWorkHelper .isMobileDataEnable(this) && !NetWorkHelper.isWifiDataEnable(this)) {
-				Toast.makeText(this,"您暂时没有可用的网络,请检查网络", 0).show();
+			if (! NetWorkHelper.isNetworkAvailable(this)) {
+				Toast.makeText(this, "您暂时没有可用的网络,请检查网络", 0).show();
 				return;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		mRunningTask=new LoginTask(dao);
+		mRunningTask = new LoginTask(dao);
 		mRunningTask.execute(new Object[] { new Object() });
 		// 向服务器发送请求，得到返回的值（User类对象）
 	}// toHome()函数结束
@@ -297,12 +296,15 @@ public class LoginActivity extends BaseActivity {
 					LogUtil.i("LoginActivity", "选择了记住密码，正在保存用户名和密码");
 					localEditor
 							.putBoolean(Constants.IS_REMEMBER_PASSWORD, true);
-					new TimeUtil(LoginActivity.this, Constants.REMEMBER_PASSWORD_TIME).updatePreferenceTime();
+					new TimeUtil(LoginActivity.this,
+							Constants.REMEMBER_PASSWORD_TIME)
+							.updatePreferenceTime();
 					localEditor.putString(Constants.USERNAME,
 							LoginActivity.this.usernameET.getText().toString());
 					localEditor.putString(Constants.PASSWORD,
 							LoginActivity.this.passwordET.getText().toString());
 					localEditor.commit();
+					MainActivity.loginOnLine=true;
 				} else
 					localEditor.putBoolean(Constants.IS_REMEMBER_PASSWORD,
 							false);

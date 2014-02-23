@@ -16,7 +16,6 @@ import edu.hebtu.movingcampus.biz.base.BaseDao;
 import edu.hebtu.movingcampus.config.Constants;
 import edu.hebtu.movingcampus.config.Urls;
 import edu.hebtu.movingcampus.entity.ChooseCourseEntity;
-import edu.hebtu.movingcampus.entity.ClassRoom;
 import edu.hebtu.movingcampus.entity.CourseEntity;
 import edu.hebtu.movingcampus.entity.CourseIntroEntity;
 import edu.hebtu.movingcampus.entity.TextBookInfo;
@@ -25,7 +24,7 @@ import edu.hebtu.movingcampus.utils.Utility;
 
 /**
  * @author leijie
- *@aim 用来连接选课系统
+ * @aim 用来连接选课系统
  */
 public class ChooseCourseDao extends BaseDao {
 
@@ -39,10 +38,11 @@ public class ChooseCourseDao extends BaseDao {
 		System.out.println("进入ChooseCourseDao");
 		// TODO Auto-generated constructor stub
 	}
+
 	/*
 	 * @aim 从服务器获取课程的详细情况
 	 */
-	public List<CourseEntity> getCourseMsg(boolean useCache,String courseId){
+	public List<CourseEntity> getCourseMsg(boolean useCache, String courseId) {
 		ArrayList<CourseEntity> balanceBean;
 		try {
 			String result;
@@ -71,10 +71,12 @@ public class ChooseCourseDao extends BaseDao {
 		}
 		return null;
 	}
+
 	/*
 	 * @aim 从服务器获取课程的详细情况
 	 */
-	public List<ChooseCourseEntity> getChooseCourseMsg(boolean useCache,String courseId){
+	public List<ChooseCourseEntity> getChooseCourseMsg(boolean useCache,
+			String courseId) {
 		ArrayList<ChooseCourseEntity> balanceBean;
 		try {
 			String result;
@@ -103,10 +105,11 @@ public class ChooseCourseDao extends BaseDao {
 		}
 		return null;
 	}
+
 	/*
 	 * @aim 从服务器获取教科书的详细情况
 	 */
-	public TextBookInfo getBookMsg(boolean useCache,String bookOrderId){
+	public TextBookInfo getBookMsg(boolean useCache, String bookOrderId) {
 		TextBookInfo balanceBean;
 		System.out.println("进入获取教科书信息的方法");
 		try {
@@ -136,10 +139,11 @@ public class ChooseCourseDao extends BaseDao {
 		}
 		return null;
 	}
+
 	/*
 	 * @aim 从服务器获取课程的详细情况
 	 */
-	public CourseIntroEntity getCourseIntroMsg(boolean useCache,String courseId){
+	public CourseIntroEntity getCourseIntroMsg(boolean useCache, String courseId) {
 		CourseIntroEntity balanceBean;
 		try {
 			String result;

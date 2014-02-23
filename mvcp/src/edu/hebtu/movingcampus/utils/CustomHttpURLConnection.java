@@ -15,7 +15,8 @@ import android.util.Log;
 public class CustomHttpURLConnection {
 	private static String TAG = "CustomHttpUrlConnection";
 	private static HttpURLConnection conn;
-	//TODO encoding
+
+	// TODO encoding
 
 	public CustomHttpURLConnection() {
 	}

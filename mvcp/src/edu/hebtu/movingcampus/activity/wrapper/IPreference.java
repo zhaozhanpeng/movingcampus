@@ -13,7 +13,6 @@ import java.util.List;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import edu.hebtu.movingcampus.biz.base.BaseDao;
 import edu.hebtu.movingcampus.config.Constants;
 import edu.hebtu.movingcampus.entity.User;
 import edu.hebtu.movingcampus.enums.NewsType;
@@ -21,6 +20,7 @@ import edu.hebtu.movingcampus.subject.base.ListOfNews;
 import edu.hebtu.movingcampus.subject.base.OneofNews;
 import edu.hebtu.movingcampus.subject.base.Subject;
 import edu.hebtu.movingcampus.subjects.CardSubject;
+import edu.hebtu.movingcampus.subjects.CourseListSubject;
 import edu.hebtu.movingcampus.subjects.LibrarySubject;
 import edu.hebtu.movingcampus.subjects.LocalNewsSubject;
 import edu.hebtu.movingcampus.subjects.NewsSubject;
@@ -31,61 +31,62 @@ import edu.hebtu.movingcampus.utils.LogUtil;
  * @version 1.0
  * @created 14-Nov-2013 9:13:32 AM
  */
-public class IPreference implements Serializable{
+public class IPreference implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private static IPreference instance;
-	private static  final String serilizeFile = Constants.PREFER_FILE + ".db";
+	private static final String serilizeFile = Constants.PREFER_FILE + ".db";
 	private static SharedPreferences pre;
 	private User profile;
 
-	private HashMap<String, Subject> subjects=new HashMap<String, Subject>();
+	private HashMap<String, Subject> subjects = new HashMap<String, Subject>();
 
 	/**
 	 * Double checked locking not work on java1.4 and earlier!
 	 */
-	//单例模式
+	// 单例模式
 	private IPreference(Context context) {
 		// TODO,settings,for debug
-		pre = context.getSharedPreferences(
-				Constants.PREFER_FILE, 0);
-		SharedPreferences.Editor editor= pre.edit();
-		//本地信息
+		pre = context.getSharedPreferences(Constants.PREFER_FILE, 0);
+		SharedPreferences.Editor editor = pre.edit();
+		// 本地信息
 
-		//默认为0
-		if(pre.getInt(Constants.LIB_DAYS, 0)==0){
+		// 默认为0
+		if (pre.getInt(Constants.LIB_DAYS, 0) == 0) {
 			editor.putInt(Constants.LIB_DAYS, 10);
 			editor.putInt(Constants.BALANCE_LOWEAST, 10);
 		}
 		editor.commit();
 		// 本地信息,第一个，默认显示
-		CardSubject card=new CardSubject(context);	
+		CardSubject card = new CardSubject(context);
 		subjects.put(card.getTag(), card); // 10元之内,提醒
-		LibrarySubject lib=new LibrarySubject(context);
+		LibrarySubject lib = new LibrarySubject(context);
 		subjects.put(lib.getTag(), lib); // 10天之内过期的书
+		CourseListSubject course=new CourseListSubject();
+		subjects.put(course.getTag(),course);
 
 		for (int i = 1; i < NewsType.values().length; i++) {
 			if (pre.getBoolean("news_" + i, true)) {
-				NewsSubject s=new NewsSubject(NewsType.values()[i]);
-				subjects.put(s.getTag(),s); // 每次接受20条|默认,学校新闻...
+				NewsSubject s = new NewsSubject(NewsType.values()[i]);
+				subjects.put(s.getTag(), s); // 每次接受20条|默认,学校新闻...
 			}
 		}
 	}
 
-	public Subject getSubjectByTag(String tag){
+	public Subject getSubjectByTag(String tag) {
 		return subjects.get(tag);
 	}
+
 	/**
 	 * Double checked locking not work on java1.4 or earlier!
 	 */
 	public static IPreference getInstance(Context context) {
-		if(instance==null){
+		if (instance == null) {
 			try {
-				instance=load(context);
-				pre = context.getSharedPreferences(
-						Constants.PREFER_FILE, 0);
+				instance = load(context);
+				pre = context.getSharedPreferences(Constants.PREFER_FILE, 0);
 			} catch (OptionalDataException e) {
 				e.printStackTrace();
 			} catch (ClassNotFoundException e) {
@@ -131,10 +132,10 @@ public class IPreference implements Serializable{
 	 * @throws OptionalDataException
 	 * @parm context
 	 */
-	public static IPreference load(Context context) throws OptionalDataException,
-			ClassNotFoundException, IOException {
-	
-		IPreference  obj=null;
+	public static IPreference load(Context context)
+			throws OptionalDataException, ClassNotFoundException, IOException {
+
+		IPreference obj = null;
 		FileInputStream fis = context.openFileInput(serilizeFile);
 		ObjectInputStream oi = new ObjectInputStream(fis);
 		obj = (IPreference) oi.readObject();
@@ -146,13 +147,14 @@ public class IPreference implements Serializable{
 
 	/**
 	 * 得到相应主题的新闻列表,id范围0是本地推送的新闻,1-...是主题新闻
-	 * @return  新闻列表项
+	 * 
+	 * @return 新闻列表项
 	 */
 	public List<ListOfNews> getListOfNewsSubject() {
-		List<ListOfNews> list=new ArrayList<ListOfNews>();
+		List<ListOfNews> list = new ArrayList<ListOfNews>();
 		for (int i = 1; i < NewsType.values().length; i++) {
 			if (pre.getBoolean("news_" + i, true)) {
-				NewsSubject s=new NewsSubject(NewsType.values()[i]);
+				NewsSubject s = new NewsSubject(NewsType.values()[i]);
 				list.add((ListOfNews) subjects.get(s.getTag())); // 每次接受20条|默认,学校新闻...
 			}
 		}
@@ -161,39 +163,41 @@ public class IPreference implements Serializable{
 
 	/**
 	 * 得到相应主题的新闻列表,id范围0是本地推送的新闻,1-...是主题新闻
+	 * 
 	 * @param id
 	 * @return
 	 */
 	public ListOfNews getListOfNewsSubjectByID(int id) {
-		if(id==0){
-			LocalNewsSubject ls=new LocalNewsSubject();
+		if (id == 0) {
+			LocalNewsSubject ls = new LocalNewsSubject();
 			for (Subject n : subjects.values())
-				if(n instanceof OneofNews)
+				if (n instanceof OneofNews)
 					ls.addLocalSubject((OneofNews) n);
 			return ls;
 		}
-		return (ListOfNews) subjects.get("subject."+id);
+		return (ListOfNews) subjects.get("subject." + id);
 	}
 
 	/**
 	 * 移除相应主题的新闻
+	 * 
 	 * @param id
 	 */
 	public void removeListOfNewsSubjectById(int id) {
-		subjects.remove(((Subject)getListOfNewsSubjectByID(id)).getTag());
+		subjects.remove(((Subject) getListOfNewsSubjectByID(id)).getTag());
 	}
 
 	public List<ListOfNews> getTopics() {
-		List<ListOfNews>list=new ArrayList<ListOfNews>(); 
+		List<ListOfNews> list = new ArrayList<ListOfNews>();
 		list.add(getListOfNewsSubjectByID(0));
 		for (Subject n : subjects.values())
-			if(n instanceof ListOfNews)
+			if (n instanceof ListOfNews)
 				list.add((ListOfNews) n);
 		return list;
 	}
 
 	public void addListOfNewsSubject(NewsSubject newsSubject) {
-		subjects.put(newsSubject.getTag(),newsSubject);
+		subjects.put(newsSubject.getTag(), newsSubject);
 	}
 
 	public User getProfile() {

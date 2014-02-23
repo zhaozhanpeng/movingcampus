@@ -220,6 +220,6 @@ public class StudyResourceActivity implements Handler.Callback, PageWraper {
 	@Override
 	public void onPause() {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

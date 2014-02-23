@@ -6,9 +6,9 @@ import java.util.List;
 import android.app.Activity;
 import edu.hebtu.movingcampus.entity.NewsShort;
 import edu.hebtu.movingcampus.enums.NewsType;
+import edu.hebtu.movingcampus.subject.base.ListOfNews;
 import edu.hebtu.movingcampus.subject.base.OneofNews;
 import edu.hebtu.movingcampus.subject.base.Subject;
-import edu.hebtu.movingcampus.subject.base.ListOfNews;
 
 public final class LocalNewsSubject extends Subject implements ListOfNews {
 	private ArrayList<OneofNews> localSubjects = new ArrayList<OneofNews>();
@@ -34,7 +34,7 @@ public final class LocalNewsSubject extends Subject implements ListOfNews {
 	@Override
 	public List<NewsShort> dump(Activity context) {
 		for (OneofNews s : localSubjects)
-			if(s!=null){
+			if (s != null) {
 				news.add(s.dump(context));
 			}
 		return news;
@@ -62,6 +62,6 @@ public final class LocalNewsSubject extends Subject implements ListOfNews {
 
 	@Override
 	public String getTag() {
-		return "subject"+getDesc();
+		return "subject" + getDesc();
 	}
 }

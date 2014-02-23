@@ -132,7 +132,7 @@ public class ImageUtil {
 	private static Bitmap getImageFromDB(String imagePath, String imageUrl,
 			DBHelper dbHelper) {
 		Cursor cursor = queryFromDbByImgUrl(dbHelper, imageUrl);
-		if (cursor!=null&&cursor.moveToFirst()) {
+		if (cursor != null && cursor.moveToFirst()) {
 			long currTimestamp = (new Date()).getTime();
 			long timestamp = cursor.getLong(cursor
 					.getColumnIndex(ImageCacheColumn.TIMESTAMP));

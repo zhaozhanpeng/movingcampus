@@ -1,7 +1,6 @@
 package edu.hebtu.movingcampus.activity.login;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -62,10 +61,7 @@ public class SplashActivity extends BaseActivity {
 				if (str1 == null || str1.equals("") || str2 == null
 						|| str2.equals("")) {
 					try {
-						if (!NetWorkHelper
-								.isMobileDataEnable(SplashActivity.this)
-								&& !NetWorkHelper
-										.isWifiDataEnable(SplashActivity.this)) {
+						if (!NetWorkHelper.isNetworkAvailable(SplashActivity.this)) {
 							Toast.makeText(SplashActivity.this,
 									"您暂时没有可用的网络,请检查网络", 0).show();
 							openActivity(LoginActivity.class);

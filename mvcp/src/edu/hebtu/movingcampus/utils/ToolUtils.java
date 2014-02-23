@@ -15,7 +15,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Environment;
 import android.text.format.DateUtils;
-import android.util.Log;
 import android.util.Xml;
 import edu.hebtu.movingcampus.entity.UpdataInfo;
 
@@ -25,27 +24,29 @@ public class ToolUtils {
 	public ToolUtils(Activity paramActivity) {
 		this.context = paramActivity;
 	}
+
 	/**
 	 * Return the size of a directory in bytes
 	 */
 	public static long dirSize(File dir) {
 
-	    if (dir.exists()) {
-	        long result = 0;
-	        File[] fileList = dir.listFiles();
-	        for(int i = 0; i < fileList.length; i++) {
-	            // Recursive call if it's a directory
-	            if(fileList[i].isDirectory()) {
-	                result += dirSize(fileList [i]);
-	            } else {
-	                // Sum the file size in bytes
-	                result += fileList[i].length();
-	            }
-	        }
-	        return result; // return the file size
-	    }
-	    return 0;
+		if (dir.exists()) {
+			long result = 0;
+			File[] fileList = dir.listFiles();
+			for (int i = 0; i < fileList.length; i++) {
+				// Recursive call if it's a directory
+				if (fileList[i].isDirectory()) {
+					result += dirSize(fileList[i]);
+				} else {
+					// Sum the file size in bytes
+					result += fileList[i].length();
+				}
+			}
+			return result; // return the file size
+		}
+		return 0;
 	}
+
 	public File getFileFromServer(String paramString1,
 			ProgressDialog paramProgressDialog, String paramString2)
 			throws Exception {
@@ -123,7 +124,8 @@ public class ToolUtils {
 			}
 
 		} catch (Exception e) {
-			LogUtil.i("xml parser", "while parse xml from server," + e.toString());
+			LogUtil.i("xml parser",
+					"while parse xml from server," + e.toString());
 		}
 		return localUpdataInfo;
 	}
@@ -151,7 +153,8 @@ public class ToolUtils {
 					}
 				}
 			} catch (Exception e) {
-				LogUtil.e("ATTENTION!",
+				LogUtil.e(
+						"ATTENTION!",
 						String.format("Failed to clean the cache, error %s",
 								e.getMessage()));
 			}

@@ -15,7 +15,6 @@ import edu.hebtu.movingcampus.view.NewsFragment;
 
 public class NewsPageAdapter extends FragmentPagerAdapter {
 
-
 	private NewsFragment[] fragments;
 	private Activity mActivity;
 	private Context context;
@@ -24,12 +23,11 @@ public class NewsPageAdapter extends FragmentPagerAdapter {
 	public NewsPageAdapter(FragmentActivity activity) {
 		super(activity.getSupportFragmentManager());
 		this.mActivity = activity;
-		this.context=activity;
-		this.list= IPreference.getInstance(context).getListOfNewsSubject();
+		this.context = activity;
+		this.list = IPreference.getInstance(context).getListOfNewsSubject();
 
-		this.fragments=new  NewsFragment[list.size()];
+		this.fragments = new NewsFragment[list.size()];
 	}
-
 
 	@Override
 	public CharSequence getPageTitle(int position) {
@@ -40,7 +38,8 @@ public class NewsPageAdapter extends FragmentPagerAdapter {
 	public Fragment getItem(int arg0) {
 		NewsFragment fragment = fragments[arg0];
 		if (fragment == null) {
-			fragment=NewsFragment.getInstance(list.get(arg0).getId()-1+"", mActivity);
+			fragment = NewsFragment.getInstance(
+					list.get(arg0).getId() - 1 + "", mActivity);
 			return fragments[arg0] = fragment;
 		}
 		return fragment;
@@ -48,17 +47,17 @@ public class NewsPageAdapter extends FragmentPagerAdapter {
 
 	@Override
 	public int getCount() {
-		list= IPreference.getInstance(context).getListOfNewsSubject();
-		fragments = new  NewsFragment[list.size()];
+		list = IPreference.getInstance(context).getListOfNewsSubject();
+		fragments = new NewsFragment[list.size()];
 		return list.size();
 	}
 
 	@Override
 	public int getItemPosition(Object object) {
-		for(int i=0;i<fragments.length;i++){
-			if(fragments[i]==null)
+		for (int i = 0; i < fragments.length; i++) {
+			if (fragments[i] == null)
 				getItem(i);
-			if(fragments[i].equals(object))
+			if (fragments[i].equals(object))
 				return i;
 		}
 		return POSITION_NONE;
@@ -70,7 +69,6 @@ public class NewsPageAdapter extends FragmentPagerAdapter {
 	public void destroyItem(ViewGroup container, int position, Object object) {
 		super.destroyItem(container, position, object);
 	}
-
 
 	public List<NewsFragment> getFragments() {
 		getCount();

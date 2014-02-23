@@ -32,6 +32,7 @@ public class RequestCacheUtil {
 
 	/**
 	 * it is a get way to visit a websit
+	 * 
 	 * @param context
 	 * @param RequestUrl
 	 * @param source_type
@@ -39,25 +40,26 @@ public class RequestCacheUtil {
 	 * @param UseCache
 	 * @return
 	 */
-	public static String getRequestContentByGet(Context context, String RequestUrl,
-			String source_type, String content_type, boolean UseCache) {
+	public static String getRequestContentByGet(Context context,
+			String RequestUrl, String source_type, String content_type,
+			boolean UseCache) {
 		DBHelper dbHelper = DBHelper.getInstance(context);
 		String md5 = MD5.encode(RequestUrl);
 		// 缓存目录
 		if (!CommonUtil.sdCardIsAvailable())/* true 为可用 */{
-			String cachePath = AppInfo.cacheDir + "/"
-					+ md5; // data里的缓存
-			return getCacheRequestByGet(context, RequestUrl, cachePath, source_type,
-					content_type, dbHelper, UseCache);
+			String cachePath = AppInfo.cacheDir + "/" + md5; // data里的缓存
+			return getCacheRequestByGet(context, RequestUrl, cachePath,
+					source_type, content_type, dbHelper, UseCache);
 		} else {
-			String imagePath = AppInfo.cacheDir + File.separator
-					+ md5; // sd卡
-			return getCacheRequestByGet(context, RequestUrl, imagePath, source_type,
-					content_type, dbHelper, UseCache);
+			String imagePath = AppInfo.cacheDir + File.separator + md5; // sd卡
+			return getCacheRequestByGet(context, RequestUrl, imagePath,
+					source_type, content_type, dbHelper, UseCache);
 		}
 	}
+
 	/**
 	 * it is a post way to visit a websit
+	 * 
 	 * @param context
 	 * @param RequestUrl
 	 * @param source_type
@@ -65,23 +67,25 @@ public class RequestCacheUtil {
 	 * @param UseCache
 	 * @return
 	 */
-	public static String getRequestContentByPost(Context context, String RequestUrl,
-			String source_type, String content_type, boolean UseCache) {
+	public static String getRequestContentByPost(Context context,
+			String RequestUrl, String source_type, String content_type,
+			boolean UseCache) {
 		DBHelper dbHelper = DBHelper.getInstance(context);
 		String md5 = MD5.encode(RequestUrl);
 		// 缓存目录
 		if (!CommonUtil.sdCardIsAvailable())/* true 为可用 */{
 			String cachePath = context.getCacheDir().getAbsolutePath() + "/"
 					+ md5; // data里的缓存
-			return getCacheRequestByPost(context, RequestUrl, cachePath, source_type,
-					content_type, dbHelper, UseCache);
+			return getCacheRequestByPost(context, RequestUrl, cachePath,
+					source_type, content_type, dbHelper, UseCache);
 		} else {
 			String imagePath = getExternalCacheDir(context) + File.separator
 					+ md5; // sd卡
-			return getCacheRequestByPost(context, RequestUrl, imagePath, source_type,
-					content_type, dbHelper, UseCache);
+			return getCacheRequestByPost(context, RequestUrl, imagePath,
+					source_type, content_type, dbHelper, UseCache);
 		}
 	}
+
 	// [end]
 
 	// [start] 私有方法
@@ -93,31 +97,36 @@ public class RequestCacheUtil {
 	 *            The context to use
 	 * @return The external cache dir
 	 */
-	//TODO not used
+	// TODO not used
 	@SuppressLint("NewApi")
 	public static File getExternalCacheDir(Context context) {
 		// android 2.2 以后才支持的特性
 		if (hasExternalCacheDir()) {
-			if(context.getExternalCacheDir()!=null)
-					return new File(context.getExternalCacheDir().getPath() + File.separator
-							+ "request");
-		}else{
-		// Before Froyo we need to construct the external cache dir ourselves
-		// 2.2以前我们需要自己构造
+			if (context.getExternalCacheDir() != null)
+				return new File(context.getExternalCacheDir().getPath()
+						+ File.separator + "request");
+		} else {
+			// Before Froyo we need to construct the external cache dir
+			// ourselves
+			// 2.2以前我们需要自己构造
 			final String cacheDir = "/Android/data/" + context.getPackageName()
 					+ "/cache/request/";
-			if(Environment.getExternalStorageDirectory()!=null)
-			return new File(Environment.getExternalStorageDirectory().getPath() + cacheDir);
+			if (Environment.getExternalStorageDirectory() != null)
+				return new File(Environment.getExternalStorageDirectory()
+						.getPath() + cacheDir);
 		}
 
-		return new File(context.getCacheDir().getPath() + File.separator + "request");
+		return new File(context.getCacheDir().getPath() + File.separator
+				+ "request");
 	}
 
 	private static boolean hasExternalCacheDir() {
 		return Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO;
 	}
+
 	/**
 	 * it is a get method that used to connect to web
+	 * 
 	 * @param context
 	 * @param requestUrl
 	 * @param requestPath
@@ -127,9 +136,9 @@ public class RequestCacheUtil {
 	 * @param useCache
 	 * @return
 	 */
-	private static String getCacheRequestByGet(Context context, String requestUrl,
-			String requestPath, String source_type, String content_type,
-			DBHelper dbHelper, boolean useCache) {
+	private static String getCacheRequestByGet(Context context,
+			String requestUrl, String requestPath, String source_type,
+			String content_type, DBHelper dbHelper, boolean useCache) {
 		String result = "";
 		if (useCache) {
 			result = getStringFromSoftReference(requestUrl);
@@ -148,8 +157,10 @@ public class RequestCacheUtil {
 				source_type, content_type, dbHelper);
 		return result;
 	}
+
 	/**
 	 * it is a post method that used to connect to web
+	 * 
 	 * @param context
 	 * @param requestUrl
 	 * @param requestPath
@@ -159,9 +170,9 @@ public class RequestCacheUtil {
 	 * @param useCache
 	 * @return
 	 */
-	private static String getCacheRequestByPost(Context context, String requestUrl,
-			String requestPath, String source_type, String content_type,
-			DBHelper dbHelper, boolean useCache) {
+	private static String getCacheRequestByPost(Context context,
+			String requestUrl, String requestPath, String source_type,
+			String content_type, DBHelper dbHelper, boolean useCache) {
 		String result = "";
 		if (useCache) {
 			result = getStringFromSoftReference(requestUrl);
@@ -180,6 +191,7 @@ public class RequestCacheUtil {
 				source_type, content_type, dbHelper);
 		return result;
 	}
+
 	private static void putStringForSoftReference(String requestUrl,
 			String result) {
 		SoftReference<String> referece = new SoftReference<String>(result);
@@ -188,6 +200,7 @@ public class RequestCacheUtil {
 
 	/**
 	 * to visit a service by post method
+	 * 
 	 * @param context
 	 * @param requestPath
 	 * @param requestUrl
@@ -196,9 +209,9 @@ public class RequestCacheUtil {
 	 * @param dbHelper
 	 * @return
 	 */
-	private static String getStringFromWebByGet(Context context, String requestPath,
-			String requestUrl, String source_type, String content_type,
-			DBHelper dbHelper) {
+	private static String getStringFromWebByGet(Context context,
+			String requestPath, String requestUrl, String source_type,
+			String content_type, DBHelper dbHelper) {
 		String result = "";
 		try {
 			result = HttpUtils.getByHttpClient(context, requestUrl);
@@ -217,8 +230,10 @@ public class RequestCacheUtil {
 		}
 		return result;
 	}
+
 	/**
 	 * to visit a service by post method
+	 * 
 	 * @param context
 	 * @param requestPath
 	 * @param requestUrl
@@ -227,9 +242,9 @@ public class RequestCacheUtil {
 	 * @param dbHelper
 	 * @return the result of request of web
 	 */
-	private static String getStringFromWebByPost(Context context, String requestPath,
-			String requestUrl, String source_type, String content_type,
-			DBHelper dbHelper) {
+	private static String getStringFromWebByPost(Context context,
+			String requestPath, String requestUrl, String source_type,
+			String content_type, DBHelper dbHelper) {
 		String result = "";
 		try {
 			result = HttpUtils.postByHttpClient(context, requestUrl);
@@ -248,6 +263,7 @@ public class RequestCacheUtil {
 		}
 		return result;
 	}
+
 	private static void saveFileByRequestPath(String requestPath, String result) {
 		deleteFileFromLocal(requestPath);
 		saveFileForLocal(requestPath, result);

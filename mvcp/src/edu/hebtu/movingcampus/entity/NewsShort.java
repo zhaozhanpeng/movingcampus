@@ -5,18 +5,19 @@ import java.util.Date;
 
 import edu.hebtu.movingcampus.enums.NewsType;
 
-public class NewsShort implements Serializable{
+public class NewsShort implements Serializable {
 	protected Date date;
 	protected String title;
 	protected String content;
 	protected NewsType type;
 	protected int id;
-	private int readStatus=0;//0 未读 1 读过
+	private int readStatus = 0;// 0 未读 1 读过
 
 	// 该字段暂不使用
 	private String thumbnail_url;
-	public NewsShort(){
-		setReadStatus(0);//0 未读 1 读过
+
+	public NewsShort() {
+		setReadStatus(0);// 0 未读 1 读过
 	}
 
 	public void setDate(Date date) {

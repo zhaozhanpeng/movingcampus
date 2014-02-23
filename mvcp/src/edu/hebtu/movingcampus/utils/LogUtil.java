@@ -1,7 +1,7 @@
 package edu.hebtu.movingcampus.utils;
 
 public class LogUtil {
-	//debug开关
+	// debug开关
 	public static boolean isDebug = true;
 
 	public static void v(String tag, String msg) {

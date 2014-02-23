@@ -15,7 +15,7 @@ import edu.hebtu.movingcampus.subject.base.Subject;
  * @version 1.0
  * @created 14-Nov-2013 9:13:32 AM
  */
-public class NewsSubject extends Subject implements  ListOfNews {
+public class NewsSubject extends Subject implements ListOfNews {
 	/**
 	 * 
 	 */
@@ -69,6 +69,6 @@ public class NewsSubject extends Subject implements  ListOfNews {
 
 	@Override
 	public String getTag() {
-		return "subject."+getId();
+		return "subject." + getId();
 	}
 }

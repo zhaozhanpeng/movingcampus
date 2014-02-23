@@ -12,17 +12,17 @@ public class Urls {
 	// use login 获取用户信息接口,name,pswd 有session可免
 	public static final String USER_LOGIN = BASE + "/login?name=%s&pswd=%s";
 	// 用户请求某种课程详细信息时候使用 url
-		public static final String COURSE_INTRO = BASE
-				+ "/choosecourseintro?courseId=%s";
-		// 用户请求某种选课方式的具体内容使用 url
-		public static final String COURSE_CHOOSE = BASE
-				+ "/choosecourseitem?courseId=%s";
-		// 用户请求某种选课方式的具体内容使用 url
-		public static final String COURSE_BRUNCH = BASE
-				+ "/choosecoursebrunch?courseId=%s";
-		// 用户请求某种选课方式的具体内容使用 url
-		public static final String BOOK_INTRO = BASE
-				+ "/choosecoursebook?bookOrderId=%s";
+	public static final String COURSE_INTRO = BASE
+			+ "/choosecourseintro?courseId=%s";
+	// 用户请求某种选课方式的具体内容使用 url
+	public static final String COURSE_CHOOSE = BASE
+			+ "/choosecourseitem?courseId=%s";
+	// 用户请求某种选课方式的具体内容使用 url
+	public static final String COURSE_BRUNCH = BASE
+			+ "/choosecoursebrunch?courseId=%s";
+	// 用户请求某种选课方式的具体内容使用 url
+	public static final String BOOK_INTRO = BASE
+			+ "/choosecoursebook?bookOrderId=%s";
 	// 信息中心,get
 	// 新闻请求格式 /news?type=1&from=10&size=20
 	public static final String NEWS_LIST = BASE + "/" + Constants.TAGS.NEWS
@@ -46,7 +46,8 @@ public class Urls {
 			+ "?type=infor";
 	// xiqu校区 jz:哪栋建筑 zc:周次1-18?默认本周 xq:星期1-7 jc:节次1-2..
 	public static final String FREEROOM_SEARCH = BASE + "/"
-			+ Constants.TAGS.ROOM + "?school=%s&building=%s&week=%s&weekday=%s&classes=%s";
+			+ Constants.TAGS.ROOM
+			+ "?school=%s&building=%s&week=%s&weekday=%s&classes=%s";
 	// domain :课表种类,班级，个人,
 	public static final String COURSE_TABLE = BASE + "/"
 			+ Constants.TAGS.COURSE + "?xn=%s&xq=%s&domain=%s";

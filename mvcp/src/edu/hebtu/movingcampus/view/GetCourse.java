@@ -1,19 +1,26 @@
 package edu.hebtu.movingcampus.view;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.util.Log;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import edu.hebtu.movingcampus.AppInfo;
 import edu.hebtu.movingcampus.R;
+import edu.hebtu.movingcampus.activity.MainActivity;
+import edu.hebtu.movingcampus.activity.ShowCourse;
+import edu.hebtu.movingcampus.activity.wrapper.IPreference;
 import edu.hebtu.movingcampus.biz.CourseDao;
 import edu.hebtu.movingcampus.config.Constants;
 import edu.hebtu.movingcampus.entity.Course;
+import edu.hebtu.movingcampus.subjects.CourseListSubject;
 import edu.hebtu.movingcampus.utils.LogUtil;
 
 /**
@@ -27,17 +34,67 @@ public class GetCourse {
 	private String[] add = new String[5];
 	private Activity context;
 	private ArrayList<ArrayList<Course>> courseList;
+	private Handler handler;
+	private CourseListSubject subject;
 
 	public GetCourse(Activity context) {
 		this.context = context;
-		courseList = new CourseDao(context).mapperJson(AppInfo.getStudyYear().substring(0,4),
-				AppInfo.getTerm(), Constants.COURSE_DOMAIN.STUDENT);
-		if (courseList == null) {
-			Toast.makeText(context, "错误!", Toast.LENGTH_SHORT);
-		}
+		this.handler=new Handler(new Handler.Callback() {
+			@Override
+			public boolean handleMessage(Message msg) {
+				switch(msg.what){
+				case 0:
+					ShowCourse.adapter.setListViews(getListview());
+					break;
+
+				case 1:
+					break;
+					
+				}
+				return false;
+			}
+		});
+
+		subject = (CourseListSubject)IPreference.getInstance(context)
+				.getSubjectByTag(new CourseListSubject().getTag());
+		if(subject!=null)
+			courseList= subject.getCourseList();
+
+		if(courseList==null||courseList.size()==0)
+			getData();
 	}
 
-	public View getScheduleView(int week) {
+	public void getData(){
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				courseList = new CourseDao(GetCourse.this.context).mapperJson(AppInfo.getStudyYear()
+						.substring(0, 4), AppInfo.getTerm(),
+						Constants.COURSE_DOMAIN.STUDENT);
+				if(courseList!=null){
+					 ((CourseListSubject)IPreference.getInstance(GetCourse.this.context)
+							.getSubjectByTag(new CourseListSubject().getTag())).setCourseList(courseList);
+					 handler.sendEmptyMessage(0);
+				}else {
+					//TODO
+					 handler.sendEmptyMessage(1);
+				}
+			}
+		}).start();
+	}
+
+	public List<View> getListview(){
+		List<View> listviews =new ArrayList<View>();
+		for(int i=1;i<8;i++)
+			listviews.add(getScheduleView(i));
+		return listviews;
+	}
+
+	private View getScheduleView(int week) {
+		if (courseList == null) {
+			Toast.makeText(context, "错误!", Toast.LENGTH_SHORT);
+			return new View(context);
+		}
 
 		View view = View.inflate(context, R.layout.showcourse_page, null);
 		LayoutInflater mInflater = LayoutInflater.from(context);

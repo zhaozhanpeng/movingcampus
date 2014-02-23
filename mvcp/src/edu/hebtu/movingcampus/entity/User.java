@@ -2,8 +2,6 @@ package edu.hebtu.movingcampus.entity;
 
 import java.io.Serializable;
 
-import android.graphics.Bitmap;
-
 public class User implements Serializable {
 	private Boolean sex;// 1 Male, 0 Female
 	private String phoneNum;// phone number
@@ -12,13 +10,12 @@ public class User implements Serializable {
 	private String cid;// cardid
 	protected String userName = "";// liuzhaoliang
 	private String college;
-	private String mClass;//班级
+	private String mClass;// 班级
 	// 初版不用
 	protected String roleName;// 角色是老师还学时
 
 	private int classNum;
 	private String imgUrl;
-
 
 	public int getClassNum() {
 		return classNum;
@@ -101,14 +98,17 @@ public class User implements Serializable {
 	}
 
 	/**
-	 * @param mClass the mClass to set
+	 * @param mClass
+	 *            the mClass to set
 	 * @aim 设置用户的行政班级
 	 */
 	public void setmClass(String mClass) {
 		this.mClass = mClass;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -116,8 +116,8 @@ public class User implements Serializable {
 		return "User [sex=" + sex + ", phoneNum=" + phoneNum + ", jid=" + jid
 				+ ", pid=" + pid + ", cid=" + cid + ", userName=" + userName
 				+ ", college=" + college + ", mClass=" + mClass + ", roleName="
-				+ roleName + ", classNum=" + classNum
-				+  imgUrl + " , imgUrl=" + "]";
+				+ roleName + ", classNum=" + classNum + imgUrl + " , imgUrl="
+				+ "]";
 	}
 
 	public String getPassword() {

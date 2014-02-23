@@ -168,9 +168,10 @@ public class XListView extends ListView implements OnScrollListener {
 		}
 	}
 
-	public XListViewFooter getFooterView(){
+	public XListViewFooter getFooterView() {
 		return mFooterView;
 	}
+
 	/**
 	 * stop load more, reset footer view.
 	 */

@@ -1,5 +1,7 @@
 package edu.hebtu.movingcampus.activity.wrapper;
 
+import com.umeng.fb.FeedbackAgent;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -12,6 +14,7 @@ import edu.hebtu.movingcampus.activity.LocationManagerSoso;
 import edu.hebtu.movingcampus.activity.MainActivity;
 import edu.hebtu.movingcampus.activity.StreeViewSoso;
 import edu.hebtu.movingcampus.activity.base.PageWraper;
+import edu.hebtu.movingcampus.activity.setting.SettingActivity;
 
 public class UlitiesActivity implements Handler.Callback, PageWraper {
 	private static final Activity mainActivity = MainActivity.instance;
@@ -36,6 +39,8 @@ public class UlitiesActivity implements Handler.Callback, PageWraper {
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View paramAnonymousView) {
+							new FeedbackAgent(mainActivity)
+							.startFeedbackActivity();
 					}
 				});
 		content.findViewById(R.id.ulities_process_notice).setOnClickListener(
@@ -48,18 +53,19 @@ public class UlitiesActivity implements Handler.Callback, PageWraper {
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View paramAnonymousView) {
-						mainActivity.startActivity(new Intent(mainActivity, StreeViewSoso.class));
+						mainActivity.startActivity(new Intent(mainActivity,
+								StreeViewSoso.class));
 					}
 				});
 		content.findViewById(R.id.ulities_map).setOnClickListener(
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View paramAnonymousView) {
-						mainActivity.startActivity(new Intent(mainActivity, LocationManagerSoso.class));
+						mainActivity.startActivity(new Intent(mainActivity,
+								LocationManagerSoso.class));
 					}
 				});
 	}
-
 
 	public boolean onMenuOpened(int paramInt, Menu paramMenu) {
 		if (this.menuDialog == null) {
@@ -82,13 +88,13 @@ public class UlitiesActivity implements Handler.Callback, PageWraper {
 	@Override
 	public void onPause() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override

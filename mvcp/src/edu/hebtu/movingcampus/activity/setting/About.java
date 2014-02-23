@@ -2,7 +2,6 @@ package edu.hebtu.movingcampus.activity.setting;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import edu.hebtu.movingcampus.R;
 

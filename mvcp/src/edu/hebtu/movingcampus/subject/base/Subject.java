@@ -6,7 +6,6 @@ import java.util.List;
 
 import android.app.Activity;
 import edu.hebtu.movingcampus.activity.base.Observer;
-import edu.hebtu.movingcampus.adapter.base.AdapterBase;
 
 /**
  * topic, user's single interest data collection
@@ -15,7 +14,7 @@ import edu.hebtu.movingcampus.adapter.base.AdapterBase;
  * @version 1.0
  * @created 14-Nov-2013 9:13:33 AM
  */
-public abstract class Subject implements Serializable{
+public abstract class Subject implements Serializable {
 
 	/**
 	 * 

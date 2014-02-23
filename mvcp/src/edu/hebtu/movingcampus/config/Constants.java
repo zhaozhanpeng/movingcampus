@@ -32,8 +32,8 @@ public class Constants {
 		public static final String Xml = "xml";
 	}
 
-	public static final String BALANCE_LOWEAST="card.loweast";
-	public static final String LIB_DAYS="books.days";
+	public static final String BALANCE_LOWEAST = "card.loweast";
+	public static final String LIB_DAYS = "books.days";
 
 	public static final String NEWS_MORE = "more";
 	public static final String NEWS_HEADPIC = "more";
@@ -42,6 +42,6 @@ public class Constants {
 	public static final String ACTION_UNLOCK = "unlock";
 	public static final String IS_REMEMBER_PASSWORD = "remember_password";
 	public static final String REMEMBER_PASSWORD_TIME = "remember_password_time";
-	public static final String USERNAME= "username";
-	public static final String PASSWORD="password";
+	public static final String USERNAME = "username";
+	public static final String PASSWORD = "password";
 }

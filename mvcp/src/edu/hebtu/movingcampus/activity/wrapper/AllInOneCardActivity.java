@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.ComponentCallbacks2;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,29 +21,32 @@ import edu.hebtu.movingcampus.subjects.NetworkChangeReceiver.NetworkchangeListen
 import edu.hebtu.movingcampus.utils.LogUtil;
 import edu.hebtu.movingcampus.utils.NetWorkHelper;
 
-public class AllInOneCardActivity implements PageWraper,NetworkchangeListener {
+public class AllInOneCardActivity implements PageWraper, NetworkchangeListener {
 
 	private CardEntity bean;
 	private CardDao dao;
 	private Activity mainActivity = MainActivity.instance;
 	private final View contentView;
 	private int loweast;
-	private AsyncTask<BaseDao, Integer, Boolean[]>mTask;
+	private AsyncTask<BaseDao, Integer, Boolean[]> mTask;
 	private boolean loaded;
 
 	public AllInOneCardActivity(View view) {
 		this.contentView = view;
-		loaded=false;
+		loaded = false;
 		loweast = mainActivity.getSharedPreferences(Constants.PREFER_FILE,
 				ComponentCallbacks2.TRIM_MEMORY_MODERATE).getInt(
 				Constants.BALANCE_LOWEAST, 10);
 		contentView.findViewById(R.id.btn_lockunlock).setBackgroundResource(
 				R.drawable.unlock);
-		this.dao=new CardDao(mainActivity);
+		this.dao = new CardDao(mainActivity);
 
-		bean=((CardSubject)(IPreference.getInstance(mainActivity).getSubjectByTag(new CardSubject(mainActivity).getTag()))).getCardEntity();
-		if(bean==null) mTask=new Cardtask(null).execute(dao);
-		else{
+		bean = ((CardSubject) (IPreference.getInstance(mainActivity)
+				.getSubjectByTag(new CardSubject(mainActivity).getTag())))
+				.getCardEntity();
+		if (bean == null)
+			mTask = new Cardtask(null).execute(dao);
+		else {
 			((TextView) (contentView.findViewById(R.id.tv_balance_left)))
 					.setText(bean.getLastPay() + "元");
 			if (bean.getStatus() == false)
@@ -59,15 +61,15 @@ public class AllInOneCardActivity implements PageWraper,NetworkchangeListener {
 	}
 
 	private void bindButton() {
-		//点击刷新
-		contentView.findViewById(R.id.rl_catdleft).setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				mTask=new Cardtask(null).execute(dao);
-				Toast.makeText(mainActivity, "更新一卡通余额成功!", Toast.LENGTH_SHORT).show();
-			}
-		});
+		// 点击刷新
+		contentView.findViewById(R.id.rl_catdleft).setOnClickListener(
+				new View.OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						mTask = new Cardtask(null).execute(dao);
+					}
+				});
 		contentView.findViewById(R.id.ly_connection_failed).setOnClickListener(
 				new View.OnClickListener() {
 					@Override
@@ -88,11 +90,13 @@ public class AllInOneCardActivity implements PageWraper,NetworkchangeListener {
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						if(bean!=null)
-							if(bean.getStatus()==true)
-								mTask=new Cardtask(Constants.ACTION_LOCK).execute(dao);
-							else 
-								mTask=new Cardtask(Constants.ACTION_UNLOCK).execute(dao);
+						if (bean != null)
+							if (bean.getStatus() == true)
+								mTask = new Cardtask(Constants.ACTION_LOCK)
+										.execute(dao);
+							else
+								mTask = new Cardtask(Constants.ACTION_UNLOCK)
+										.execute(dao);
 					}
 				});
 	}
@@ -118,7 +122,7 @@ public class AllInOneCardActivity implements PageWraper,NetworkchangeListener {
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			loaded=false;
+			loaded = false;
 			if (bean != null) {
 				LogUtil.d("object:", bean + "status:" + bean.getStatus());
 				((TextView) (contentView.findViewById(R.id.tv_balance_left)))
@@ -140,22 +144,25 @@ public class AllInOneCardActivity implements PageWraper,NetworkchangeListener {
 		@Override
 		protected Boolean[] doInBackground(BaseDao... params) {
 			Boolean[] res = new Boolean[2];
-			if(action!=null&&bean!=null)
+			if (action != null && bean != null)
 				res[0] = bean.getStatus();
-			else res[0]=null;
+			else
+				res[0] = null;
 			if (action != null)
 				((CardDao) params[0]).mapperJson(action);
 			bean = ((CardDao) params[0]).mapperJson(false);
-			if(bean!=null)
+			if (bean != null)
 				res[1] = bean.getStatus();
-			else res[1]=null;
+			else
+				res[1] = null;
 			return res;
 		}
 
 		@Override
 		protected void onPostExecute(Boolean[] result) {
 			// 如果为获取到信息或修改了一卡通状态,但状态未变化
-			if (bean == null||result[0]==null||result[1]==null || action != null && result[0] == result[1]) {
+			if (bean == null || result[0] == null || result[1] == null
+					|| action != null && result[0] == result[1]) {
 				try {
 					if (!NetWorkHelper.isMobileDataEnable(mainActivity)
 							&& !NetWorkHelper.isWifiDataEnable(mainActivity)) {
@@ -167,10 +174,14 @@ public class AllInOneCardActivity implements PageWraper,NetworkchangeListener {
 					e.printStackTrace();
 				}
 			}
-			if(action!=null&&result[0]!=result[1]){
-				Toast.makeText(mainActivity, "success",
+			if (action != null && result[0] != result[1]) {
+				Toast.makeText(mainActivity, "操作成功", Toast.LENGTH_SHORT)
+						.show();
+			}else if(bean!=null){
+				Toast.makeText(mainActivity, "更新一卡通余额成功!",
 						Toast.LENGTH_SHORT).show();
 			}
+
 			if (bean != null) {
 				LogUtil.d("object:", bean + "status:" + bean.getStatus());
 				((TextView) (contentView.findViewById(R.id.tv_balance_left)))
@@ -183,11 +194,10 @@ public class AllInOneCardActivity implements PageWraper,NetworkchangeListener {
 							.setBackgroundResource(R.drawable.unlock);
 
 			} else {
-				// do nothing TODO
-				// ((TextView) (contentView.findViewById(R.id.tv_balance_left)))
-				// .setText("***" + "元");
+				Toast.makeText(mainActivity, "更新失败!",
+						Toast.LENGTH_SHORT).show();
 			}
-			loaded=true;
+			loaded = true;
 		}
 	}
 
@@ -198,13 +208,13 @@ public class AllInOneCardActivity implements PageWraper,NetworkchangeListener {
 
 	@Override
 	public void onDataEnabled() {
-		if(!loaded)
+		if (!loaded)
 			mTask.execute(dao);
 	}
 
 	@Override
 	public void onDataDisabled() {
 		// TODO Auto-generated method stub
-		
+
 	};
 }

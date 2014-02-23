@@ -1,9 +1,6 @@
 package edu.hebtu.movingcampus.subjects;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
@@ -22,7 +19,7 @@ import edu.hebtu.movingcampus.subject.base.Subject;
  * @version 1.0
  * @created 14-Nov-2013 9:13:30 AM
  */
-public class CardSubject extends Subject implements OneofNews{
+public class CardSubject extends Subject implements OneofNews {
 
 	/**
 	 * 
@@ -36,14 +33,15 @@ public class CardSubject extends Subject implements OneofNews{
 	 * @param bean
 	 */
 	public CardSubject(Context ac) {
-		SharedPreferences pre = ac.getSharedPreferences(
-				Constants.PREFER_FILE, 0);
-		CardSubject.loweast=pre.getInt(Constants.BALANCE_LOWEAST, 10);
+		SharedPreferences pre = ac.getSharedPreferences(Constants.PREFER_FILE,
+				0);
+		CardSubject.loweast = pre.getInt(Constants.BALANCE_LOWEAST, 10);
 	}
 
-	public CardEntity getCardEntity(){
+	public CardEntity getCardEntity() {
 		return m_Balance;
 	}
+
 	@Override
 	public Boolean mesureChange(Activity ac) {
 		m_Balance = new CardDao(ac).mapperJson(false);
@@ -59,10 +57,11 @@ public class CardSubject extends Subject implements OneofNews{
 			// TODO
 			news.setType(NewsType.O_LOCAL);
 			news.setTitle("一卡通余额提醒:");
-			news.setContent("您的一卡通余额不足"+loweast+"元,请尽快充值"+m_Balance.getCount() + " 元");
+			news.setContent("您的一卡通余额不足" + loweast + "元,请尽快充值"
+					+ m_Balance.getCount() + " 元");
 			news.setID(LocalNewsType.I_CARD_NOTIFY.ordinal() + 10);
 			news.setDate(new Date());
-		} 
+		}
 		return news;
 	}
 

@@ -9,11 +9,9 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.SerializationConfig.Feature;
 import org.codehaus.jackson.type.TypeReference;
 
-import edu.hebtu.movingcampus.utils.LogUtil;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.util.Log;
+import edu.hebtu.movingcampus.utils.LogUtil;
 
 @SuppressLint("NewApi")
 public abstract class BaseDao {
@@ -44,9 +42,10 @@ public abstract class BaseDao {
 	public BaseDao() {
 	};
 
-	public static ObjectMapper getObjectMapper(){
+	public static ObjectMapper getObjectMapper() {
 		return mObjectMapper;
 	}
+
 	public BaseDao(Activity activity) {
 		mActivity = activity;
 	}

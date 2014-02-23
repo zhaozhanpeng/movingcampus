@@ -2,7 +2,6 @@ package edu.hebtu.movingcampus.utils;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.util.Log;
 
 public class CurrentVersion {
 	private static final String TAG = "config";

@@ -42,20 +42,25 @@ import edu.hebtu.movingcampus.activity.setting.AccountSettingActivity;
 import edu.hebtu.movingcampus.activity.setting.SettingActivity;
 import edu.hebtu.movingcampus.activity.wrapper.AllInOneCardActivity;
 import edu.hebtu.movingcampus.activity.wrapper.IPreference;
-import edu.hebtu.movingcampus.activity.wrapper.LibraryActivity;
 import edu.hebtu.movingcampus.activity.wrapper.InfoCenterActivity;
+import edu.hebtu.movingcampus.activity.wrapper.LibraryActivity;
 import edu.hebtu.movingcampus.activity.wrapper.StudyResourceActivity;
 import edu.hebtu.movingcampus.activity.wrapper.UlitiesActivity;
+import edu.hebtu.movingcampus.biz.UserDao;
+import edu.hebtu.movingcampus.entity.User;
 import edu.hebtu.movingcampus.slidingmenu.SlidingMenu;
+import edu.hebtu.movingcampus.subjects.NetworkChangeReceiver;
+import edu.hebtu.movingcampus.subjects.NetworkChangeReceiver.NetworkchangeListener;
 import edu.hebtu.movingcampus.utils.LogUtil;
 import edu.hebtu.movingcampus.utils.Utils;
 import edu.hebtu.movingcampus.view.ParentViewPager;
 
-public class MainActivity extends BaseSlidingFragmentActivity {
+public class MainActivity extends BaseSlidingFragmentActivity implements NetworkchangeListener{
 
 	private final String LIST_TEXT = "text";
 	private final String LIST_IMAGEVIEW = "img";
 	public static MainActivity instance = null;
+	public static boolean loginOnLine=false;
 
 	private ParentViewPager mTabPager;
 	private SimpleAdapter lvAdapter;
@@ -63,7 +68,7 @@ public class MainActivity extends BaseSlidingFragmentActivity {
 	private int zero = 0;
 	private static int currIndex = 0;
 	private int one;
-	public FeedbackAgent agent ;
+	public FeedbackAgent agent;
 	// private PopupWindow menuWindow;
 	// private LayoutInflater inflater;
 
@@ -88,7 +93,6 @@ public class MainActivity extends BaseSlidingFragmentActivity {
 		getWindow().setSoftInputMode(
 				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-
 		initViewPager();
 		initSlidingMenu();
 		bindButton();
@@ -107,17 +111,18 @@ public class MainActivity extends BaseSlidingFragmentActivity {
 		// 当开发者回复用户反馈后，如果需要提醒用户，请在应用程序的入口Activity的OnCreate()方法中下添加以下代码
 
 		agent.sync();
-
 	}
 
-	public TouchDelegate getTouchDelegate(){
+	public TouchDelegate getTouchDelegate() {
 		return mTabPager.getTouchDelegate();
 	}
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent event) {
-    	super.dispatchTouchEvent(event);
-    	return ((ActionDispatcher)wrapers.get(0)).dispatchTouchEvent(event);
-    }
+
+	@Override
+	public boolean dispatchTouchEvent(MotionEvent event) {
+		super.dispatchTouchEvent(event);
+		return ((ActionDispatcher) wrapers.get(0)).dispatchTouchEvent(event);
+	}
+
 	private void initViewPager() {
 		mTabPager = (ParentViewPager) findViewById(R.id.tabpager);
 		mTabPager.setOnPageChangeListener(new MyOnPageChangeListener());
@@ -131,15 +136,15 @@ public class MainActivity extends BaseSlidingFragmentActivity {
 
 		// InitImageView();//
 		LayoutInflater mLi = LayoutInflater.from(this);
-		//View infoCenter = mLi.inflate(R.layout.main_tab_infocenter, null);
+		// View infoCenter = mLi.inflate(R.layout.main_tab_infocenter, null);
 		View infoCenter = mLi.inflate(R.layout.main_tab_infocenter, null);
 		View studyResource = mLi.inflate(R.layout.main_tab_studyresource, null);
 		View library = mLi.inflate(R.layout.main_tab_library, null);
 		View card = mLi.inflate(R.layout.main_tab_card, null);
 		View ulities = mLi.inflate(R.layout.main_tab_ulities, null);
 
-//		views.add(infoCenter);
-//		wrapers.add(new InfoCenterActivity(infoCenter));
+		// views.add(infoCenter);
+		// wrapers.add(new InfoCenterActivity(infoCenter));
 		views.add(infoCenter);
 		wrapers.add(new InfoCenterActivity(infoCenter));
 		views.add(studyResource);
@@ -184,6 +189,7 @@ public class MainActivity extends BaseSlidingFragmentActivity {
 		super.onResume();
 		keyBackClickCount = 0;
 		wrapers.get(currIndex).onResume();
+		NetworkChangeReceiver.registNetWorkListener(this);
 	}
 
 	// [start]初始化函数
@@ -259,8 +265,8 @@ public class MainActivity extends BaseSlidingFragmentActivity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-//				if (position == currIndex)
-//					return;
+				// if (position == currIndex)
+				// return;
 				mTabPager.setCurrentItem(position);
 				if (lvTitle.getTag() != null) {
 					if (lvTitle.getTag() == view) {
@@ -304,8 +310,10 @@ public class MainActivity extends BaseSlidingFragmentActivity {
 			wrapers.get(currIndex).onPause();
 
 			// TODO menu 选择 滑动
-			lvAdapter.getView(currIndex, null, null).setBackgroundResource(Color.TRANSPARENT);
-			lvAdapter.getView(arg0, null, null).setBackgroundColor(R.drawable.back_behind_list);
+			lvAdapter.getView(currIndex, null, null).setBackgroundResource(
+					Color.TRANSPARENT);
+			lvAdapter.getView(arg0, null, null).setBackgroundColor(
+					R.drawable.back_behind_list);
 			lvAdapter.notifyDataSetChanged();
 
 			currIndex = arg0;
@@ -314,11 +322,11 @@ public class MainActivity extends BaseSlidingFragmentActivity {
 			// mTabImg.startAnimation(animation);
 			wrapers.get(arg0).onResume();
 
-
 			// 最左侧pager让右滑出现左侧栏,其他pager左右滑切换pager
-			if (currIndex == 0&&Integer.parseInt(InfoCenterActivity.current_page)==0)
+			if (currIndex == 0
+					&& Integer.parseInt(InfoCenterActivity.current_page) == 0)
 				sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
-			else 
+			else
 				sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
 		}
 
@@ -421,10 +429,11 @@ public class MainActivity extends BaseSlidingFragmentActivity {
 				});
 	}
 
-	public int getCurrentIndex(){
+	public int getCurrentIndex() {
 		return currIndex;
 	}
-	public void onPause(){
+
+	public void onPause() {
 		LogUtil.w("save data:", "IPreferrence");
 		try {
 			IPreference.save(this);
@@ -432,5 +441,23 @@ public class MainActivity extends BaseSlidingFragmentActivity {
 			e.printStackTrace();
 		}
 		super.onPause();
+	}
+
+	@Override
+	public void onDataEnabled() {
+		if(!loginOnLine){
+			new  Thread(new Runnable() {
+				@Override
+				public void run() {
+					User  user=IPreference.getInstance(MainActivity.this).getProfile();
+					IPreference.getInstance(MainActivity.this).setProfile(new UserDao(MainActivity.this).mapperJson(user.getUserName(), user.getPassword()));
+					MainActivity.loginOnLine=true;
+				}
+			}).start();
+		}
+	}
+
+	@Override
+	public void onDataDisabled() {
 	}
 }

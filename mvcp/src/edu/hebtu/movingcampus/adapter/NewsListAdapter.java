@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,7 +20,6 @@ import edu.hebtu.movingcampus.entity.NewsShort;
 import edu.hebtu.movingcampus.utils.ImageUtil;
 import edu.hebtu.movingcampus.utils.ImageUtil.ImageCallback;
 import edu.hebtu.movingcampus.utils.LogUtil;
-import edu.hebtu.movingcampus.view.NewsFragment;
 
 //主页新闻+本地通知数据展示
 public class NewsListAdapter extends AdapterBase<NewsShort> {
@@ -40,6 +38,7 @@ public class NewsListAdapter extends AdapterBase<NewsShort> {
 			}
 		}
 	};
+
 	// [end]
 
 	/**
@@ -52,9 +51,10 @@ public class NewsListAdapter extends AdapterBase<NewsShort> {
 	 * @param resourceId
 	 *            :item xml view
 	 */
-	public NewsListAdapter(final Context context, int resourceId,ListView list,List<NewsShort> mlist) {
+	public NewsListAdapter(final Context context, int resourceId,
+			ListView list, List<NewsShort> mlist) {
 		super(mlist);
-		this.list=list;
+		this.list = list;
 		this.context = context;
 		this.rowlayout = resourceId;
 	}
@@ -84,7 +84,7 @@ public class NewsListAdapter extends AdapterBase<NewsShort> {
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(context, NewsDetailsActivity.class);
-				i.putExtra("position", position);
+				i.putExtra("id", news.getID()+"");
 				context.startActivity(i);
 			}
 		});
@@ -93,23 +93,25 @@ public class NewsListAdapter extends AdapterBase<NewsShort> {
 		holder.title.setText(news.getTitle());
 		holder.source.setText("教务处");
 		holder.content.setText(news.getContent());
-		if(news.getDate()!=null)
-		holder.time.setText(news.getDate().toLocaleString());
-		holder.icon.setImageResource(news.getIcon());
+		if (news.getDate() != null)
+			holder.time.setText(news.getDate().toLocaleString());
+		//holder.icon.setImageResource(news.getIcon());
 		String img_url = news.getThumbnail_url();
-		if (img_url==null || img_url.equals("")) {
-			//TODO default image icon for test
+		if (img_url == null || img_url.equals("")) {
+			// TODO default image icon for test
 			holder.icon.setVisibility(View.VISIBLE);
-			ImageUtil.setThumbnailView( 
-					"https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTgZ4gQjC_htRquBKoItqrWlYDbNbUnvmpBjCAjSTa27o3Tq8Fz"
-					, holder.icon, context,
-					callback1, true);
+			ImageUtil
+					.setThumbnailView(
+							"http://t1.baidu.com/it/u=3329574332,1288957616&fm=90&gp=0.jpg"
+							,
+							holder.icon, context, callback1, true);
 		} else {
 			holder.icon.setVisibility(View.VISIBLE);
-			ImageUtil.setThumbnailView( 
-					"https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTgZ4gQjC_htRquBKoItqrWlYDbNbUnvmpBjCAjSTa27o3Tq8Fz"
-					, holder.icon, context,
-					callback1, true);
+			ImageUtil
+					.setThumbnailView(
+							"http://t1.baidu.com/it/u=3329574332,1288957616&fm=90&gp=0.jpg"
+							,
+							holder.icon, context, callback1, true);
 		}
 
 		// return 加载数据后的iew对象
@@ -119,8 +121,9 @@ public class NewsListAdapter extends AdapterBase<NewsShort> {
 	static class ViewHolder {
 		public ViewHolder(View convertView) {
 			this.title = (TextView) convertView.findViewById(R.id.news_title);
-			this.time = (TextView) convertView.findViewById(R.id.news_pub_date_time);
-			this.source= (TextView)convertView.findViewById(R.id.news_source);
+			this.time = (TextView) convertView
+					.findViewById(R.id.news_pub_date_time);
+			this.source = (TextView) convertView.findViewById(R.id.news_source);
 			this.content = (TextView) convertView
 					.findViewById(R.id.news_summary);
 			this.icon = (ImageView) convertView.findViewById(R.id.news_img);
@@ -135,7 +138,7 @@ public class NewsListAdapter extends AdapterBase<NewsShort> {
 
 	@Override
 	protected void onReachBottom() {
-//		if(fragment!=null)
-//		fragment.onLoadMore();
+		// if(fragment!=null)
+		// fragment.onLoadMore();
 	}
 }

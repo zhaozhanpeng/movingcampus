@@ -17,27 +17,28 @@ public class Utils {
 	public static final String ACTION_SHOW_MESSAGE = "bccsclient.action.SHOW_MESSAGE";
 	protected static final String EXTRA_ACCESS_TOKEN = "access_token";
 	public static final String EXTRA_MESSAGE = "message";
-	
-	// 获取AppKey
-    public static String getMetaValue(Context context, String metaKey) {
-        Bundle metaData = null;
-        String apiKey = null;
-        if (context == null || metaKey == null) {
-        	return null;
-        }
-        try {
-            ApplicationInfo ai = context.getPackageManager().getApplicationInfo(
-                    context.getPackageName(), PackageManager.GET_META_DATA);
-            if (null != ai) {
-                metaData = ai.metaData;
-            }
-            if (null != metaData) {
-            	apiKey = metaData.getString(metaKey);
-            }
-        } catch (NameNotFoundException e) {
 
-        }
-        return apiKey;
-    }
+	// 获取AppKey
+	public static String getMetaValue(Context context, String metaKey) {
+		Bundle metaData = null;
+		String apiKey = null;
+		if (context == null || metaKey == null) {
+			return null;
+		}
+		try {
+			ApplicationInfo ai = context.getPackageManager()
+					.getApplicationInfo(context.getPackageName(),
+							PackageManager.GET_META_DATA);
+			if (null != ai) {
+				metaData = ai.metaData;
+			}
+			if (null != metaData) {
+				apiKey = metaData.getString(metaKey);
+			}
+		} catch (NameNotFoundException e) {
+
+		}
+		return apiKey;
+	}
 
 }

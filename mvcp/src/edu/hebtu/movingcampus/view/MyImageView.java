@@ -1,18 +1,17 @@
 package edu.hebtu.movingcampus.view;
 
-
-import edu.hebtu.movingcampus.R;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import edu.hebtu.movingcampus.R;
 
 public class MyImageView extends ImageView implements OnClickListener {
 
 	private Drawable mDefaultAvatar;
-	
+
 	private boolean markEnable = true;
 
 	public MyImageView(Context context) {

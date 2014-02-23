@@ -26,6 +26,7 @@ import edu.hebtu.movingcampus.view.GetCourse;
 public class ShowCourse extends BaseActivity {
 
 	private ViewPager mPager;
+	public static MyPagerAdapter adapter;
 	private List<View> listViews;
 	private ImageView cursor;
 	private int offset = 0;
@@ -87,31 +88,16 @@ public class ShowCourse extends BaseActivity {
 
 	private void InitViewPager() {
 		mPager = (ViewPager) findViewById(R.id.vPager);
-		listViews = new ArrayList<View>();
 
 		GetCourse getSchedule = new GetCourse(this);
 		// TODO
-
-		View monView = getSchedule.getScheduleView(1);
-		View tueView = getSchedule.getScheduleView(2);
-		View wedView = getSchedule.getScheduleView(3);
-		View thuView = getSchedule.getScheduleView(4);
-		View friView = getSchedule.getScheduleView(5);
-		View stuView = getSchedule.getScheduleView(6);
-		View sunView = getSchedule.getScheduleView(7);
-
-		listViews.add(monView);
-		listViews.add(tueView);
-		listViews.add(wedView);
-		listViews.add(thuView);
-		listViews.add(friView);
-		listViews.add(stuView);
-		listViews.add(sunView);
+		listViews = getSchedule.getListview();
 
 		Intent intent = getIntent();
 		WEEK = intent.getIntExtra("POSITION", 1) + "";
 		// Log.i("intent.getIntExtra", WEEK);
-		mPager.setAdapter(new MyPagerAdapter(listViews));
+		adapter=new MyPagerAdapter(listViews);
+		mPager.setAdapter(adapter);
 		// currIndex=Integer.parseInt(WEEK)-1;
 		mPager.setOnPageChangeListener(new MyOnPageChangeListener());
 		mPager.setCurrentItem(Integer.parseInt(WEEK) - 1);
@@ -140,6 +126,10 @@ public class ShowCourse extends BaseActivity {
 			this.mListViews = mListViews;
 		}
 
+		public void setListViews(List<View> list){
+			mListViews=list;
+			this.notifyDataSetChanged();
+		}
 		@Override
 		public void destroyItem(View arg0, int arg1, Object arg2) {
 			((ViewPager) arg0).removeView(mListViews.get(arg1));

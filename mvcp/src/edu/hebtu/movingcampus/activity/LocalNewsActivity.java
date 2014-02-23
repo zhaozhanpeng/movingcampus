@@ -12,22 +12,24 @@ import edu.hebtu.movingcampus.entity.NewsShort;
 import edu.hebtu.movingcampus.subjects.LocalNewsSubject;
 
 public class LocalNewsActivity extends BaseActivity {
-	private LocalNewsSubject subject= null;
+	private LocalNewsSubject subject = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_local_news);
 
-		subject = (LocalNewsSubject) IPreference.getInstance(getBaseContext()).getListOfNewsSubjectByID(0);
+		subject = (LocalNewsSubject) IPreference.getInstance(getBaseContext())
+				.getListOfNewsSubjectByID(0);
 		ListView list = (ListView) findViewById(R.id.localnews_list);
-		
-		List<NewsShort> initlist=subject.dump(LocalNewsActivity.this);
-		NewsListAdapter adapter = new NewsListAdapter(this, R.layout.news_item,list, initlist);
+
+		List<NewsShort> initlist = subject.dump(LocalNewsActivity.this);
+		NewsListAdapter adapter = new NewsListAdapter(this, R.layout.news_item,
+				list, initlist);
 		list.setAdapter(adapter);
-		
-		if(list==null||initlist.size()==0)
-			//init
+
+		if (list == null || initlist.size() == 0)
+			// init
 			;
 	}
 
