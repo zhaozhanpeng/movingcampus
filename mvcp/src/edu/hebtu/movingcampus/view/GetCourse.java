@@ -93,7 +93,9 @@ public class GetCourse {
 	private View getScheduleView(int week) {
 		if (courseList == null) {
 			Toast.makeText(context, "错误!", Toast.LENGTH_SHORT);
-			return new View(context);
+			View v= new View(context);
+			v.setTag(true);
+			return v;
 		}
 
 		View view = View.inflate(context, R.layout.showcourse_page, null);

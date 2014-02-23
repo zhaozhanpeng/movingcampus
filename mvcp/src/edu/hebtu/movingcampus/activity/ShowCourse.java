@@ -3,6 +3,7 @@ package edu.hebtu.movingcampus.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -35,6 +36,7 @@ public class ShowCourse extends BaseActivity {
 
 	private TextView tv1, tv2, tv3, tv4, tv5, tv6, tv7;
 	private String WEEK = "0";
+	private ProgressDialog processBar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,7 @@ public class ShowCourse extends BaseActivity {
 		InitImageView();
 		InitViewPager();
 		bindButton();
+		
 	}
 
 	protected void bindButton() {
@@ -92,13 +95,18 @@ public class ShowCourse extends BaseActivity {
 		GetCourse getSchedule = new GetCourse(this);
 		// TODO
 		listViews = getSchedule.getListview();
+		if(listViews.get(0).getTag()!=null){
+			this.processBar = ProgressDialog.show(
+					ShowCourse.this, "", "正在初始化更新，请稍后...");
+			this.processBar.onStart();
+			this.processBar.show();
+			this.processBar.setCancelable(true);
+		}
 
 		Intent intent = getIntent();
 		WEEK = intent.getIntExtra("POSITION", 1) + "";
-		// Log.i("intent.getIntExtra", WEEK);
 		adapter=new MyPagerAdapter(listViews);
 		mPager.setAdapter(adapter);
-		// currIndex=Integer.parseInt(WEEK)-1;
 		mPager.setOnPageChangeListener(new MyOnPageChangeListener());
 		mPager.setCurrentItem(Integer.parseInt(WEEK) - 1);
 
@@ -129,6 +137,7 @@ public class ShowCourse extends BaseActivity {
 		public void setListViews(List<View> list){
 			mListViews=list;
 			this.notifyDataSetChanged();
+			ShowCourse.this.processBar.hide();
 		}
 		@Override
 		public void destroyItem(View arg0, int arg1, Object arg2) {

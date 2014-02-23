@@ -103,15 +103,6 @@ public class SettingActivity extends BaseActivity {
 					}
 				});
 
-		findViewById(R.id.ll_flow).setOnClickListener(
-				new View.OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-						startActivity(new Intent(SettingActivity.this,
-								NetWorkFlow.class));
-					}
-				});
 
 		findViewById(R.id.ll_cache).setOnClickListener(
 				new View.OnClickListener() {
