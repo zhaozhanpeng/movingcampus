@@ -70,7 +70,6 @@ public class ChooseCourseBrunchActivity extends Activity {
 	 * @aim 初始化视图
 	 */
 	public void initView() {
-		this.Title = (TextView) findViewById(R.id.choosecourse_choosetype_tv);
 		// 设置标题
 		this.Title.setText(getCourseTitle());
 		this.CourseItem = (ListView) findViewById(R.id.choosecourse_courseitem_listview);
