@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+        android:layout_width="45.0dip"
+        android:layout_height="45.0dip"
+        android:gravity="center" >
+
+        <ImageView
+            android:id="@id/img_pic"
+            android:background="@drawable/btn_style_alert_dialog_button_normal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="45.0dip"
+        android:gravity="left"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@id/linearLayout01"
+            android:layout_width="fill_parent"
+            android:layout_height="26.0dip"
+            android:layout_marginLeft="10.0dip"
+            android:orientation="horizontal" >
+			<TextView android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="学号：  "/>
+            <TextView
+                android:id="@id/tvscore_stuID"
+                android:layout_width="wrap_content"
+                android:layout_height="26.0dip"
+                android:editable="true"
+                android:gravity="center"
+                android:hint="2011011111"
+                android:textColor="#ff9966cc"
+                android:textSize="13.0sp"
+                android:typeface="sans" />
+            <TextView
+                android:id="@id/textview001"
+                android:layout_width="30.0dip"
+                android:layout_height="wrap_content"
+                android:editable="true"
+                android:text="  "
+                android:textSize="12.0sp" />
+			<TextView android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="姓名：  "/>
+            
+
+            <TextView
+                android:id="@id/tvscore_StuName"
+                android:layout_width="wrap_content"
+                android:layout_height="26.0dip"
+                android:editable="true"
+                android:gravity="center"
+                android:hint="张雷杰"
+                android:maxLength="4"
+                android:textColor="#ff9966cc"
+                android:textSize="13.0sp"
+                android:typeface="sans" />
+
+            <TextView
+                android:id="@id/textview00101"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:editable="true"
+                android:text="  " />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="26.0dip"
+            android:layout_marginLeft="10.0dip" >
+
+            <TextView
+                android:id="@+id/tvpage_xn"
+                android:layout_width="wrap_content"
+                android:layout_height="26.0dip"
+                android:editable="true"
+                android:gravity="center"
+                android:hint="2013~2014"
+                android:textColor="#ff9966cc"
+                android:textSize="13.0sp"
+                android:typeface="sans" />
+            <TextView android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="学年 第 "/>
+            <TextView
+                android:id="@+id/tvpage_xq"
+                android:layout_width="wrap_content"
+                android:layout_height="26.0dip"
+                android:editable="true"
+                android:gravity="center"
+                android:hint="2"
+                android:textColor="#ff9966cc"
+                android:textSize="13.0sp"
+                android:typeface="sans" />
+            <TextView android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="学期 选课 "/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
