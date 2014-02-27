@@ -1,0 +1,107 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/jw_background"
+    android:orientation="vertical"
+    tools:context=".ChooseCourseBrunchActivity" >
+
+    <RelativeLayout
+        android:id="@+id/shake_title_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/title_bar"
+        android:gravity="center_vertical" >
+
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@drawable/title_btn_back"
+            android:onClick="shake_activity_back"
+            android:text="@string/back"
+            android:textColor="#fff"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/choosecourse_choosetype_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/choose_course_fast"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/personcourse"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/shake_title_bar"
+        android:background="@drawable/ic_preference_single_normal"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="5dp"
+            android:layout_marginLeft="8dp"
+            android:background="@drawable/ic_preference_choosecourse_green"
+            android:text="@string/choose_course_coursename"
+            android:textColor="#000"
+            android:textSize="15sp" 
+            android:layout_weight="1"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="5dp"
+            android:layout_marginLeft="8dp"
+            android:background="@drawable/ic_preference_choosecourse_green"
+            android:text="@string/choose_course_coursepro"
+            android:textColor="#000"
+            android:textSize="15sp"
+            android:layout_weight="1" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="5dp"
+            android:layout_marginLeft="8dp"
+            android:background="@drawable/ic_preference_choosecourse_green"
+            android:text="@string/choose_course_coursecredit"
+            android:textColor="#000"
+            android:textSize="15sp" 
+            android:layout_weight="1"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="5dp"
+            android:layout_marginLeft="8dp"
+            android:background="@drawable/ic_preference_choosecourse_green"
+            android:text="@string/choose_course_courseselect"
+            android:textColor="#000"
+            android:textSize="15sp" 
+            android:layout_weight="1"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="5dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/ic_preference_choosecourse_green"
+            android:text="@string/choose_course_courseleftnum"
+            android:textColor="#000"
+            android:textSize="15sp"
+            android:layout_weight="1" />
+    </LinearLayout>
+	<ListView android:id="@+id/choosecourse_courseitem_listview"
+	    android:layout_height="wrap_content"
+	    android:layout_width="fill_parent"
+	    android:layout_below="@id/personcourse"
+	    ></ListView>
+</RelativeLayout>

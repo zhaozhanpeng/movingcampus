@@ -1,0 +1,197 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:layout_gravity="right"
+    android:background="@color/background"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/ly_connection_failed"
+        layout="@layout/connect_failed"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/title"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/title_bar"
+        android:gravity="center_vertical" >
+
+        <LinearLayout
+            android:id="@+id/Linear_above_toHome"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="5dp"
+            android:clickable="true"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:scaleType="centerInside"
+                android:src="@drawable/button_above_more" />
+
+            <TextView
+                android:id="@+id/tv_above_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/card_title"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            app:ignore="HardcodedText" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        app:ignore="ScrollViewSize" >
+
+        <RelativeLayout
+            android:id="@+id/rl_catdleft"
+            android:layout_width="fill_parent"
+            android:layout_height="90dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/card_back"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/iv_catdleft"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:paddingLeft="15dp"
+                android:src="@drawable/card_f" />
+
+            <TextView
+                android:id="@+id/tv_catdleft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/iv_catdleft"
+                android:padding="8dp"
+                android:text="您的一卡通余额为："
+                android:textColor="#fff"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tv_yuan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/tv_catdleft"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:paddingRight="10dp"
+                android:text="￥"
+                android:textColor="#fff"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/tv_balance_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:layout_toRightOf="@+id/tv_yuan"
+                android:text="@string/leftmoney"
+                android:textColor="#fff"
+                android:textSize="25sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_lockunlock"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:background="@drawable/preference_item"
+            android:clickable="true"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/iv_lockunlock"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:paddingLeft="15dp"
+                android:src="@drawable/card_lock" />
+
+            <TextView
+                android:id="@+id/info_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/iv_lockunlock"
+                android:padding="8dp"
+                android:text="@string/lockunlock"
+                android:textColor="#434343"
+                android:textSize="13sp" />
+
+            <ImageView
+                android:id="@+id/btn_lockunlock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:clickable="true"
+                android:scaleType="matrix"
+                android:src="@drawable/mm_submenu" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/btn_balance_transfer"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:background="@drawable/preference_item"
+            android:clickable="true"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/info_icon"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:paddingLeft="15dp"
+                android:src="@drawable/card_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/info_icon"
+                android:padding="8dp"
+                android:text="@string/card_transfer"
+                android:textColor="#434343"
+                android:textSize="13sp" />
+
+            <ImageView
+                android:id="@+id/btn_lockunlock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:clickable="true"
+                android:scaleType="matrix"
+                android:src="@drawable/mm_submenu" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>
