@@ -1,7 +1,6 @@
 package edu.hebtu.movingcampus.activity.wrapper;
 
 import android.app.Activity;
-import android.content.ComponentCallbacks2;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.view.View;
@@ -191,6 +190,8 @@ public class AllInOneCardActivity implements PageWraper, NetworkchangeListener {
 				else
 					contentView.findViewById(R.id.btn_lockunlock)
 							.setBackgroundResource(R.drawable.unlock);
+				
+				((LocalMessageSubject)IPreference.getInstance(mainActivity).getListOfNewsSubjectByID(0)).setCardEntity(bean, mainActivity);
 
 			} else {
 				Toast.makeText(mainActivity, "更新失败!",

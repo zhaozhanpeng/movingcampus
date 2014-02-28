@@ -14,6 +14,7 @@ public class Constants {
 		public static final String COURSE = "course";
 		public static final String EXAM = "exam";
 		public static final String MESSAGE="message";
+		public static final String DATA_VERSION = "data_version";
 	}
 
 	public static final class COURSE_DOMAIN {

@@ -68,5 +68,8 @@ public class Urls {
 	
 	//domain=personcourse,type=updatetime;...-->time
 	//domain=message---->取出自己对应的信息,type=0全部
-	public static final String QUERY_MESSAGE = BASE+ "/"+ Constants.TAGS.MESSAGE + "?domain=%s&type=%s";
+	public static final String QUERY_VERSION = BASE+ "/"+ Constants.TAGS.DATA_VERSION + "?domain=%s&type=%s";
+
+	//query message after the time
+	public static final String QUERY_MESSAGE = BASE+ "/"+ Constants.TAGS.MESSAGE + "?time=%s";
 }

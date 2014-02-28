@@ -1,5 +1,6 @@
 package edu.hebtu.movingcampus.activity;
 
+import java.util.Date;
 import java.util.List;
 
 import android.app.ProgressDialog;
@@ -7,22 +8,16 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.widget.ListView;
-import edu.hebtu.movingcampus.AppInfo;
 import edu.hebtu.movingcampus.R;
 import edu.hebtu.movingcampus.activity.base.BaseActivity;
 import edu.hebtu.movingcampus.activity.wrapper.IPreference;
-import edu.hebtu.movingcampus.adapter.InfoListAdapter;
 import edu.hebtu.movingcampus.adapter.MessageListAdapter;
-import edu.hebtu.movingcampus.biz.CourseDao;
-import edu.hebtu.movingcampus.config.Constants;
-import edu.hebtu.movingcampus.entity.NewsShort;
-import edu.hebtu.movingcampus.subjects.CourseListSubject;
+import edu.hebtu.movingcampus.biz.MessageDao;
 import edu.hebtu.movingcampus.subjects.LocalMessageSubject;
-import edu.hebtu.movingcampus.subjects.MessageListSubject;
-import edu.hebtu.movingcampus.view.GetCourse;
 
 public class LocalNewsActivity extends BaseActivity {
 	private LocalMessageSubject subject = null;
+	private MessageDao dao;
 	private MessageListAdapter  adapter= null;
 	private List<edu.hebtu.movingcampus.entity.Message>  initlist = null;
 	private Handler handler;
@@ -32,13 +27,15 @@ public class LocalNewsActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_message);
 
+		dao=new MessageDao(this);
 		ListView list = (ListView) findViewById(R.id.lv_message);
 		
 		subject = (LocalMessageSubject) IPreference.getInstance(getBaseContext())
 				.getListOfNewsSubjectByID(0);
 
-		//todo
-		//mAdapter = new NewsListAdapter(ac, R.layout.news_item, listview, mlist);
+		initlist = ((LocalMessageSubject)IPreference.getInstance(LocalNewsActivity.this)
+			.getSubjectByTag(new LocalMessageSubject().getTag())).getMessageList();
+
 		this.handler=new Handler(new Handler.Callback() {
 			@Override
 			public boolean handleMessage(Message msg) {
@@ -58,7 +55,6 @@ public class LocalNewsActivity extends BaseActivity {
 			}
 		});
 
-		//initlist = subject.dump(LocalNewsActivity.this);
 		if(initlist==null||initlist.size()==0){
 			getData();
 			this.mProgressDialog = ProgressDialog.show(
@@ -76,13 +72,12 @@ public class LocalNewsActivity extends BaseActivity {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-		//		initlist=subject.dump(context)
+				initlist=dao.mapperJson(false,new Date().toString(),null);
 				if(initlist!=null){
 					 ((LocalMessageSubject)IPreference.getInstance(LocalNewsActivity.this)
-							.getSubjectByTag(new MessageListSubject().getTag())).setMessageeList(initlist);
+							.getSubjectByTag(new LocalMessageSubject().getTag())).setMessageeList(initlist);
 					 handler.sendEmptyMessage(0);
 				}else {
-					//TODO
 					 handler.sendEmptyMessage(1);
 				}
 			}

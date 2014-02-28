@@ -21,15 +21,13 @@ public final class LocalMessageSubject extends Subject {
 	 */
 	private static final long serialVersionUID = 1L;
 	private List<Message> list;
-	private volatile static CardEntity card;
+	private volatile static CardEntity card=null;
 
 	public LocalMessageSubject() {
 	}
 
 	public CardEntity getCardEntity(){
-		synchronized(card){
-			return card;
-		}
+		return card;
 	}
 
 	public void setCardEntity(CardEntity card,Activity context){
@@ -72,6 +70,9 @@ public final class LocalMessageSubject extends Subject {
 	public void setMessageeList(
 			List<edu.hebtu.movingcampus.entity.Message> initlist) {
 		this.list=initlist;
+	}
+	public List<Message> getMessageList(){
+		return list;
 	}
 
 }
