@@ -71,5 +71,5 @@ public class Urls {
 	public static final String QUERY_VERSION = BASE+ "/"+ Constants.TAGS.DATA_VERSION + "?domain=%s&type=%s";
 
 	//query message after the time
-	public static final String QUERY_MESSAGE = BASE+ "/"+ Constants.TAGS.MESSAGE + "?time=%s";
+	public static final String QUERY_MESSAGE = BASE+ "/"+ Constants.TAGS.MESSAGE + "size=%s";
 }

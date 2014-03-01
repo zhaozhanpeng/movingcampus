@@ -1,9 +1,14 @@
 package edu.hebtu.movingcampus.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 
-public class MMessage {
+public class MMessage implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String title;
 	private String content;
 	private Boolean readed=false;

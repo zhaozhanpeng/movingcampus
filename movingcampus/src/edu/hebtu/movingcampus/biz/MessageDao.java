@@ -24,7 +24,7 @@ public class MessageDao extends BaseDao {
 	 * 
 	 * new list json mapper
 	 */
-	public ArrayList<MMessage> mapperJson(boolean useCache, String time,String size) {
+	public ArrayList<MMessage> mapperJson(boolean useCache, String size) {
 		// 默认加载10条新闻
 		if (size == null)
 			size = "10";
@@ -33,7 +33,7 @@ public class MessageDao extends BaseDao {
 			String result;
 			result = RequestCacheUtil.getRequestContentByGet(
 					mActivity,
-					String.format(Urls.QUERY_MESSAGE, time, size)
+					String.format(Urls.QUERY_MESSAGE, size)
 							+ Utility.getScreenParams(mActivity),
 					Constants.WebSourceType.Json,
 					Constants.DBContentType.Content_list, useCache);

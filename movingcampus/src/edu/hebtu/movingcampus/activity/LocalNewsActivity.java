@@ -80,7 +80,7 @@ public class LocalNewsActivity extends BaseActivity {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				messagelist=dao.mapperJson(false,new Date().toString(),null);
+				messagelist=dao.mapperJson(false,null);
 				//TODO
 				if(messagelist==null){
 					messagelist=new ArrayList<MMessage>();
