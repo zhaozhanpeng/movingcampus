@@ -17,14 +17,14 @@ import edu.hebtu.movingcampus.R;
 import edu.hebtu.movingcampus.activity.NewsDetailsActivity;
 import edu.hebtu.movingcampus.adapter.base.AdapterBase;
 import edu.hebtu.movingcampus.adapter.base.ItemListAdapter;
-import edu.hebtu.movingcampus.entity.Message;
+import edu.hebtu.movingcampus.entity.MMessage;
 import edu.hebtu.movingcampus.entity.NewsShort;
 import edu.hebtu.movingcampus.utils.ImageUtil;
 import edu.hebtu.movingcampus.utils.ImageUtil.ImageCallback;
 import edu.hebtu.movingcampus.utils.LogUtil;
 
 //主页新闻+本地通知数据展示
-public class MessageListAdapter extends ItemListAdapter<Message> {
+public class MessageListAdapter extends ItemListAdapter<MMessage> {
 	/**
 	 * initial
 	 * 
@@ -36,7 +36,7 @@ public class MessageListAdapter extends ItemListAdapter<Message> {
 	 *            :item xml view
 	 */
 	public MessageListAdapter(final Context context, int resourceId,
-			ListView list, List<Message> mlist) {
+			ListView list, List<MMessage> mlist) {
 		super(context,resourceId,list,mlist);
 	}
 

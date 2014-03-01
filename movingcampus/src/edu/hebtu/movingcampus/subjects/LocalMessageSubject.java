@@ -1,5 +1,6 @@
 package edu.hebtu.movingcampus.subjects;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -8,7 +9,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import edu.hebtu.movingcampus.config.Constants;
 import edu.hebtu.movingcampus.entity.CardEntity;
-import edu.hebtu.movingcampus.entity.Message;
+import edu.hebtu.movingcampus.entity.MMessage;
 import edu.hebtu.movingcampus.entity.NewsShort;
 import edu.hebtu.movingcampus.enums.NewsType;
 import edu.hebtu.movingcampus.subject.base.ListOfNews;
@@ -20,7 +21,7 @@ public final class LocalMessageSubject extends Subject {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private List<Message> list;
+	private List<MMessage> list=new ArrayList<MMessage>();
 	private volatile static CardEntity card=null;
 
 	public LocalMessageSubject() {
@@ -48,8 +49,8 @@ public final class LocalMessageSubject extends Subject {
 		return false;
 	}
 
-	public List<Message> dump(Activity context) {
-		Message cardnews=new Message();
+	public List<MMessage> dump(Activity context) {
+		MMessage cardnews=new MMessage();
 		cardnews.setTitle("一卡通余额提醒:");
 		SharedPreferences pre = context.getSharedPreferences(
 				Constants.PREFER_FILE, 0);
@@ -67,11 +68,11 @@ public final class LocalMessageSubject extends Subject {
 		return "subject." + "0";
 	}
 
-	public void setMessageeList(
-			List<edu.hebtu.movingcampus.entity.Message> initlist) {
-		this.list=initlist;
+	public void addMessageeList(
+			List<edu.hebtu.movingcampus.entity.MMessage> initlist) {
+		this.list.addAll(initlist);
 	}
-	public List<Message> getMessageList(){
+	public List<MMessage> getMessageList(){
 		return list;
 	}
 

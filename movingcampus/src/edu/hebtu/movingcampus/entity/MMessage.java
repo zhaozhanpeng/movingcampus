@@ -2,7 +2,7 @@ package edu.hebtu.movingcampus.entity;
 
 import java.sql.Date;
 
-public class Message {
+public class MMessage {
 	private String title;
 	private String content;
 	private Boolean readed=false;

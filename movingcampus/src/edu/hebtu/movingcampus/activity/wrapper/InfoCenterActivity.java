@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import edu.hebtu.movingcampus.R;
+import edu.hebtu.movingcampus.activity.LocalNewsActivity;
 import edu.hebtu.movingcampus.activity.MainActivity;
 import edu.hebtu.movingcampus.activity.SearchActivity;
 import edu.hebtu.movingcampus.activity.base.ActionDispatcher;
@@ -86,9 +87,8 @@ public class InfoCenterActivity implements OnClickListener, AnimationListener,
 	}
 	private void initControl() {
 
-		imgQuery = (ImageView) content.findViewById(R.id.imageview_above_query);
+		imgQuery = (ImageView) content.findViewById(R.id.imageview_above_search);
 		imgQuery.setOnClickListener(this);
-		imgQuery.setVisibility(View.GONE);
 		imgMore = (ImageView) content.findViewById(R.id.imageview_above_more);
 		imgMore.setOnClickListener(this);
 		imgLeft = (ImageView) content.findViewById(R.id.imageview_above_left);
@@ -123,6 +123,9 @@ public class InfoCenterActivity implements OnClickListener, AnimationListener,
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
+		case R.id.imageview_above_local_news:
+			mainActivity.startActivity(new Intent(mainActivity,LocalNewsActivity.class));
+			break;
 		case R.id.Linear_above_toHome:
 			MainActivity.instance.getSlidingMenu().toggle();
 			break;
@@ -132,7 +135,7 @@ public class InfoCenterActivity implements OnClickListener, AnimationListener,
 						v, mainActivity, mBasePageAdapter.getFragments());
 			}
 			break;
-		case R.id.imageview_above_query:
+		case R.id.imageview_above_search:
 
 			if (NetWorkHelper.isNetworkAvailable(mainActivity)) {
 				IntentUtil.start_activity(mainActivity, SearchActivity.class,
@@ -143,7 +146,8 @@ public class InfoCenterActivity implements OnClickListener, AnimationListener,
 			}
 			break;
 		case R.id.btn_refresh:
-			imgQuery.setVisibility(View.GONE);
+			//TODO
+			mainActivity.findViewById(R.id.btn_refresh).setVisibility(View.GONE);
 			new MyTask().execute();
 			break;
 		default:
