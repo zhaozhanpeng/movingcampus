@@ -29,6 +29,14 @@ public class UlitiesActivity implements Handler.Callback, PageWraper {
 	}
 
 	private void bindButton() {
+		content.findViewById(R.id.Linear_above_toHome).setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				MainActivity.instance.getSlidingMenu().toggle();
+			}
+
+		});
 		content.findViewById(R.id.ulities_calls).setOnClickListener(
 				new View.OnClickListener() {
 					@Override

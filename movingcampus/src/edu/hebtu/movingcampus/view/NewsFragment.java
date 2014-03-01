@@ -15,10 +15,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import edu.hebtu.movingcampus.R;
 import edu.hebtu.movingcampus.activity.wrapper.IPreference;
+import edu.hebtu.movingcampus.activity.wrapper.InfoCenterActivity;
 import edu.hebtu.movingcampus.adapter.InfoListAdapter;
 import edu.hebtu.movingcampus.biz.NewsDao;
 import edu.hebtu.movingcampus.entity.NewsShort;
@@ -32,6 +36,7 @@ import edu.hebtu.movingcampus.widget.XListView;
 public class NewsFragment extends BaseListFragment {
 
 	public Activity mActivity;
+	private Button bn_refresh;
 	private String page;
 	public boolean loaded = false;
 	private InfoListAdapter mAdapter;
@@ -42,6 +47,8 @@ public class NewsFragment extends BaseListFragment {
 
 	// private DisplayImageOptions options;
 	private Handler mHandler;
+	private LinearLayout loadLayout;
+	private LinearLayout loadFaillayout;
 
 	@Override
 	public void onAttach(Activity ac) {
@@ -77,8 +84,13 @@ public class NewsFragment extends BaseListFragment {
 		if (mDateFormat == null) {
 			mDateFormat = new SimpleDateFormat("MM月dd日");
 		}
+		view = ac.getLayoutInflater().inflate(R.layout.newsxlist, null, true);
+		bn_refresh = (Button) view.findViewById(R.id.btn_refresh);
+		bn_refresh.setOnClickListener(InfoCenterActivity.getInstance());
+		loadLayout = (LinearLayout) view.findViewById(R.id.loading_layout_view);
+		loadFaillayout = (LinearLayout)view 
+				.findViewById(R.id.load_failed_layout_view);
 		this.mActivity = ac;
-		view = ac.getLayoutInflater().inflate(R.layout.newsxlist, null, false);
 		listview = (XListView) view.findViewById(R.id.list_view);
 		mlist = ((ListOfNews)IPreference.getInstance(ac)
 				.getListOfNewsSubjectByID(Integer.parseInt(page) + 1)).dump(ac);
@@ -219,5 +231,23 @@ public class NewsFragment extends BaseListFragment {
 
 	public InfoListAdapter getAdapter() {
 		return mAdapter;
+	}
+
+	public void onPreExecute() {
+		loadLayout.setVisibility(View.VISIBLE);
+		listview.setVisibility(View.VISIBLE);
+	}
+
+	public void onPostExecute(List<NewsShort> result) {
+		if (result != null) {
+			loadLayout.setVisibility(View.GONE);
+			loadFaillayout.setVisibility(View.GONE);
+			listview.setVisibility(View.VISIBLE);
+		} else {
+			// mBasePageAdapter.addNullFragment();
+			bn_refresh.setVisibility(View.VISIBLE);
+			loadLayout.setVisibility(View.GONE);
+			loadFaillayout.setVisibility(View.VISIBLE);
+		}
 	}
 }

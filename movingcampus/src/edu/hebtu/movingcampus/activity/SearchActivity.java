@@ -76,7 +76,7 @@ public class SearchActivity extends BaseFragmentActivity implements
 	}
 
 	public void initData() {
-		listview = (XListView) findViewById(R.id.list_view);
+		listview = (XListView) findViewById(R.id.news_fragment);
 		newsDao = new NewsDao(this);
 		listview.setXListViewListener(this);
 		adapter = new InfoListAdapter(this, R.layout.news_item, listview, null);

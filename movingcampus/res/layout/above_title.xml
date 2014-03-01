@@ -3,15 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/title_height"
     android:background="@drawable/title_bar" >
-
-    <LinearLayout
+        <LinearLayout
         android:id="@+id/Linear_above_toHome"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_margin="5dp"
-        android:background="@drawable/back_above_menushow_style"
         android:clickable="true"
         android:gravity="center"
         android:orientation="horizontal" >
@@ -28,6 +26,7 @@
             android:layout_height="wrap_content"
             android:textColor="#fff" />
     </LinearLayout>
+
 
     <TextView
         android:id="@+id/textView1"

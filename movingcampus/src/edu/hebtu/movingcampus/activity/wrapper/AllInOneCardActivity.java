@@ -11,9 +11,11 @@ import edu.hebtu.movingcampus.activity.CardTransferActivity;
 import edu.hebtu.movingcampus.activity.MainActivity;
 import edu.hebtu.movingcampus.activity.base.PageWraper;
 import edu.hebtu.movingcampus.biz.CardDao;
+import edu.hebtu.movingcampus.biz.UserDao;
 import edu.hebtu.movingcampus.biz.base.BaseDao;
 import edu.hebtu.movingcampus.config.Constants;
 import edu.hebtu.movingcampus.entity.CardEntity;
+import edu.hebtu.movingcampus.entity.User;
 import edu.hebtu.movingcampus.subjects.LocalMessageSubject;
 import edu.hebtu.movingcampus.subjects.NetworkChangeReceiver;
 import edu.hebtu.movingcampus.subjects.NetworkChangeReceiver.NetworkchangeListener;
@@ -27,11 +29,9 @@ public class AllInOneCardActivity implements PageWraper, NetworkchangeListener {
 	private Activity mainActivity = MainActivity.instance;
 	private final View contentView;
 	private AsyncTask<BaseDao, Integer, Boolean[]> mTask;
-	private boolean loaded;
 
 	public AllInOneCardActivity(View view) {
 		this.contentView = view;
-		loaded = false;
 		contentView.findViewById(R.id.btn_lockunlock).setBackgroundResource(
 				R.drawable.unlock);
 		this.dao = new CardDao(mainActivity);
@@ -39,9 +39,7 @@ public class AllInOneCardActivity implements PageWraper, NetworkchangeListener {
 		bean = ((LocalMessageSubject)
 				IPreference.getInstance(mainActivity).getListOfNewsSubjectByID(0)).getCardEntity();
 
-		if (bean == null)
-			mTask = new Cardtask(null).execute(dao);
-		else {
+		if(bean!=null){
 			((TextView) (contentView.findViewById(R.id.tv_balance_left)))
 					.setText(bean.getLastPay() + "元");
 			if (bean.getStatus() == false)
@@ -52,10 +50,25 @@ public class AllInOneCardActivity implements PageWraper, NetworkchangeListener {
 						.setBackgroundResource(R.drawable.unlock);
 		}
 
+		getData();
 		bindButton();
 	}
 
+
+	private void getData(){
+		if (bean == null&&NetWorkHelper.isNetworkAvailable(mainActivity))
+			mTask = new Cardtask(null).execute(dao);
+	}
+
 	private void bindButton() {
+		contentView.findViewById(R.id.Linear_above_toHome).setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				MainActivity.instance.getSlidingMenu().toggle();
+			}
+
+		});
 		// 点击刷新
 		contentView.findViewById(R.id.rl_catdleft).setOnClickListener(
 				new View.OnClickListener() {
@@ -98,7 +111,7 @@ public class AllInOneCardActivity implements PageWraper, NetworkchangeListener {
 
 	@Override
 	public void onResume() {
-		NetworkChangeReceiver.unRegistNetworkListener(this);
+		onDataEnabled();
 	}
 
 	@Override
@@ -117,7 +130,6 @@ public class AllInOneCardActivity implements PageWraper, NetworkchangeListener {
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			loaded = false;
 			if (bean != null) {
 				LogUtil.d("object:", bean + "status:" + bean.getStatus());
 				((TextView) (contentView.findViewById(R.id.tv_balance_left)))
@@ -138,6 +150,11 @@ public class AllInOneCardActivity implements PageWraper, NetworkchangeListener {
 
 		@Override
 		protected Boolean[] doInBackground(BaseDao... params) {
+			if(!MainActivity.loginOnLine){
+				User  user=IPreference.getInstance(mainActivity).getProfile();
+				IPreference.getInstance(mainActivity).setProfile(new UserDao(mainActivity).mapperJson(user.getUserName(), user.getPassword()));
+				MainActivity.loginOnLine=true;
+			}
 			Boolean[] res = new Boolean[2];
 			if (action != null && bean != null)
 				res[0] = bean.getStatus();
@@ -197,7 +214,6 @@ public class AllInOneCardActivity implements PageWraper, NetworkchangeListener {
 				Toast.makeText(mainActivity, "更新失败!",
 						Toast.LENGTH_SHORT).show();
 			}
-			loaded = true;
 		}
 	}
 
@@ -208,8 +224,7 @@ public class AllInOneCardActivity implements PageWraper, NetworkchangeListener {
 
 	@Override
 	public void onDataEnabled() {
-		if (!loaded)
-			mTask.execute(dao);
+		getData();
 	}
 
 	@Override

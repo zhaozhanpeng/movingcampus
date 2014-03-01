@@ -52,6 +52,7 @@ import edu.hebtu.movingcampus.slidingmenu.SlidingMenu;
 import edu.hebtu.movingcampus.subjects.NetworkChangeReceiver;
 import edu.hebtu.movingcampus.subjects.NetworkChangeReceiver.NetworkchangeListener;
 import edu.hebtu.movingcampus.utils.LogUtil;
+import edu.hebtu.movingcampus.utils.NetWorkHelper;
 import edu.hebtu.movingcampus.utils.Utils;
 import edu.hebtu.movingcampus.view.ParentViewPager;
 
@@ -60,7 +61,7 @@ public class MainActivity extends BaseSlidingFragmentActivity implements Network
 	private final String LIST_TEXT = "text";
 	private final String LIST_IMAGEVIEW = "img";
 	public static MainActivity instance = null;
-	public static boolean loginOnLine=false;
+	public static volatile boolean loginOnLine=false;
 
 	private ParentViewPager mTabPager;
 	private SimpleAdapter lvAdapter;
@@ -97,6 +98,9 @@ public class MainActivity extends BaseSlidingFragmentActivity implements Network
 		initSlidingMenu();
 		bindButton();
 
+		if(NetWorkHelper.isNetworkAvailable(this)){
+			this.onDataEnabled();
+		}
 		// baidu push
 		// PushSettings.enableDebugMode(this, true);
 		PushManager.startWork(getApplicationContext(),

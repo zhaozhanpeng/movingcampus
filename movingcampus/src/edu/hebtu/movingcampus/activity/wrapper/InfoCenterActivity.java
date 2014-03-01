@@ -56,17 +56,15 @@ public class InfoCenterActivity implements OnClickListener, AnimationListener,
 	private ChildViewPager mViewPager;
 	private NewsPageAdapter mBasePageAdapter;
 	private PageIndicator mIndicator;
-	private LinearLayout loadLayout;
-	private LinearLayout loadFaillayout;
 
 	// init daos
 	private LinearLayout llGoHome;
-	private Button bn_refresh;
 
 	private boolean mIsTitleHide = false;
 	private boolean mIsAnim = false;
 
 	public static String current_page = "0";
+	private static InfoCenterActivity instance;
 
 	private boolean isShowPopupWindows = false;
 	private View content;
@@ -77,16 +75,17 @@ public class InfoCenterActivity implements OnClickListener, AnimationListener,
 	// [start]生命周期
 	public InfoCenterActivity(View content) {
 		this.content = content;
+		instance=this;
 		initControl();
 		initViewPager();
 		initgoHome();
 	}
 
+	public static InfoCenterActivity getInstance(){
+		return instance;
+	}
 	private void initControl() {
 
-		loadLayout = (LinearLayout) content.findViewById(R.id.view_loading);
-		loadFaillayout = (LinearLayout) content
-				.findViewById(R.id.view_load_fail);
 		imgQuery = (ImageView) content.findViewById(R.id.imageview_above_query);
 		imgQuery.setOnClickListener(this);
 		imgQuery.setVisibility(View.GONE);
@@ -105,8 +104,6 @@ public class InfoCenterActivity implements OnClickListener, AnimationListener,
 		mlinear_listview = (LinearLayout) content
 				.findViewById(R.id.main_linear_listview);
 
-		bn_refresh = (Button) content.findViewById(R.id.btn_refresh);
-		bn_refresh.setOnClickListener(this);
 	}
 
 	private void initViewPager() {
@@ -212,10 +209,14 @@ public class InfoCenterActivity implements OnClickListener, AnimationListener,
 
 		public MyTask() {
 			mUseCache = true;
+			nf = (NewsFragment) mBasePageAdapter.getItem(Integer
+					.parseInt(current_page));
 		}
 
 		public MyTask(boolean useCache) {
 			mUseCache = useCache;
+			nf = (NewsFragment) mBasePageAdapter.getItem(Integer
+					.parseInt(current_page));
 		}
 
 		@Override
@@ -223,7 +224,7 @@ public class InfoCenterActivity implements OnClickListener, AnimationListener,
 			super.onPreExecute();
 			imgLeft.setVisibility(View.GONE);
 			imgRight.setVisibility(View.GONE);
-			loadLayout.setVisibility(View.VISIBLE);
+			nf.onPreExecute();
 			mViewPager.setVisibility(View.GONE);
 			// mViewPager.removeAllViews();
 			isShowPopupWindows = false;
@@ -231,8 +232,6 @@ public class InfoCenterActivity implements OnClickListener, AnimationListener,
 
 		@Override
 		protected List<NewsShort> doInBackground(Void... params) {
-			nf = (NewsFragment) mBasePageAdapter.getItem(Integer
-					.parseInt(current_page));
 			assert (nf != null);
 			return nf.onLoad();
 		}
@@ -244,18 +243,13 @@ public class InfoCenterActivity implements OnClickListener, AnimationListener,
 			// mViewPager.removeAllViews();
 			if (result != null) {
 				imgRight.setVisibility(View.VISIBLE);
-				loadLayout.setVisibility(View.GONE);
-				loadFaillayout.setVisibility(View.GONE);
-			} else {
-				// mBasePageAdapter.addNullFragment();
-				loadLayout.setVisibility(View.GONE);
-				loadFaillayout.setVisibility(View.VISIBLE);
 			}
+			nf.onPostExecute(result);
 			nf.getAdapter().appendToList(result);
 			mViewPager.setVisibility(View.VISIBLE);
 			mBasePageAdapter.notifyDataSetChanged();
-			mIndicator.notifyDataSetChanged();
 			mIndicator.setCurrentItem(Integer.parseInt(current_page));
+			mIndicator.notifyDataSetChanged();
 		}
 	}
 

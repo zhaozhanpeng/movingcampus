@@ -88,6 +88,14 @@ public class StudyResourceActivity implements Handler.Callback, PageWraper {
 						StudyResourceActivity.this.toselectCourse();
 					}
 				});
+		content.findViewById(R.id.Linear_above_toHome).setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				MainActivity.instance.getSlidingMenu().toggle();
+			}
+
+		});
 	}
 
 	private void dialog() {

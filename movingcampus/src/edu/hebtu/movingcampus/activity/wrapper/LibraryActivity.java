@@ -67,7 +67,14 @@ public class LibraryActivity implements Observer, PageWraper,
 						browser.reload();
 					}
 				});
+		contentView.findViewById(R.id.Linear_above_toHome).setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				MainActivity.instance.getSlidingMenu().toggle();
+			}
 
+		});
 	}
 
 	private void login(AppInfo app) {
