@@ -76,4 +76,8 @@ public final class LocalMessageSubject extends Subject {
 		return list;
 	}
 
+	public void addMessageeList(MMessage mMessage) {
+		list.add(mMessage);
+	}
+
 }

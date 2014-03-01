@@ -1,5 +1,6 @@
 package edu.hebtu.movingcampus.activity;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 import edu.hebtu.movingcampus.R;
@@ -22,7 +24,7 @@ public class LocalNewsActivity extends BaseActivity {
 	private LocalMessageSubject subject = null;
 	private MessageDao dao;
 	private MessageListAdapter  adapter= null;
-	private List<edu.hebtu.movingcampus.entity.MMessage>  initlist = null;
+	private List<edu.hebtu.movingcampus.entity.MMessage>  messagelist = null;
 	private Handler handler;
 
 	@Override
@@ -36,7 +38,7 @@ public class LocalNewsActivity extends BaseActivity {
 		subject = (LocalMessageSubject) IPreference.getInstance(getBaseContext())
 				.getListOfNewsSubjectByID(0);
 
-		initlist = ((LocalMessageSubject)IPreference.getInstance(LocalNewsActivity.this)
+		messagelist = ((LocalMessageSubject)IPreference.getInstance(LocalNewsActivity.this)
 			.getSubjectByTag(new LocalMessageSubject().getTag())).getMessageList();
 
 		this.handler=new Handler(new Handler.Callback() {
@@ -45,6 +47,7 @@ public class LocalNewsActivity extends BaseActivity {
 				switch(msg.what){
 				case 0:
 					adapter.notifyDataSetChanged();
+					LocalNewsActivity.this.mProgressDialog.dismiss();
 					break;
 
 				case 1:
@@ -56,7 +59,7 @@ public class LocalNewsActivity extends BaseActivity {
 			}
 		});
 
-		if(initlist==null||initlist.size()==0){
+		if(messagelist==null||messagelist.size()==0){
 			if(MainActivity.loginOnLine&&NetWorkHelper.isNetworkAvailable(this)){
 				getData();
 				this.mProgressDialog = ProgressDialog.show(
@@ -66,26 +69,31 @@ public class LocalNewsActivity extends BaseActivity {
 				this.mProgressDialog.setCancelable(true);
 			}
 		}
-		adapter = new MessageListAdapter(this, R.layout.news_item,
-					list, initlist);
+		adapter = new MessageListAdapter(this, R.layout.message_item,
+					list, messagelist);
 		list.setAdapter(adapter);
 
+		bindButton();
 	}
+
 	private void getData(){
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				initlist=dao.mapperJson(false,new Date().toString(),null);
+				messagelist=dao.mapperJson(false,new Date().toString(),null);
 				//TODO
-				MMessage msg=new MMessage();
-				msg.setContent("aaaaaaaaaaaalfkdajfassssffffffffffffffffffff");
-				msg.setReaded(false);
-				msg.setTime(null);
-				msg.setTitle("aa");
-				initlist.add(new MMessage());
-				if(initlist!=null){
+				if(messagelist==null){
+					messagelist=new ArrayList<MMessage>();
+					MMessage msg=new MMessage();
+					msg.setContent("aaaaaaaaaaaalfkdajfassssffffffffffffffffffff");
+					msg.setReaded(false);
+					msg.setTime(null);
+					msg.setTitle("aa");
+					messagelist.add(msg);
+				}
+				if(messagelist!=null){
 					 ((LocalMessageSubject)IPreference.getInstance(LocalNewsActivity.this)
-							.getSubjectByTag(new LocalMessageSubject().getTag())).addMessageeList(initlist);
+							.getSubjectByTag(new LocalMessageSubject().getTag())).addMessageeList(messagelist);
 					 handler.sendEmptyMessage(0);
 				}else {
 					 handler.sendEmptyMessage(1);
@@ -96,8 +104,12 @@ public class LocalNewsActivity extends BaseActivity {
 
 	@Override
 	protected void bindButton() {
-		// TODO Auto-generated method stub
-
+		findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				LocalNewsActivity.this.finish();
+			}
+		});
 	}
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {

@@ -59,62 +59,38 @@ public class MessageListAdapter extends ItemListAdapter<MMessage> {
 			convertView.setTag(viewHolder);
 		}
 		ViewHolder holder = (ViewHolder) convertView.getTag();
-		final NewsShort news = (NewsShort) getItem(position);
+		final MMessage news = (MMessage) getItem(position);
 
-		convertView.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent i = new Intent(context, NewsDetailsActivity.class);
-				i.putExtra("id", news.getID()+"");
-				context.startActivity(i);
-			}
-		});
+//		convertView.setOnClickListener(new OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				Intent i = new Intent(context, NewsDetailsActivity.class);
+//				i.putExtra("id", MMessage.getID()+"");
+//				context.startActivity(i);
+//			}
+//		});
 
 		// show
 		holder.title.setText(news.getTitle());
-		holder.source.setText("教务处");
 		holder.content.setText(news.getContent());
-		if (news.getDate() != null)
-			holder.time.setText(news.getDate().toLocaleString());
-		//holder.icon.setImageResource(news.getIcon());
-		String img_url = news.getThumbnail_url();
-		if (img_url == null || img_url.equals("")) {
-			// TODO default image icon for test
-			holder.icon.setVisibility(View.VISIBLE);
-			ImageUtil
-					.setThumbnailView(
-							"http://t1.baidu.com/it/u=3329574332,1288957616&fm=90&gp=0.jpg"
-							,
-							holder.icon, context, callback1, true);
-		} else {
-			holder.icon.setVisibility(View.VISIBLE);
-			ImageUtil
-					.setThumbnailView(
-							"http://t1.baidu.com/it/u=3329574332,1288957616&fm=90&gp=0.jpg"
-							,
-							holder.icon, context, callback1, true);
-		}
-
+		if (news.getTime() != null)
+			holder.time.setText(news.getTime().toLocaleString());
 		// return 加载数据后的iew对象
 		return convertView;
 	}
 
 	static class ViewHolder {
 		public ViewHolder(View convertView) {
-			this.title = (TextView) convertView.findViewById(R.id.news_title);
+			this.title = (TextView) convertView.findViewById(R.id.tv_message_person);
 			this.time = (TextView) convertView
-					.findViewById(R.id.news_pub_date_time);
-			this.source = (TextView) convertView.findViewById(R.id.news_source);
+					.findViewById(R.id.tv_message_day);
 			this.content = (TextView) convertView
-					.findViewById(R.id.news_summary);
-			this.icon = (ImageView) convertView.findViewById(R.id.news_img);
+					.findViewById(R.id.tv_message_content);
 		}
 
 		public TextView title;
 		public TextView time;
 		public TextView content;
-		public TextView source;
-		public ImageView icon;
 	}
 
 	@Override

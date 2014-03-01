@@ -48,6 +48,8 @@ public class InfoCenterActivity implements OnClickListener, AnimationListener,
 	private LinearLayout mlinear_listview;
 
 	// title标题
+
+	private ImageView imgMessage;
 	private ImageView imgQuery;
 	private ImageView imgMore;
 	private ImageView imgLeft;
@@ -86,7 +88,8 @@ public class InfoCenterActivity implements OnClickListener, AnimationListener,
 		return instance;
 	}
 	private void initControl() {
-
+		imgMessage= (ImageView) content.findViewById(R.id.imageview_above_local_news);
+		imgMessage.setOnClickListener(this);
 		imgQuery = (ImageView) content.findViewById(R.id.imageview_above_search);
 		imgQuery.setOnClickListener(this);
 		imgMore = (ImageView) content.findViewById(R.id.imageview_above_more);

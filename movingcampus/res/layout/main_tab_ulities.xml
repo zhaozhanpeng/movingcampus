@@ -19,22 +19,22 @@
             android:layout_height="match_parent"
             android:layout_margin="5dp"
             android:clickable="true"
-            android:gravity="center"
+            android:gravity="left|center"
             android:orientation="horizontal" >
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="left|center_vertical"
-                android:scaleType="centerInside"
-                android:src="@drawable/button_above_more" />
 
             <TextView
                 android:id="@+id/tv_above_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#fff" />
+
         </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:scaleType="centerInside"
+            android:src="@drawable/button_above_more" />
 
         <TextView
             android:layout_width="wrap_content"

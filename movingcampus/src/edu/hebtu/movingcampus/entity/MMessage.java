@@ -1,6 +1,7 @@
 package edu.hebtu.movingcampus.entity;
 
-import java.sql.Date;
+import java.util.Date;
+
 
 public class MMessage {
 	private String title;
@@ -29,8 +30,8 @@ public class MMessage {
 	public Date getTime() {
 		return time;
 	}
-	public void setTime(Date time) {
-		this.time = time;
+	public void setTime(java.util.Date date) {
+		this.time = date;
 	}
 
 }

@@ -1,5 +1,7 @@
 ﻿package edu.hebtu.movingcampus.subjects;
 
+import java.util.Date;
+
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -10,6 +12,8 @@ import com.baidu.android.pushservice.PushConstants;
 import edu.hebtu.movingcampus.activity.LocalNewsActivity;
 import edu.hebtu.movingcampus.activity.MainActivity;
 import edu.hebtu.movingcampus.activity.Show_Score;
+import edu.hebtu.movingcampus.activity.wrapper.IPreference;
+import edu.hebtu.movingcampus.entity.MMessage;
 import edu.hebtu.movingcampus.utils.LogUtil;
 
 public class PushMessageReceiver extends BroadcastReceiver {
@@ -58,13 +62,14 @@ public class PushMessageReceiver extends BroadcastReceiver {
 			// 可以通过限制重试次数，或者在其他时机重新调用来解决。
 			int errorCode = intent.getIntExtra(PushConstants.EXTRA_ERROR_CODE,
 					PushConstants.ERROR_SUCCESS);
-			String content = "";
+			String content = "",
+			title = "",time="";
 			if (intent.getByteArrayExtra(PushConstants.EXTRA_CONTENT) != null) {
 				// 返回内容
 				content = new String(
 						intent.getByteArrayExtra(PushConstants.EXTRA_CONTENT));
-			}
 
+			}
 			// 可选。通知用户点击事件处理
 		} else if (intent.getAction().equals(
 				PushConstants.ACTION_RECEIVER_NOTIFICATION_CLICK)) {
@@ -89,6 +94,18 @@ public class PushMessageReceiver extends BroadcastReceiver {
 			aIntent.putExtra(PushConstants.EXTRA_NOTIFICATION_TITLE, title);
 			String content = intent
 					.getStringExtra(PushConstants.EXTRA_NOTIFICATION_CONTENT);
+			
+
+			String time = new String(
+					intent.getByteArrayExtra(PushConstants.EXTRA_TIMESTAMP));
+			
+			MMessage m=new MMessage();
+			m.setContent(content);
+			m.setTitle(title);
+			m.setTime(new Date());
+
+			((LocalMessageSubject)IPreference.getInstance(context).getSubjectByTag
+					(new LocalMessageSubject().getTag())).addMessageeList(m);
 
 			// 向消息详细页发送内容
 			aIntent.putExtra(PushConstants.EXTRA_NOTIFICATION_CONTENT, content);

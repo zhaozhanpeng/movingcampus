@@ -31,6 +31,7 @@ import android.widget.Toast;
 
 import com.baidu.android.pushservice.PushConstants;
 import com.baidu.android.pushservice.PushManager;
+import com.baidu.android.pushservice.PushSettings;
 import com.umeng.fb.FeedbackAgent;
 import com.umeng.update.UmengUpdateAgent;
 
@@ -102,7 +103,7 @@ public class MainActivity extends BaseSlidingFragmentActivity implements Network
 			this.onDataEnabled();
 		}
 		// baidu push
-		// PushSettings.enableDebugMode(this, true);
+		PushSettings.enableDebugMode(this, true);
 		PushManager.startWork(getApplicationContext(),
 				PushConstants.LOGIN_TYPE_API_KEY,
 				Utils.getMetaValue(MainActivity.this, "api_key"));
