@@ -10,6 +10,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
@@ -20,19 +22,20 @@ import com.umeng.analytics.MobclickAgent;
 import edu.hebtu.movingcampus.R;
 import edu.hebtu.movingcampus.utils.LogUtil;
 
-public abstract class BaseActivity extends Activity {
+public abstract class BaseAsyncTaskActivity extends Activity {
 
-	private static final String TAG = "BaseActivity";
+	protected static String TAG = "BaseActivity";
 
-	protected AlertDialog mAlertDialog;
-	protected ProgressDialog mProgressDialog;
-	protected AsyncTask mRunningTask;
+	protected AlertDialog alertDialog;
+	protected ProgressDialog processBar;
+	protected AsyncTask asyncTask;
 
 	/******************************** 【Activity LifeCycle For Debug】 *******************************************/
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		LogUtil.d(TAG, this.getClass().getSimpleName()
 				+ " onCreate() invoked!!");
+		TAG=this.getClass().getName();
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 		MobclickAgent.onError(this);
@@ -82,13 +85,13 @@ public abstract class BaseActivity extends Activity {
 				+ " onDestroy() invoked!!");
 		super.onDestroy();
 
-		if (mRunningTask != null && mRunningTask.isCancelled() == false) {
-			mRunningTask.cancel(false);
-			mRunningTask = null;
+		if (asyncTask != null && asyncTask.isCancelled() == false) {
+			asyncTask.cancel(false);
+			asyncTask = null;
 		}
-		if (mAlertDialog != null) {
-			mAlertDialog.dismiss();
-			mAlertDialog = null;
+		if (alertDialog != null) {
+			alertDialog.dismiss();
+			alertDialog = null;
 		}
 	}
 
@@ -165,9 +168,9 @@ public abstract class BaseActivity extends Activity {
 	}
 
 	protected AlertDialog showAlertDialog(String TitleID, String Message) {
-		mAlertDialog = new AlertDialog.Builder(this).setTitle(TitleID)
+		alertDialog = new AlertDialog.Builder(this).setTitle(TitleID)
 				.setMessage(Message).show();
-		return mAlertDialog;
+		return alertDialog;
 	}
 
 	protected AlertDialog showAlertDialog(int pTitelResID, String pMessage,
@@ -180,16 +183,16 @@ public abstract class BaseActivity extends Activity {
 			DialogInterface.OnClickListener pOkClickListener,
 			DialogInterface.OnClickListener pCancelClickListener,
 			DialogInterface.OnDismissListener pDismissListener) {
-		mAlertDialog = new AlertDialog.Builder(this)
+		alertDialog = new AlertDialog.Builder(this)
 				.setTitle(pTitle)
 				.setMessage(pMessage)
 				.setPositiveButton(android.R.string.ok, pOkClickListener)
 				.setNegativeButton(android.R.string.cancel,
 						pCancelClickListener).show();
 		if (pDismissListener != null) {
-			mAlertDialog.setOnDismissListener(pDismissListener);
+			alertDialog.setOnDismissListener(pDismissListener);
 		}
-		return mAlertDialog;
+		return alertDialog;
 	}
 
 	protected AlertDialog showAlertDialog(String pTitle, String pMessage,
@@ -197,15 +200,15 @@ public abstract class BaseActivity extends Activity {
 			DialogInterface.OnClickListener pOkClickListener,
 			DialogInterface.OnClickListener pCancelClickListener,
 			DialogInterface.OnDismissListener pDismissListener) {
-		mAlertDialog = new AlertDialog.Builder(this).setTitle(pTitle)
+		alertDialog = new AlertDialog.Builder(this).setTitle(pTitle)
 				.setMessage(pMessage)
 				.setPositiveButton(pPositiveButtonLabel, pOkClickListener)
 				.setNegativeButton(pNegativeButtonLabel, pCancelClickListener)
 				.show();
 		if (pDismissListener != null) {
-			mAlertDialog.setOnDismissListener(pDismissListener);
+			alertDialog.setOnDismissListener(pDismissListener);
 		}
-		return mAlertDialog;
+		return alertDialog;
 	}
 
 	protected ProgressDialog showProgressDialog(int pTitelResID,
@@ -217,9 +220,9 @@ public abstract class BaseActivity extends Activity {
 
 	protected ProgressDialog showProgressDialog(String pTitle, String pMessage,
 			DialogInterface.OnCancelListener pCancelClickListener) {
-		mAlertDialog = ProgressDialog.show(this, pTitle, pMessage, true, true);
-		mAlertDialog.setOnCancelListener(pCancelClickListener);
-		return (ProgressDialog) mAlertDialog;
+		alertDialog = ProgressDialog.show(this, pTitle, pMessage, true, true);
+		alertDialog.setOnCancelListener(pCancelClickListener);
+		return (ProgressDialog) alertDialog;
 	}
 
 	protected void hideKeyboard(View view) {
@@ -233,7 +236,7 @@ public abstract class BaseActivity extends Activity {
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				Toast.makeText(BaseActivity.this, "内存空间不足！", Toast.LENGTH_SHORT)
+				Toast.makeText(BaseAsyncTaskActivity.this, "内存空间不足！", Toast.LENGTH_SHORT)
 						.show();
 				// finish();
 			}
@@ -248,13 +251,13 @@ public abstract class BaseActivity extends Activity {
 			@Override
 			public void run() {
 				if (network_err_count < 3) {
-					Toast.makeText(BaseActivity.this, "网速好像不怎么给力啊！",
+					Toast.makeText(BaseAsyncTaskActivity.this, "网速好像不怎么给力啊！",
 							Toast.LENGTH_SHORT).show();
 				} else if (network_err_count < 5) {
-					Toast.makeText(BaseActivity.this, "网速真的不给力！",
+					Toast.makeText(BaseAsyncTaskActivity.this, "网速真的不给力！",
 							Toast.LENGTH_SHORT).show();
 				} else {
-					Toast.makeText(BaseActivity.this, "唉，今天的网络怎么这么差劲！",
+					Toast.makeText(BaseAsyncTaskActivity.this, "唉，今天的网络怎么这么差劲！",
 							Toast.LENGTH_SHORT).show();
 				}
 				// finish();
@@ -266,7 +269,7 @@ public abstract class BaseActivity extends Activity {
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				Toast.makeText(BaseActivity.this, "数据格式错误！", Toast.LENGTH_SHORT)
+				Toast.makeText(BaseAsyncTaskActivity.this, "数据格式错误！", Toast.LENGTH_SHORT)
 						.show();
 				// finish();
 			}
@@ -277,7 +280,7 @@ public abstract class BaseActivity extends Activity {
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				Toast.makeText(BaseActivity.this, "发生了一点意外，程序终止！",
+				Toast.makeText(BaseAsyncTaskActivity.this, "发生了一点意外，程序终止！",
 						Toast.LENGTH_SHORT).show();
 				finish();
 			}
@@ -291,6 +294,19 @@ public abstract class BaseActivity extends Activity {
 
 	public void defaultFinish() {
 		super.finish();
+	}
+
+	/**
+	 * show processgressDialog 
+	 * @param tip  remind string
+	 * @param cancleAble  wether progressdialog is cancelAble
+	 */
+	protected void previewProcess(String tip,boolean cancleAble){
+		this.processBar = ProgressDialog.show(
+				this, "", tip);
+		this.processBar.onStart();
+		this.processBar.show();
+		this.processBar.setCancelable(cancleAble);
 	}
 
 	protected abstract void bindButton();

@@ -12,7 +12,8 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 import edu.hebtu.movingcampus.R;
-import edu.hebtu.movingcampus.activity.base.BaseActivity;
+import edu.hebtu.movingcampus.activity.base.BaseAsyncTaskActivity;
+import edu.hebtu.movingcampus.activity.base.BaseHandlerActivity;
 import edu.hebtu.movingcampus.activity.wrapper.IPreference;
 import edu.hebtu.movingcampus.adapter.MessageListAdapter;
 import edu.hebtu.movingcampus.biz.MessageDao;
@@ -20,12 +21,11 @@ import edu.hebtu.movingcampus.entity.MMessage;
 import edu.hebtu.movingcampus.subjects.LocalMessageSubject;
 import edu.hebtu.movingcampus.utils.NetWorkHelper;
 
-public class LocalNewsActivity extends BaseActivity {
+public class LocalNewsActivity extends BaseHandlerActivity{
 	private LocalMessageSubject subject = null;
 	private MessageDao dao;
 	private MessageListAdapter  adapter= null;
 	private List<edu.hebtu.movingcampus.entity.MMessage>  messagelist = null;
-	private Handler handler;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,32 +41,10 @@ public class LocalNewsActivity extends BaseActivity {
 		messagelist = ((LocalMessageSubject)IPreference.getInstance(LocalNewsActivity.this)
 			.getSubjectByTag(new LocalMessageSubject().getTag())).getMessageList();
 
-		this.handler=new Handler(new Handler.Callback() {
-			@Override
-			public boolean handleMessage(Message msg) {
-				switch(msg.what){
-				case 0:
-					adapter.notifyDataSetChanged();
-					LocalNewsActivity.this.mProgressDialog.dismiss();
-					break;
-
-				case 1:
-					Toast.makeText(LocalNewsActivity.this, "获取信息失败", Toast.LENGTH_LONG).show();
-					break;
-					
-				}
-				return false;
-			}
-		});
-
 		if(messagelist==null||messagelist.size()==0){
 			if(MainActivity.loginOnLine&&NetWorkHelper.isNetworkAvailable(this)){
 				getData();
-				this.mProgressDialog = ProgressDialog.show(
-						this, "", "正在初始化更新，请稍后...");
-				this.mProgressDialog.onStart();
-				this.mProgressDialog.show();
-				this.mProgressDialog.setCancelable(true);
+				previewProcess("正在初始化更新，请稍后...", true);
 			}
 		}
 		adapter = new MessageListAdapter(this, R.layout.message_item,
@@ -117,4 +95,19 @@ public class LocalNewsActivity extends BaseActivity {
 		super.onSaveInstanceState(outState);
 	}
 
+	@Override
+	public boolean handleMessage(Message msg) {
+		switch(msg.what){
+		case 0:
+			adapter.notifyDataSetChanged();
+			LocalNewsActivity.this.processBar.dismiss();
+			break;
+
+		case 1:
+			Toast.makeText(LocalNewsActivity.this, "获取信息失败", Toast.LENGTH_LONG).show();
+			break;
+			
+		}
+		return false;
+	}
 }

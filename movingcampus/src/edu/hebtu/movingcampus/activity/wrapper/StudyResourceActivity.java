@@ -22,7 +22,7 @@ import edu.hebtu.movingcampus.activity.Show_Score;
 import edu.hebtu.movingcampus.activity.base.PageWraper;
 import edu.hebtu.movingcampus.config.Constants;
 
-public class StudyResourceActivity implements Handler.Callback, PageWraper {
+public class StudyResourceActivity implements PageWraper {
 	private static final Activity mainActivity = MainActivity.instance;
 	private static String Schedule;
 	private Intent intent;
@@ -172,16 +172,6 @@ public class StudyResourceActivity implements Handler.Callback, PageWraper {
 	private void toselectCourse() {
 		this.intent = new Intent(mainActivity, ChooseCourseActivity.class);
 		mainActivity.startActivityForResult(this.intent, 5);
-	}
-
-	@Override
-	public boolean handleMessage(Message paramMessage) {
-		Bundle localBundle = paramMessage.getData();
-		switch (paramMessage.what) {
-		default:
-		case 1:
-		}
-		return false;
 	}
 
 	public void onActivityResult(int paramInt1, int paramInt2,

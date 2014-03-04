@@ -56,7 +56,6 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Light.NoTitleBar" >
-
         <activity android:name="edu.hebtu.movingcampus.activity.login.SplashActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -64,7 +63,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="edu.hebtu.movingcampus.activity.login.LoginActivity" ></activity>
+        <activity android:name="edu.hebtu.movingcampus.activity.login.LoginActivity" >
+        </activity>
         <activity android:name="edu.hebtu.movingcampus.activity.login.Whatsnew" >
         </activity>
         <activity android:name="edu.hebtu.movingcampus.activity.login.WhatsnewDoor" >
@@ -125,10 +125,14 @@
         </activity>
 
         <!-- umeng feedback -> umeng.com -->
-        <activity android:name="com.umeng.fb.ConversationActivity" ></activity>
-        <activity android:name="com.umeng.fb.ContactActivity" ></activity>
-        <activity android:name=".activity.LocationManagerSoso"></activity>
-        <activity android:name=".activity.StreeViewSoso"></activity>
+        <activity android:name="com.umeng.fb.ConversationActivity" >
+        </activity>
+        <activity android:name="com.umeng.fb.ContactActivity" >
+        </activity>
+        <activity android:name="edu.hebtu.movingcampus.activity.LocationManagerSoso" >
+        </activity>
+        <activity android:name="edu.hebtu.movingcampus.activity.StreeViewSoso" >
+        </activity>
 
         <!-- push富媒体，不使用富媒体推送不需要 -->
         <activity
@@ -192,20 +196,31 @@
         <service
             android:name="com.baidu.android.pushservice.PushService"
             android:exported="true"
-            android:process=":bdservice_v1" ></service><meta-data android:name="api_key" android:value="jbjdLepGP51V4hfLn2tbbVVb" />
+            android:process=":bdservice_v1" >
+        </service>
+
+        <meta-data
+            android:name="api_key"
+            android:value="jbjdLepGP51V4hfLn2tbbVVb" />
         <!-- push结束 -->
 
 
         <!-- 在百度开发者中心查询应用的API Key -->
-        <meta-data android:name="api_key" android:value="jbjdLepGP51V4hfLn2tbbVVb" /> 
-        
+        <meta-data
+            android:name="api_key"
+            android:value="jbjdLepGP51V4hfLn2tbbVVb" />
 
         <!-- 在友盟sdk应用的API Key -->
         <!-- http://www.umeng.com/apps/7d9550d70ab04265112c5e25/appkey -->
-        
-        <meta-data android:name="UMENG_APPKEY" android:value="52e5c21156240ba07d0559d7" />
-        <!--  <meta-data android:name="UMENG_CHANNEL" android:value="Default" />-->
 
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="52e5c21156240ba07d0559d7" />
+        <!-- <meta-data android:name="UMENG_CHANNEL" android:value="Default" /> -->
+        <activity
+            android:name="edu.hebtu.movingcampus.activity.TieTongActivity"
+            android:label="@string/title_activity_tie_tong" >
+        </activity>
     </application>
 
 </manifest>

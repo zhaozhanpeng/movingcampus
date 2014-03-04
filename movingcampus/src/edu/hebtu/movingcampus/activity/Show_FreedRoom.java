@@ -31,12 +31,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 import edu.hebtu.movingcampus.AppInfo;
 import edu.hebtu.movingcampus.R;
-import edu.hebtu.movingcampus.activity.base.BaseActivity;
+import edu.hebtu.movingcampus.activity.base.BaseAsyncTaskActivity;
 import edu.hebtu.movingcampus.biz.RoomDao;
 import edu.hebtu.movingcampus.entity.ClassRoom;
 import edu.hebtu.movingcampus.utils.LogUtil;
 
-public class Show_FreedRoom extends BaseActivity {
+public class Show_FreedRoom extends BaseAsyncTaskActivity {
 	private static int buildingid = 0;
 	private static int schoolid = 0;
 	private static int lable = 0;

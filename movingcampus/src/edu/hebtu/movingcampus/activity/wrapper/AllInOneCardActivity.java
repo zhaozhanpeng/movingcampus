@@ -28,7 +28,7 @@ public class AllInOneCardActivity implements PageWraper, NetworkchangeListener {
 	private CardDao dao;
 	private Activity mainActivity = MainActivity.instance;
 	private final View contentView;
-	private AsyncTask<BaseDao, Integer, Boolean[]> mTask;
+	private AsyncTask<BaseDao, Integer, Boolean[]> asyncTask;
 
 	public AllInOneCardActivity(View view) {
 		this.contentView = view;
@@ -57,7 +57,7 @@ public class AllInOneCardActivity implements PageWraper, NetworkchangeListener {
 
 	private void getData(){
 		if (bean == null&&NetWorkHelper.isNetworkAvailable(mainActivity))
-			mTask = new Cardtask(null).execute(dao);
+			asyncTask = new Cardtask(null).execute(dao);
 	}
 
 	private void bindButton() {
@@ -75,7 +75,7 @@ public class AllInOneCardActivity implements PageWraper, NetworkchangeListener {
 
 					@Override
 					public void onClick(View v) {
-						mTask = new Cardtask(null).execute(dao);
+						asyncTask = new Cardtask(null).execute(dao);
 					}
 				});
 		contentView.findViewById(R.id.ly_connection_failed).setOnClickListener(
@@ -100,10 +100,10 @@ public class AllInOneCardActivity implements PageWraper, NetworkchangeListener {
 					public void onClick(View v) {
 						if (bean != null)
 							if (bean.getStatus() == true)
-								mTask = new Cardtask(Constants.ACTION_LOCK)
+								asyncTask = new Cardtask(Constants.ACTION_LOCK)
 										.execute(dao);
 							else
-								mTask = new Cardtask(Constants.ACTION_UNLOCK)
+								asyncTask = new Cardtask(Constants.ACTION_UNLOCK)
 										.execute(dao);
 					}
 				});

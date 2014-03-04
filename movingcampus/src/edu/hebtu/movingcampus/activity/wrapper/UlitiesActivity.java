@@ -13,10 +13,11 @@ import edu.hebtu.movingcampus.R;
 import edu.hebtu.movingcampus.activity.LocationManagerSoso;
 import edu.hebtu.movingcampus.activity.MainActivity;
 import edu.hebtu.movingcampus.activity.StreeViewSoso;
+import edu.hebtu.movingcampus.activity.TieTongActivity;
 import edu.hebtu.movingcampus.activity.base.PageWraper;
 import edu.hebtu.movingcampus.activity.setting.SettingActivity;
 
-public class UlitiesActivity implements Handler.Callback, PageWraper {
+public class UlitiesActivity implements PageWraper {
 	private static final Activity mainActivity = MainActivity.instance;
 	private Intent intent;
 	private AlertDialog menuDialog;
@@ -29,6 +30,14 @@ public class UlitiesActivity implements Handler.Callback, PageWraper {
 	}
 
 	private void bindButton() {
+		content.findViewById(R.id.ulities_tietong).setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				mainActivity.startActivity(new Intent(mainActivity,TieTongActivity.class));
+			}
+
+		});
 		content.findViewById(R.id.Linear_above_toHome).setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -75,18 +84,6 @@ public class UlitiesActivity implements Handler.Callback, PageWraper {
 				});
 	}
 
-	public boolean onMenuOpened(int paramInt, Menu paramMenu) {
-		if (this.menuDialog == null) {
-			this.menuDialog = new AlertDialog.Builder(mainActivity).setView(
-					this.menuView).create();
-			this.menuDialog.getWindow().setGravity(80);
-			this.menuDialog.show();
-		}
-		while (true) {
-			return false;
-		}
-	}
-
 	@Override
 	public void onResume() {
 		// TODO Auto-generated method stub
@@ -103,11 +100,5 @@ public class UlitiesActivity implements Handler.Callback, PageWraper {
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public boolean handleMessage(Message arg0) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 }

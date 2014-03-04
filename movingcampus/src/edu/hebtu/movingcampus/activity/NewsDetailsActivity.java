@@ -16,7 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import edu.hebtu.movingcampus.R;
-import edu.hebtu.movingcampus.activity.base.BaseActivity;
+import edu.hebtu.movingcampus.activity.base.BaseAsyncTaskActivity;
 import edu.hebtu.movingcampus.activity.login.LoginActivity;
 import edu.hebtu.movingcampus.biz.NewsDao;
 import edu.hebtu.movingcampus.config.Urls;
@@ -26,7 +26,7 @@ import edu.hebtu.movingcampus.subjects.NetworkChangeReceiver.NetworkchangeListen
 import edu.hebtu.movingcampus.utils.CommonUtil;
 
 @SuppressLint("SetJavaScriptEnabled")
-public class NewsDetailsActivity extends BaseActivity implements
+public class NewsDetailsActivity extends BaseAsyncTaskActivity implements
 		OnClickListener, NetworkchangeListener {
 
 	private NewsDao detailDao;
@@ -122,7 +122,7 @@ public class NewsDetailsActivity extends BaseActivity implements
 				finish();
 			}
 		});
-		new MyTask().execute();
+		asyncTask=new MyTask().execute();
 	}
 
 	class MyTask extends AsyncTask<String, Integer, String> {

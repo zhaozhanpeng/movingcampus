@@ -4,9 +4,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import edu.hebtu.movingcampus.R;
-import edu.hebtu.movingcampus.activity.base.BaseActivity;
+import edu.hebtu.movingcampus.activity.base.BaseAsyncTaskActivity;
 
-public class Share_Quickmark extends BaseActivity {
+public class Share_Quickmark extends BaseAsyncTaskActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

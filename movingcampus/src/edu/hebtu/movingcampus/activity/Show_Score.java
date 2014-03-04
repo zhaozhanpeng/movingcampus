@@ -24,12 +24,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 import edu.hebtu.movingcampus.AppInfo;
 import edu.hebtu.movingcampus.R;
-import edu.hebtu.movingcampus.activity.base.BaseActivity;
+import edu.hebtu.movingcampus.activity.base.BaseAsyncTaskActivity;
 import edu.hebtu.movingcampus.biz.ExamDao;
 import edu.hebtu.movingcampus.entity.ExamScore;
 import edu.hebtu.movingcampus.utils.LogUtil;
 
-public class Show_Score extends BaseActivity {
+public class Show_Score extends BaseAsyncTaskActivity {
 	private final int ITEM_BACK = 0;
 	private final int ITEM_EDIT = 2;
 	private final int ITEM_EXIT = 3;

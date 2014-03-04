@@ -15,7 +15,7 @@ import com.umeng.fb.model.UserInfo;
 import edu.hebtu.movingcampus.AppInfo;
 import edu.hebtu.movingcampus.R;
 import edu.hebtu.movingcampus.activity.MainActivity;
-import edu.hebtu.movingcampus.activity.base.BaseActivity;
+import edu.hebtu.movingcampus.activity.base.BaseAsyncTaskActivity;
 import edu.hebtu.movingcampus.config.Constants;
 import edu.hebtu.movingcampus.utils.ToolUtils;
 
@@ -28,7 +28,7 @@ import edu.hebtu.movingcampus.utils.ToolUtils;
  * @created 14-Nov-2013 9:13:33 AM
  */
 
-public class SettingActivity extends BaseActivity {
+public class SettingActivity extends BaseAsyncTaskActivity {
 
 	@Override
 	public void onCreate(Bundle bundle) {
@@ -112,7 +112,7 @@ public class SettingActivity extends BaseActivity {
 					@SuppressWarnings("unchecked")
 					@Override
 					public void onClick(View v) {
-						mRunningTask = new AsyncTask<File, Integer, Integer>() {
+						asyncTask = new AsyncTask<File, Integer, Integer>() {
 
 							@Override
 							protected Integer doInBackground(File... params) {
@@ -133,7 +133,7 @@ public class SettingActivity extends BaseActivity {
 							protected void onProgressUpdate(Integer... progress) {
 							}
 						};
-						mRunningTask.execute(new File[] { AppInfo.cacheDir });
+						asyncTask.execute(new File[] { AppInfo.cacheDir });
 					}
 				});
 

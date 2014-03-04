@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import edu.hebtu.movingcampus.R;
-import edu.hebtu.movingcampus.view.ViewHolder;
 
 public class ListviewAdapter extends BaseAdapter {
 	private Context context;
@@ -55,5 +54,8 @@ public class ListviewAdapter extends BaseAdapter {
 		localViewHolder = (ViewHolder) paramView.getTag();
 		localViewHolder.textView.setText(this.list.get(paramInt));
 		return paramView;
+	}
+	private static final class ViewHolder{
+		private TextView textView;
 	}
 }

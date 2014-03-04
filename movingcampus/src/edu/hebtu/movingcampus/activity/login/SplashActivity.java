@@ -14,7 +14,7 @@ import android.widget.Toast;
 import edu.hebtu.movingcampus.AppInfo;
 import edu.hebtu.movingcampus.R;
 import edu.hebtu.movingcampus.activity.MainActivity;
-import edu.hebtu.movingcampus.activity.base.BaseActivity;
+import edu.hebtu.movingcampus.activity.base.BaseAsyncTaskActivity;
 import edu.hebtu.movingcampus.activity.wrapper.IPreference;
 import edu.hebtu.movingcampus.config.Configs;
 import edu.hebtu.movingcampus.config.Constants;
@@ -23,7 +23,7 @@ import edu.hebtu.movingcampus.utils.LogUtil;
 import edu.hebtu.movingcampus.utils.NetWorkHelper;
 import edu.hebtu.movingcampus.utils.TimeUtil;
 
-public class SplashActivity extends BaseActivity {
+public class SplashActivity extends BaseAsyncTaskActivity {
 
 	private String str1; // 用户名
 	private String str2; // 密码

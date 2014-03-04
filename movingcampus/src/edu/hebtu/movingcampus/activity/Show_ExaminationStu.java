@@ -11,12 +11,12 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.ListView;
 import edu.hebtu.movingcampus.R;
-import edu.hebtu.movingcampus.activity.base.BaseActivity;
+import edu.hebtu.movingcampus.activity.base.BaseAsyncTaskActivity;
 import edu.hebtu.movingcampus.adapter.ExamInforAdapter;
 import edu.hebtu.movingcampus.biz.ExamDao;
 import edu.hebtu.movingcampus.entity.ExamineInfor;
 
-public class Show_ExaminationStu extends BaseActivity {
+public class Show_ExaminationStu extends BaseAsyncTaskActivity {
 	// the source of list of this activity
 	private AlertDialog menuDialog;// the menu builder of this activity
 	private View menuView;// the view that will be used to create a menu

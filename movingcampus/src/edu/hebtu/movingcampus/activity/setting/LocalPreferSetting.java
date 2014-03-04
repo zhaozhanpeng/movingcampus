@@ -7,10 +7,10 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import edu.hebtu.movingcampus.R;
-import edu.hebtu.movingcampus.activity.base.BaseActivity;
+import edu.hebtu.movingcampus.activity.base.BaseAsyncTaskActivity;
 import edu.hebtu.movingcampus.config.Constants;
 
-public class LocalPreferSetting extends BaseActivity {
+public class LocalPreferSetting extends BaseAsyncTaskActivity {
 	private SeekBar seekBarlib;
 	private static final int libmin = 3;
 	private static final int libmax = 30;

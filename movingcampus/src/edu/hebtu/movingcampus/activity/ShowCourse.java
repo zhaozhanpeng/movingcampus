@@ -20,10 +20,10 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 import edu.hebtu.movingcampus.R;
-import edu.hebtu.movingcampus.activity.base.BaseActivity;
+import edu.hebtu.movingcampus.activity.base.BaseAsyncTaskActivity;
 import edu.hebtu.movingcampus.view.GetCourse;
 
-public class ShowCourse extends BaseActivity {
+public class ShowCourse extends BaseAsyncTaskActivity {
 
 	private ViewPager mPager;
 	public static MyPagerAdapter adapter;
@@ -94,11 +94,7 @@ public class ShowCourse extends BaseActivity {
 		// TODO
 		listViews = getSchedule.getListview();
 		if(listViews.get(0).getTag()!=null){
-			this.mProgressDialog = ProgressDialog.show(
-					ShowCourse.this, "", "正在初始化更新，请稍后...");
-			this.mProgressDialog.onStart();
-			this.mProgressDialog.show();
-			this.mProgressDialog.setCancelable(true);
+			previewProcess("正在初始化更新，请稍后...", true);
 		}
 
 		Intent intent = getIntent();
@@ -135,7 +131,7 @@ public class ShowCourse extends BaseActivity {
 		public void setListViews(List<View> list){
 			mListViews=list;
 			this.notifyDataSetChanged();
-			ShowCourse.this.mProgressDialog.cancel();
+			ShowCourse.this.processBar.cancel();
 		}
 		@Override
 		public void destroyItem(View arg0, int arg1, Object arg2) {

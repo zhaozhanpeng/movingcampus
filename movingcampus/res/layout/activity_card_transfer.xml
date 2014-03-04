@@ -44,6 +44,18 @@
             android:contentDescription="@string/about"
             android:src="@drawable/mm_title_btn_menu"
             tools:ignore="ContentDescription" />
+
+        <Button
+            android:id="@+id/Button01"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/title_btn_back"
+            android:text="@string/back"
+            android:textColor="#fff"
+            android:textSize="14sp" />
+
     </RelativeLayout>
 
     <RelativeLayout

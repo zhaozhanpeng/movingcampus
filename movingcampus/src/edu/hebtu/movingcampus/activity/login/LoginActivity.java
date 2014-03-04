@@ -21,7 +21,7 @@ import android.widget.Toast;
 import edu.hebtu.movingcampus.AppInfo;
 import edu.hebtu.movingcampus.R;
 import edu.hebtu.movingcampus.activity.MainActivity;
-import edu.hebtu.movingcampus.activity.base.BaseActivity;
+import edu.hebtu.movingcampus.activity.base.BaseAsyncTaskActivity;
 import edu.hebtu.movingcampus.activity.wrapper.IPreference;
 import edu.hebtu.movingcampus.biz.UserDao;
 import edu.hebtu.movingcampus.config.Constants;
@@ -31,12 +31,11 @@ import edu.hebtu.movingcampus.utils.LogUtil;
 import edu.hebtu.movingcampus.utils.NetWorkHelper;
 import edu.hebtu.movingcampus.utils.TimeUtil;
 
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseAsyncTaskActivity {
 	public static final String KEY = "dbkey";
 	public static final String SharedName = null;
 	public static String xn;
 	public static String xq;
-	private ProgressDialog processBar;
 	private CheckBox cb_save;
 	private InputMethodManager manager;
 	private EditText passwordET;
@@ -51,7 +50,7 @@ public class LoginActivity extends BaseActivity {
 		super.onCreate(paramBundle);
 		setContentView(R.layout.activity_login);
 		dao = new UserDao(this);
-		mRunningTask = new LoginTask(dao);
+		asyncTask = new LoginTask(dao);
 
 		// 记住密码一个星期
 		if (getIntent().getBooleanExtra("remember_password_time_passed", false)) {
@@ -98,7 +97,7 @@ public class LoginActivity extends BaseActivity {
 	private View.OnClickListener loginButtonListener = new View.OnClickListener() {
 		@Override
 		public void onClick(View paramAnonymousView) {
-			mRunningTask.execute(new Object[] { new Object() });
+			asyncTask.execute(new Object[] { new Object() });
 		}
 	};
 
@@ -180,8 +179,8 @@ public class LoginActivity extends BaseActivity {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		mRunningTask = new LoginTask(dao);
-		mRunningTask.execute(new Object[] { new Object() });
+		asyncTask = new LoginTask(dao);
+		asyncTask.execute(new Object[] { new Object() });
 		// 向服务器发送请求，得到返回的值（User类对象）
 	}// toHome()函数结束
 
@@ -227,11 +226,7 @@ public class LoginActivity extends BaseActivity {
 			if ((LoginActivity.this.usernameET.getText().toString().length() == 10)
 					&& (LoginActivity.this.passwordET.getText().toString()
 							.length() == 6)) {
-				LoginActivity.this.processBar = ProgressDialog.show(
-						LoginActivity.this, "", "正在登录，请稍后...");
-				LoginActivity.this.processBar.onStart();
-				LoginActivity.this.processBar.show();
-				LoginActivity.this.processBar.setCancelable(true);
+				previewProcess("正在登录，请稍后", true);
 			} else {
 				Toast localToast = Toast.makeText(LoginActivity.this,
 						"用户名或者密码格式不正确", 0);
@@ -257,7 +252,6 @@ public class LoginActivity extends BaseActivity {
 			try {
 				if (res == null) {
 					LogUtil.i("LoginActivity", "返回的对象值为空");
-					LogUtil.i("LoginActivity", "用户名或者密码错误");
 					if (!NetWorkHelper.isNetworkAvailable(LoginActivity.this)) {
 						Toast.makeText(LoginActivity.this, "您暂时没有可用的网络,请检查网络",
 								0).show();
@@ -315,7 +309,6 @@ public class LoginActivity extends BaseActivity {
 				// 如果该登陆用户是老师或者学生，则执行if内语句
 				if (AppInfo.getUser().getRoleName().equals("学生")
 						|| AppInfo.getUser().getRoleName().equals("老师")) {
-					LogUtil.i("msg", "进入到if语句中来了");
 					LogUtil.i("该用户是", AppInfo.getUser().getRoleName());
 					localEditor.putString(LoginActivity.KEY, AppInfo.getUser()
 							.getJid());
@@ -339,13 +332,11 @@ public class LoginActivity extends BaseActivity {
 								}
 							}
 							if (isNewsToThis) {
-								LogUtil.i("msg", "开启Whatsnew");
 								// 第一次使用，显示ViewPager，进行展示
 								LoginActivity.this.processBar.dismiss();
 								LoginActivity.this.startActivity(new Intent(
 										LoginActivity.this, Whatsnew.class));
 							} else { // 为空执行
-								LogUtil.i("msg", "直接跳转MainActivity");
 								// 直接跳转，进入MainActivity
 								LoginActivity.this.processBar.dismiss();
 								LoginActivity.this
