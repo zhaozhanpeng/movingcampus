@@ -20,7 +20,6 @@ public abstract class BaseDao {
 		@Override
 		public Object readValue(String content, TypeReference ref) {
 			try {
-
 				LogUtil.w("basedao", content.toString());
 				return super.readValue(content, ref);
 			} catch (JsonParseException e) {

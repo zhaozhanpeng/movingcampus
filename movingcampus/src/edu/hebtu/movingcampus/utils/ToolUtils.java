@@ -27,7 +27,13 @@ public class ToolUtils {
 		this.context = paramActivity;
 	}
 
-	private static String TruncateUrlPage(String strURL) {
+	/**
+	 * 
+	 * @param strURL 待分割的url
+	 * @param root  url前面的部分
+	 * @return true返回?前的url字符串,false?后的字符串
+	 */
+	public static String truncateUrlPage(String strURL,boolean root) {
 		String strAllParam = null;
 		String[] arrSplit = null;
 		strURL = strURL.trim().toLowerCase();
@@ -39,7 +45,8 @@ public class ToolUtils {
 				}
 			}
 		}
-		return strAllParam;
+		if(!root) return strAllParam;
+		else return strURL.split("[?]")[0];
 	}
 
 	/**
@@ -52,7 +59,7 @@ public class ToolUtils {
 	public static Map<String, String> URLRequest(String URL) {
 		Map<String, String> mapRequest = new HashMap<String, String>();
 		String[] arrSplit = null;
-		String strUrlParam = TruncateUrlPage(URL);
+		String strUrlParam = truncateUrlPage(URL,false);
 		if (strUrlParam == null) {
 			return mapRequest;
 		}
@@ -141,44 +148,6 @@ public class ToolUtils {
 		return null;
 	}
 
-	public UpdataInfo getUpdataInfo(InputStream paramInputStream)
-			throws Exception {
-		XmlPullParser parser = Xml.newPullParser();
-		parser.setInput(paramInputStream, "utf-8");
-		UpdataInfo localUpdataInfo = new UpdataInfo(this.context);
-		int eventType = parser.getEventType();
-		String text = null;
-
-		try {
-			while (eventType != XmlPullParser.END_DOCUMENT) {
-				String tagname = parser.getName();
-				switch (eventType) {
-				case XmlPullParser.START_TAG:
-					break;
-				case XmlPullParser.TEXT:
-					text = parser.getText();
-					break;
-				case XmlPullParser.END_TAG:
-					if (tagname.equalsIgnoreCase("version")) {
-						localUpdataInfo.setVersion(text);
-					} else if (tagname.equalsIgnoreCase("url")) {
-						localUpdataInfo.setUrl(text);
-					} else if (tagname.equalsIgnoreCase("information")) {
-						localUpdataInfo.setInformation(text);
-					}
-					break;
-				default:
-					break;
-				}
-				eventType = parser.next();
-			}
-
-		} catch (Exception e) {
-			LogUtil.i("xml parser",
-					"while parse xml from server," + e.toString());
-		}
-		return localUpdataInfo;
-	}
 
 	public static int clearCacheFolder(final File dir, final int numDays) {
 

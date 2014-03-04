@@ -152,8 +152,12 @@ public class CustomHttpClient {
 			ConnManagerParams.setTimeout(params, 1000);
 			/* 连接超时 */
 			int ConnectionTimeOut = 3000;
-			if (!HttpUtils.isWifiDataEnable(context)) {
-				ConnectionTimeOut = 10000;
+			try {
+				if (!NetWorkHelper.isWifiDataEnable(context)) {
+					ConnectionTimeOut = 10000;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 			HttpConnectionParams
 					.setConnectionTimeout(params, ConnectionTimeOut);

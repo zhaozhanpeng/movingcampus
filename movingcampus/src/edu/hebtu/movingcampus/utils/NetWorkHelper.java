@@ -11,7 +11,7 @@ import android.telephony.TelephonyManager;
 
 public class NetWorkHelper {
 
-	private static String LOG_TAG = "NetWorkHelper";
+	private static String TAG = "NetWorkHelper";
 
 	public static Uri uri = Uri.parse("content://telephony/carriers");
 
@@ -23,19 +23,19 @@ public class NetWorkHelper {
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
 
 		if (connectivity == null) {
-			LogUtil.w(LOG_TAG, "couldn't get connectivity manager");
+			LogUtil.w(TAG, "couldn't get connectivity manager");
 		} else {
 			NetworkInfo[] info = connectivity.getAllNetworkInfo();
 			if (info != null) {
 				for (int i = 0; i < info.length; i++) {
 					if (info[i].isAvailable()) {
-						LogUtil.d(LOG_TAG, "network is available");
+						LogUtil.d(TAG, "network is available");
 						return true;
 					}
 				}
 			}
 		}
-		LogUtil.d(LOG_TAG, "network is not available");
+		LogUtil.d(TAG, "network is not available");
 		return false;
 	}
 
@@ -96,7 +96,7 @@ public class NetWorkHelper {
 		ConnectivityManager connectivity = (ConnectivityManager) context
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
 		if (connectivity == null) {
-			LogUtil.w(LOG_TAG, "couldn't get connectivity manager");
+			LogUtil.w(TAG, "couldn't get connectivity manager");
 		} else {
 			NetworkInfo info = connectivity.getActiveNetworkInfo();
 			if (info != null
@@ -104,13 +104,13 @@ public class NetWorkHelper {
 				TelephonyManager tm = (TelephonyManager) context
 						.getSystemService(Context.TELEPHONY_SERVICE);
 				if (tm != null && tm.isNetworkRoaming()) {
-					LogUtil.d(LOG_TAG, "network is roaming");
+					LogUtil.d(TAG, "network is roaming");
 					return true;
 				} else {
-					LogUtil.d(LOG_TAG, "network is not roaming");
+					LogUtil.d(TAG, "network is not roaming");
 				}
 			} else {
-				LogUtil.d(LOG_TAG, "not using mobile network");
+				LogUtil.d(TAG, "not using mobile network");
 			}
 		}
 		return false;
@@ -179,5 +179,4 @@ public class NetWorkHelper {
 			}
 		}
 	}
-
 }

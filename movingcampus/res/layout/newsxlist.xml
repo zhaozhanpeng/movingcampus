@@ -18,7 +18,6 @@
     <include
         android:id="@+id/loading_layout_view"
         layout="@layout/loading_layout"
-        android:visibility="gone" 
         />
 
 </FrameLayout>

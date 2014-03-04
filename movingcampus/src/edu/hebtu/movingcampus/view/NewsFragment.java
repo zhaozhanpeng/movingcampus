@@ -4,11 +4,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.net.ssl.HandshakeCompletedListener;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Handler.Callback;
 import android.os.Looper;
 import android.os.Message;
 import android.view.LayoutInflater;
@@ -33,7 +36,7 @@ import edu.hebtu.movingcampus.utils.TimeUtil;
 import edu.hebtu.movingcampus.widget.XListView;
 
 @SuppressLint({ "NewApi", "SimpleDateFormat" })
-public class NewsFragment extends BaseListFragment {
+public class NewsFragment extends BaseListFragment implements Callback{
 
 	public Activity mActivity;
 	private Button bn_refresh;
@@ -54,33 +57,10 @@ public class NewsFragment extends BaseListFragment {
 	public void onAttach(Activity ac) {
 		super.onAttach(ac);
 		try {
-			// TODO
 			Looper.prepare();
 		} catch (Exception e) {
 		}
-		mHandler = new Handler() {
-			@Override
-			public void handleMessage(Message msg) {
-				super.handleMessage(msg);
-				switch (msg.what) {
-				case 0:
-					updateTextTime();
-					mAdapter.appendToList(loadMoreEntity);
-					loaded = true;
-					break;
-				case 1:
-					loaded = true;
-					listview.getFooterView().updateFooterTextNoMore();
-					break;
-
-				default:
-					loaded = false;
-					break;
-				}
-				onStopLoad();
-			}
-
-		};
+		mHandler = new Handler(this); 
 		if (mDateFormat == null) {
 			mDateFormat = new SimpleDateFormat("MM月dd日");
 		}
@@ -88,8 +68,7 @@ public class NewsFragment extends BaseListFragment {
 		bn_refresh = (Button) view.findViewById(R.id.btn_refresh);
 		bn_refresh.setOnClickListener(InfoCenterActivity.getInstance());
 		loadLayout = (LinearLayout) view.findViewById(R.id.loading_layout_view);
-		loadFaillayout = (LinearLayout)view 
-				.findViewById(R.id.load_failed_layout_view);
+		loadFaillayout = (LinearLayout)view.findViewById(R.id.load_failed_layout_view);
 		this.mActivity = ac;
 		listview = (XListView) view.findViewById(R.id.list_view);
 		mlist = ((ListOfNews)IPreference.getInstance(ac)
@@ -235,19 +214,42 @@ public class NewsFragment extends BaseListFragment {
 
 	public void onPreExecute() {
 		loadLayout.setVisibility(View.VISIBLE);
-		listview.setVisibility(View.VISIBLE);
+		listview.setVisibility(View.INVISIBLE);
+		loadFaillayout.setVisibility(View.INVISIBLE);
 	}
 
 	public void onPostExecute(List<NewsShort> result) {
 		if (result != null) {
-			loadLayout.setVisibility(View.GONE);
-			loadFaillayout.setVisibility(View.GONE);
+			loadLayout.setVisibility(View.INVISIBLE);
+			loadFaillayout.setVisibility(View.INVISIBLE);
 			listview.setVisibility(View.VISIBLE);
 		} else {
 			// mBasePageAdapter.addNullFragment();
+			listview.setVisibility(View.INVISIBLE);
 			bn_refresh.setVisibility(View.VISIBLE);
-			loadLayout.setVisibility(View.GONE);
+			loadLayout.setVisibility(View.INVISIBLE);
 			loadFaillayout.setVisibility(View.VISIBLE);
 		}
+	}
+
+	@Override
+	public boolean handleMessage(Message msg) {
+		switch (msg.what) {
+		case 0:
+			updateTextTime();
+			mAdapter.appendToList(loadMoreEntity);
+			loaded = true;
+			break;
+		case 1:
+			loaded = true;
+			listview.getFooterView().updateFooterTextNoMore();
+			break;
+
+		default:
+			loaded = false;
+			break;
+		}
+		onStopLoad();
+		return false;
 	}
 }

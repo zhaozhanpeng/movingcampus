@@ -7,8 +7,6 @@ public class Urls {
 	// public static final String BASE = "http://10.7.84.6:8080/server/";/
 	// public static final String BASE = "http://127.0.0.1:8080/server/";
 	public static final String BASE = "http://184.22.242.106/server";
-	// 更新app xml路径
-	public static final String APP_UPDATE = BASE + "/mep/update.xml";
 	// use login 获取用户信息接口,name,pswd 有session可免
 	public static final String USER_LOGIN = BASE + "/login?name=%s&pswd=%s";
 	// 用户请求某种课程详细信息时候使用 url
@@ -57,6 +55,7 @@ public class Urls {
 	// 掌上图书馆days天内到期的书的列表
 	public static final String BOOKS_SEARCH = BASE + "/"
 			+ Constants.TAGS.IIBRARY + "?days=%s";
+
 	// 校已有图书馆网站,jsp路径
 	public static final String LIB_URL = "http:///202.206.108.20:8080/sms/opac/search/showSearch.action?xc=6";
 	public static final String LIB_POST_LOGIN = "http://mc.m.5read.com/user/login/showLogin.jspx";
@@ -72,4 +71,7 @@ public class Urls {
 
 	//query message after the time
 	public static final String QUERY_MESSAGE = BASE+ "/"+ Constants.TAGS.MESSAGE + "size=%s";
+	
+	//post 铁通流量
+	public static final String QUERY_TIETONG_FLOW  =  BASE+"/"+Constants.TAGS.COMMON + "?domain=tietong"+"logName=%s&password=%s&years=%s&months=%s";
 }
