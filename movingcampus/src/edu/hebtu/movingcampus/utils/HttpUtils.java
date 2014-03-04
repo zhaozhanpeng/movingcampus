@@ -45,6 +45,8 @@ public class HttpUtils {
 
 	public static String getByHttpURLConnection(String strUrl,
 			NameValuePair... nameValuePairs) {
+		if(strUrl.lastIndexOf("?")<0)
+			strUrl+="?";
 		if (nameValuePairs != null)
 			for (NameValuePair nameValuePair : nameValuePairs) {
 				strUrl += "&" + nameValuePair.getName() + "="
@@ -89,6 +91,9 @@ public class HttpUtils {
 
 	public static String getByHttpClient(Context context, String strUrl,
 			NameValuePair... nameValuePairs) throws Exception {
+
+		if(strUrl.lastIndexOf("?")<0)
+			strUrl+="?";
 		if (nameValuePairs != null)
 			for (NameValuePair nameValuePair : nameValuePairs) {
 				strUrl += "&" + nameValuePair.getName() + "="

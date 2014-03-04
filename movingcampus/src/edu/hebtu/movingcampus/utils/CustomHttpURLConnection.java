@@ -16,8 +16,6 @@ public class CustomHttpURLConnection {
 	private static String TAG = "CustomHttpUrlConnection";
 	private static HttpURLConnection conn;
 
-	// TODO encoding
-
 	public CustomHttpURLConnection() {
 	}
 
@@ -92,7 +90,7 @@ public class CustomHttpURLConnection {
 			}
 			return result;
 		} catch (IOException ex) {
-			Log.e(TAG, "PostFromWebByHttpURLConnection：" + ex.getMessage());
+			LogUtil.e(TAG, "PostFromWebByHttpURLConnection：" + ex.getMessage());
 			ex.printStackTrace();
 			return null;
 		}
